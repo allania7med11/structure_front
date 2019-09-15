@@ -35,7 +35,7 @@
                     <v-btn v-on="on" text>
                       <v-icon small>fas fa-user</v-icon>
                       <span class="mx-1">{{ username }}</span>
-                      <v-icon dark>arrow_drop_down</v-icon>
+                      <v-icon>mdi-anchor</v-icon>
                     </v-btn>
                 </template>
                 <v-list>
@@ -61,18 +61,19 @@
                     <v-btn v-on="on" text>
                       <v-icon small>fas fa-user</v-icon>
                       <span class="mx-1">{{ username }}</span>
-                      <v-icon dark>arrow_drop_down</v-icon>
+                      <v-icon small>fas fa-caret-down</v-icon>
                     </v-btn>
                 </template>
                 <v-list>
-                  <v-list-tile  :href="item.its[0].href">
+                  <v-list-item  :href="item.its[0].href">
                     <v-list-tile-title >{{ item.its[0].title }}</v-list-tile-title>
-                  </v-list-tile>
+                  </v-list-item>
                 </v-list>
               </v-menu>
           </template>
       </v-toolbar-items>     
     </v-toolbar>
+    <v-icon>mdi-anchor</v-icon>
   </div>
 </template>
   
@@ -123,10 +124,10 @@ export default {
     };
   },
   computed: {
-      // ...mapState(['username','projects']),
+    ...mapState(['username','projects']),
   }, 
   methods:{
-    // ...mapActions(['login']),
+    ...mapActions(['login']),
     itsL() {
       return this.items.filter(cv => !("right" in cv));
     },
@@ -140,7 +141,7 @@ export default {
   mounted(){
     console.log(this.projects)
     console.log("this.login()")
-    // this.login()
+    this.login()
     console.log(this.projects)
   }
   
