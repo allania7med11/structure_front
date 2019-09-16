@@ -1,7 +1,7 @@
 <template>
   <v-flex
     xs12
-    md12
+    md6
   >
     <v-btn color="primary" @click="newItem">
     <v-icon >add</v-icon>New Project
@@ -11,21 +11,16 @@
     </v-btn>
     
     <v-data-table :headers="headers" :items="items" class="elevation-1">
-      <template slot="items" slot-scope="props">
-          <td>{{ props.item.name }}</td>
-          <td class="text-xs-center">
-            <nuxt-link :to="`/projects/${props.item.id}`">
-              <v-btn color="primary" >
+        <template v-slot:item.action="{ item }">
+          <nuxt-link  :to="`/projects/${item.id}`">
+              <v-btn class="mx-2" color="primary" >
                 <v-icon >edit</v-icon>Open
               </v-btn> 
-            </nuxt-link>
-            
-            <v-btn color="error"  @click="deleteItem(props.item)">
-              <v-icon >delete</v-icon>Delete
-            </v-btn>  
-            
-          </td>
-      </template>
+            </nuxt-link>            
+          <v-btn class="mx-2" color="error"  @click="deleteItem(item)">
+            <v-icon >delete</v-icon>Delete
+          </v-btn>
+        </template>
     </v-data-table> 
   </v-flex>
 </template>
@@ -34,7 +29,7 @@ import { mapState,mapActions } from 'vuex'
 
 export default {
   data: () => ({
-    headers: [{ text: 'Name', value: 'name' }]
+    headers: [{ text: 'Name', value: 'name' },{ text: '', value: 'action', sortable: false,align: 'right' }]
   }),
   computed: {
     ...mapState(['projects','dialog','action','editedIndex','search']),
@@ -47,6 +42,7 @@ export default {
   },
 
   methods: {
+    ...mapActions(['stateChange']),
     console(val) {
       console.log(val);
     },

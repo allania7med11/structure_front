@@ -13,7 +13,7 @@ export const state = () => ({
   projects:[]
 })
 export const getters ={
-  provider: state => {
+  editedItem: state => {
     return state.action 
   }
 }
@@ -34,12 +34,12 @@ export const actions = {
       console.log(US.data[0])
       if (!!US.data){
         commit('stateChange',{state:"username",value:US.data[0].username})
-        /* var projects= await axios.get("/api/projects/")
+        var projects= await axios.get("/api/projects/")
         console.log(projects.data)
-        commit('stateChange',{state:"projects",value:projects.data}) */
+        commit('stateChange',{state:"projects",value:projects.data})
       } else {
         commit('stateChange',{state:"username",value:false})
-        // commit('stateChange',{state:"projects",value:false})
+        commit('stateChange',{state:"projects",value:false})
       }
       
     } catch (error) {

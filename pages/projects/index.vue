@@ -1,16 +1,19 @@
 <template>
-  <no-ssr placeholder="Loading...">
+  <client-only placeholder="Loading...">
     <div>
       <us_table />  
+      <us_form /> 
     </div>
-  </no-ssr>  
+  </client-only>  
 </template>
 <script>
 import us_table from "@/components/us_table.vue";
+import us_form from "@/components/us_form.vue";
 import { mapState,mapActions } from 'vuex'
 export default {
   components: {
-    us_table
+    us_table,
+    us_form
   },
   computed: {
     ...mapState(['projects']),
