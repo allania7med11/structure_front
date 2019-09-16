@@ -84,7 +84,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(['projects','dialog','action','editedIndex']),
+    ...mapState(['projects','dialog','action','editedIndex','csrf']),
     ac() {
       return Acs[this.action];
     },
@@ -151,11 +151,23 @@ export default {
       let rtn = [];
       this.$v.$touch();
       if (!this.$v.$invalid) {
+        console.log({"X-CSRFToken": this.csrf})
         if (this.action === "delete") {
-            response = await axios.delete(`/api/projects/${this.editedItem.id}`);
-          }  
+          response = await axios.delete(
+            `/api/projects/${ this.editedIndex }`,
+            {
+              headers:{["X-CSRFToken"]: this.csrf}
+            }
+          );
+        }  
         else if (this.action === "create") {
-          response = await axios.post("/api/projects/",{ name: this.editedItem.name });
+          response = await axios.post(
+            "/api/projects/",
+            { name: this.editedItem.name },
+            {
+              headers:{["X-CSRFToken"]: this.csrf}
+            }
+          );
         }
         else {
            response = await this.$apollo.mutate(
@@ -168,7 +180,7 @@ export default {
           );
         }
         projects= await axios.get("/api/projects/");
-        this.stateChange({ state: "projects", value: projects })
+        this.stateChange({ state: "projects", value: projects.data })
         this.close();
       }
     } 

@@ -2,7 +2,7 @@ import colors from 'vuetify/es5/util/colors'
 
 export default {
   server: {
-    port: 3000, // default: 3000
+    // port: 3000, // default: 3000
     host: '0.0.0.0', // default: localhost
   },
   mode: 'universal',
@@ -36,6 +36,7 @@ export default {
   */
   plugins: [
     '@/plugins/Vuelidate',
+    '~/plugins/axios',
     { src: '~/plugins/icons.js', ssr:false }
   ],
   /*
@@ -56,6 +57,7 @@ export default {
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
+    // baseURL:"http:localhost"
   },
   /*
   ** vuetify module configuration
