@@ -73,7 +73,6 @@
           </template>
       </v-toolbar-items>     
     </v-toolbar>
-    <v-icon>mdi-anchor</v-icon>
   </div>
 </template>
   

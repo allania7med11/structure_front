@@ -73,7 +73,6 @@
 import { required } from "vuelidate/lib/validators"
 import {  Acs  } from "../constants/app1/static";
 import { mapState,mapActions } from 'vuex'
-const axios = require('axios');
 export default {
   data: () => ({
     editedItem: { name: null }
@@ -137,7 +136,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(['stateChange']),
+    ...mapActions(['stateChange','login']),
     console(val) {
       console.log(val);
     },
@@ -151,22 +150,18 @@ export default {
       let rtn = [];
       this.$v.$touch();
       if (!this.$v.$invalid) {
+        this.stateChange({ state: "error", value: false })
+        try {
         console.log({"X-CSRFToken": this.csrf})
         if (this.action === "delete") {
-          response = await axios.delete(
-            `/api/projects/${ this.editedIndex }`,
-            {
-              headers:{["X-CSRFToken"]: this.csrf}
-            }
+          response = await this.$axios.$delete(
+            `/api/projects/${ this.editedIndex }`
           );
         }  
         else if (this.action === "create") {
-          response = await axios.post(
+          response = await this.$axios.$post(
             "/api/projects/",
-            { name: this.editedItem.name },
-            {
-              headers:{["X-CSRFToken"]: this.csrf}
-            }
+            { name: this.editedItem.name }
           );
         }
         else {
@@ -179,8 +174,13 @@ export default {
             )
           );
         }
-        projects= await axios.get("/api/projects/");
-        this.stateChange({ state: "projects", value: projects.data })
+        projects= await this.$axios.$get("/api/projects/?auth=private");
+        this.stateChange({ state: "projects", value: projects })
+        } catch(e) {
+          console.log(e)
+          this.login()
+          this.stateChange({ state: "error", value: true })
+        }
         this.close();
       }
     } 

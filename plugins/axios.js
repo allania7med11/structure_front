@@ -6,11 +6,12 @@ export default function ({ $axios, redirect,store }) {
           }
     })
   
-    $axios.onError(error => {
+    /* $axios.onError(error => {
       const code = parseInt(error.response && error.response.status)
-      if (code === 400) {
-        redirect('/400')
+      console.log({error:error})
+      if (code === 500) {
+        redirect('/projects')
       }
-    })
+    }) */
   }
   

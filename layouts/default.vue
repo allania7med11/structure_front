@@ -10,9 +10,11 @@
 </template>
 
 <script>
+import { mapState,mapActions } from 'vuex'
 import Header from '~/components/Header.vue'
 export default {
   // middleware: 'auth',
+  
   components: {
     Header
   }

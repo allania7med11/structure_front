@@ -57,7 +57,11 @@ export default {
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
-    // baseURL:"http:localhost"
+    proxy: true // Can be also an object with default options
+
+  },
+  proxy: {
+    '/api/': 'http://localhost/api/',
   },
   /*
   ** vuetify module configuration

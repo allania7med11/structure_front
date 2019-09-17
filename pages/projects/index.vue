@@ -1,6 +1,10 @@
 <template>
   <client-only placeholder="Loading...">
+    
     <div>
+      <v-alert dismissible v-if="error" type="error">
+          An error occurred
+      </v-alert>
       <us_table />  
       <us_form /> 
     </div>
@@ -16,7 +20,10 @@ export default {
     us_form
   },
   computed: {
-    ...mapState(['projects']),
+    ...mapState(['error']),
+  },
+  computed: {
+    ...mapState(['projects','error']),
   }
 }
 </script>
