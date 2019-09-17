@@ -99,7 +99,10 @@ export default {
     },
     vld() {
       return{
-        "create":{name: { required }},
+        "create":{name: { 
+          required , 
+          unique: value => !this.projects.find(cv => cv.id != this.editedIndex ? cv.name == value : false) 
+          }},
         "copy":{name: { required },id: { required }},
         "delete":{}
       }
@@ -110,6 +113,7 @@ export default {
             const errors = []
             if (!this.$v.editedItem.name.$dirty) return errors
             !this.$v.editedItem.name.required && errors.push('Name is required.')
+            !this.$v.editedItem.name.unique && errors.push("Project with this name already exist.")
             return errors
           },
           id:() => {
@@ -142,6 +146,7 @@ export default {
     },
     close() {
       this.stateChange({ state: "dialog", value: false })
+      this.editedItem = Object.assign({}, this.defaultItem["create"]);
       this.$v.$reset();
     },
     async save() {
