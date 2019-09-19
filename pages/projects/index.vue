@@ -20,9 +20,6 @@ export default {
     us_form
   },
   computed: {
-    ...mapState(['error']),
-  },
-  computed: {
     ...mapState(['projects','error']),
   }
 }

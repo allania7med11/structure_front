@@ -138,10 +138,7 @@ export default {
     }
   },
   mounted(){
-    console.log(this.projects)
-    console.log("this.login()")
     this.login()
-    console.log(this.projects)
   }
   
   

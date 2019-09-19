@@ -29,13 +29,9 @@ export const actions = {
   stateChange({commit},input) {
     commit("stateChange",input)
   },
-  async login({commit,app,router},input) {
-    console.log("login")
+  async login({commit}) {
     try{
       var US= await this.$axios.$get("/api/users/")
-      console.log("US2=")
-      console.log(US[0])
-      console.log("csrftoken")
       var csrftoken = Cookies.get('csrftoken');
       console.log(csrftoken)
       if (US.length>0){
@@ -49,7 +45,15 @@ export const actions = {
         commit('stateChange',{state:"csrf",value:false}) 
         commit('stateChange',{state:"projects",value:false})
       }
-      
+    } catch (error) {
+      console.error(error);
+    }
+  },
+  async aProject({commit},input) {
+    try{
+      var project= await this.$axios.$get(`/api/projects/${input.id}`)
+      console.log({project:project})
+      commit('stateChange',{state:"project",value:project})   
     } catch (error) {
       console.error(error);
     }
