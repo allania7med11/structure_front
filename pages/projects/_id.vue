@@ -1,25 +1,34 @@
 <template>
   <div>
-    <h1>Hello World</h1>
-    {{ project }}
+    <client-only placeholder="Loading...">
+      <app1 v-if="show"  /> 
+    </client-only>
   </div>
 </template>
-
 <script>
-  import { mapState,mapActions } from 'vuex'
-  export default {
+import { mapState,mapActions } from 'vuex'
+import app1 from "@/components/app1";
 
-    computed: {
-      ...mapState(['project','error']),
-    },
-    methods:{
+export default {
+  components: {
+    app1
+  },
+  data:() => ({
+    show:true
+  }),
+  computed:{
+    ...mapState(["project"]),
+  },
+  methods:{
       ...mapActions(['aProject']),
-    },
-    mounted(){
-      this.aProject({id:this.$route.params.id})
-    }
-  }
+  }, 
+  mounted(){
+    console.log({id:"this.$route.params.id"})
+    this.aProject({id:this.$route.params.id})
+  } 
+}
 </script>
+
 
 <style>
 

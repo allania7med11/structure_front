@@ -1,15 +1,4 @@
-/* eslint-disable no-console */
-export const query = `{
-  id,name,nodes{id,name,X,Z,Support{name},pls{name},N1{name},N2{name},Rc,Dp},
-  bars{id,name,N1{id,name,X,Z},N2{id,name,X,Z},Release{name},Section{name,type},dls{name,type},
-       L,Rl,Rg,Ql,Qg,EF,DP,S,EFm,DPm,Sm},
-  supports{id,name,UX,UZ,RY,nodes{id,name}},
-  releases{id,name,UX1,UZ1,RY1,UX2,UZ2,RY2,bars{id,name}},materials{id,name,YM,Density,sections{name,bars{name}}}
-  sections{id,name,material{id,name},type,features,bars{id,name},Ax,Iy,H,Cy},
-  pls{id,name,FX,FZ,CY,nodes{id,name}},
-  dls{id,name,Axes,type,features,bars{id,name}},
-}`;
-export const us_query=`{name,projects{id,name}}`;
+
 
 export const test = function(obj, key, df) {
   if (obj.hasOwnProperty(key)) {

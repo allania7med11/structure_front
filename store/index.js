@@ -13,7 +13,8 @@ export const state = () => ({
   search: '',
   slg: "nodes",
   action: 'create',
-  projects:[]
+  projects:[],
+  project:{'nodes':[],'bars':[],'supports':[]}
 })
 export const getters ={
   editedItem: state => {
@@ -51,7 +52,7 @@ export const actions = {
   },
   async aProject({commit},input) {
     try{
-      var project= await this.$axios.$get(`/api/projects/${input.id}`)
+      var project= await this.$axios.$get(`/api/projects/${input.id}/`)
       console.log({project:project})
       commit('stateChange',{state:"project",value:project})   
     } catch (error) {
