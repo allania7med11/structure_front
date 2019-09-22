@@ -127,27 +127,12 @@
 </template>
 
 <script>
-import { mds, Acs, query, test } from "@/constants/app1/static";
-import { Infs } from "@/constants/app1/Infs";
-import { Flds } from "@/constants/app1/Flds";
+import { test } from "@/constants/app1/static";
 import { Vlds } from "@/constants/app1/Vlds";
 import { Errs } from "@/constants/app1/Errs";
+import { mapState,mapGetters,mapActions } from 'vuex'
 export default {
-  apollo: {
-    id: apolloState("id"),
-    project:{
-      query: readServerQ("project", "ID!", query),
-      variables() { return { input: this.id} }
-    },
-    dialog: apolloState("dialog"),  
-    slg: apolloState("slg"),
-    action: apolloState("action"),
-    editedIndex: apolloState("editedIndex")
-  },
   data: () => ({
-    query: query,
-    project: { nodes: [], bars: [] },
-    editedIndex: -1,
     editedItem: { name: null, X: null, Z: null }
   }),
   validations() {
@@ -157,6 +142,8 @@ export default {
   },
 
   computed: {
+    ...mapState(['project','dialog','slg','action','editedIndex']),
+    ...mapGetters(['ac','md','inf']),
     bd() {
       return {
         checkbox: header => {
@@ -192,37 +179,22 @@ export default {
         }
       };
     },
-    ac() {
-      return Acs[this.action];
-    },
-    md() {
-      return mds[this.slg];
-    },
     dlt() {
       return test(this.md, "text", "") + '"' + this.editedItem.name + '"';
-    },
-    inf() {
-      return Infs[this.slg];
-    },
-    defaultItem() {
-      return this.inf.defaultItem;
     },
     Errors() {
       return Errs[this.slg](this);
     }
   },
-
   watch: {
     dialog(val) {
       val || this.close();
     },
     slg: {
       handler(val) {
-        this.$apollo.mutate(
-          argMutate("stateChange", { state: "dialog", value: false })
-        );
+        this.stateChange({ state: "dialog", value: false });
         this.$v.$reset();
-        this.editedItem = Object.assign({}, this.defaultItem);
+        this.editedItem = Object.assign({}, this.inf.defaultItem);
       }
     },
     editedIndex: {
@@ -240,20 +212,19 @@ export default {
           }
           this.editedItem = Object.assign({}, editedItem);
         } else {
-          this.editedItem = Object.assign({}, this.defaultItem);
+          this.editedItem = Object.assign({}, this.inf.defaultItem);
         }
       }
     }
   },
 
   methods: {
+    ...mapActions(['stateChange']),
     console(val) {
       console.log(val);
     },
     close() {
-      this.$apollo.mutate(
-        argMutate("stateChange", { state: "dialog", value: false })
-      );
+      this.stateChange({ state: "dialog", value: false });
       this.$v.$reset();
     },
     async save() {
@@ -263,6 +234,7 @@ export default {
       if (!this.$v.$invalid) {
         if (this.editedIndex > -1) {
           if (this.action === "delete") {
+
             response = await this.$apollo.mutate(
               mutateServer(
                 "delete",
@@ -294,9 +266,7 @@ export default {
           );
           rtn = response.data[this.inf.create.mutation]["rtn"];
         }
-        await this.$apollo.mutate(
-          argMutate("stateChange", { state: "project", value: rtn })
-        );
+        this.stateChange({ state: "project", value: rtn });
         if (this.editedIndex > -1) {
           this.close();
         } else {

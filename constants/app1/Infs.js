@@ -3,8 +3,8 @@ import { sections, dls, applys, nrs, srs, brs, mds } from "./static";
 import { Flds } from "./Flds";
 const math = require("mathjs");
 export let idt = x => x;
-let bl = x => (x ? "&#9989;" : "&#10060;");
-let bl2 = x => bl(x[0]) + "<br>" + bl(x[1]);
+let bl = x => (x ? "check" : "times");
+let bl2 = (x,id) => (Array.isArray(x) ? bl(x[id]) : bl(x));
 const capitalize = s => {
   if (typeof s !== "string") return "";
   return s.charAt(0).toUpperCase() + s.slice(1);
@@ -30,14 +30,14 @@ var fInf = function(obj) {
   } else {
     obj["defaultItem"] = Object.assign({}, di, obj["defaultItem"]);
   }
-  let ds = obj["fldsT"].reduce((ac, cv) => {
+  /* let ds = obj["fldsT"].reduce((ac, cv) => {
     ac[cv] = idt;
     return ac;
-  }, {});
+  }, {}); */
   if (!obj.hasOwnProperty("ds")) {
-    obj["ds"] = ds;
+    obj["ds"] = {};
   } else {
-    obj["ds"] = Object.assign({}, ds, obj["ds"]);
+    obj["ds"] = Object.assign({}, obj["ds"]);
   }
   if (mds[obj.name].action === "define") {
     if (!obj.hasOwnProperty("fe")) {
@@ -308,7 +308,6 @@ export const Infs = {
   nodes: fInf({
     name: "nodes",
     flds: ["name", "X", "Z"],
-    hi:true
   }),
   bars: fInf({
     name: "bars",
@@ -318,7 +317,7 @@ export const Infs = {
   supports: fInf({
     name: "supports",
     flds: ["name", "UX", "UZ", "RY"],
-    ds: { UX: bl, UZ: bl, RY: bl },
+    ds: { UX: [{type:"bl2",value:bl2}], UZ: [{type:"bl2",value:bl2}], RY: [{type:"bl2",value:bl2}] },
     fltR: vl => {
       return vl.filter(cv => cv["nodes"].length > 0);
     }

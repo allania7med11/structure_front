@@ -27,9 +27,13 @@
           edit
         </v-icon>
       </template>
-      <template v-for="header in inf.tbhs"  v-slot:[hd(header)]="{ item }" >
-        <span :key="header.id" v-html="inf.ds[header.value](item[header.value])">
-        </span>
+      <template v-for="header in Object.keys(inf.ds)"  v-slot:[hd(header)]="{ item }" >
+        <ul :key="header.id" style="list-style-type:none;padding-left: 0;">
+          <li v-for="hd in inf.ds[header]" :key="hd.id">
+            <v-icon small v-if="hd.type==='bl2'">fas fa-{{ hd.value(item[header],hd.id) }}</v-icon>
+            <span v-else >hd.value(item[header],hd.id)</span>
+          </li>
+        </ul>
       </template>
     </v-data-table>
     <img
@@ -85,8 +89,9 @@ export default {
   },
 
   methods: {
+    ...mapActions(['stateChange']),
     hd(header){
-      return "item." + header.value 
+      return "item." + header 
     },
     console(val) {
       console.log(val);
