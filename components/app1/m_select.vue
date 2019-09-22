@@ -128,12 +128,19 @@ export default {
         }
         this.componentKey += 1;
       }
+    },
+    search: {
+      handler(val) {
+        console.log(val)
+      }
     }
   },
   methods: {
     ...mapActions(['stateChange']),
     searchChange() {
-      this.stateChange({ state: "dialog", value: this.search })
+      this.stateChange({ state: "search", value: this.search })
+      console.log("searchChange")
+      console.log(this.search)
     }
   }
 };

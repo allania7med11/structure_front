@@ -204,9 +204,6 @@ export default {
     inf() {
       return Infs[this.slg];
     },
-    items() {
-      return this.project[this.md.model];
-    },
     defaultItem() {
       return this.inf.defaultItem;
     },

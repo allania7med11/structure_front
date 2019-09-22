@@ -1,5 +1,7 @@
 const axios = require('axios');
 import Cookies from 'js-cookie/src/js.cookie.js'
+import { mds, Acs, test } from "@/constants/app1/static";
+import { Infs } from "@/constants/app1/Infs";
 export const strict = false
 export const state = () => ({
   username:false,
@@ -17,8 +19,14 @@ export const state = () => ({
   project:{'nodes':[],'bars':[],'supports':[]}
 })
 export const getters ={
-  editedItem: state => {
-    return state.action 
+  ac: state => {
+    return Acs[state.action]; 
+  },
+  md: state => {
+    return mds[state.slg]; 
+  },
+  inf: state => {
+    return Infs[state.slg]; 
   }
 }
 export const mutations = {
@@ -33,11 +41,11 @@ export const actions = {
   async login({commit}) {
     try{
       var US= await this.$axios.$get("/api/users/")
-      var csrftoken = Cookies.get('csrftoken');
-      console.log(csrftoken)
+      var csrftoken = await Cookies.get('csrftoken');
+      commit('stateChange',{state:"csrf",value:csrftoken}) ;     
+      console.log({"csrftoken":csrftoken})
       if (US.length>0){
         commit('stateChange',{state:"username",value:US[0].username})
-        commit('stateChange',{state:"csrf",value:csrftoken})        
         var projects= await this.$axios.$get("/api/projects/?auth=private")
         console.log({projects:projects})
         commit('stateChange',{state:"projects",value:projects})

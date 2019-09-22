@@ -6,8 +6,8 @@
       <v-flex xs12 md10>
         <v-layout column>
           <m_select />
-          <!-- <m_table v-if="!testDetail" />
-          <m_detail v-if="testDetail" /> -->
+          <m_table v-if="!testDetail" />
+          <!-- <m_detail v-if="testDetail" />  -->
         </v-layout>
       </v-flex>
     </v-layout>
@@ -19,8 +19,9 @@
 import { mds } from "@/constants/app1/static";
 import m_select from "@/components/app1/m_select";
 import { mapState } from 'vuex'
-/* import m_pages from "@/components/app1/m_pages";
 import m_table from "@/components/app1/m_table";
+
+/* import m_pages from "@/components/app1/m_pages";
 import m_form from "@/components/app1/m_form";
 import m_chart from "@/components/app1/m_chart";
 import m_detail from "@/components/app1/m_detail"; */
@@ -28,6 +29,7 @@ export default {
   name: "App",
   components: {
     m_select,
+    m_table,
     /* m_pages,
     m_table,
     m_form,

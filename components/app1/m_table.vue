@@ -4,91 +4,32 @@
     md12
   >
     <v-data-table
-      v-if="!$apollo.loading"
-      :headers="tbhs"
+      :headers="headers"
+      :hide-default-header="false"
       :items="items"
       class="elevation-1"
-      :pagination.sync="pagination"
+      :sort-by="sort.by"
+      :sort-desc="sort.desc"
       item-key="name"
       :search="search"
-    >
-      <template
-        slot="headers"
-        slot-scope="props"
-      >
-        <tr>
-          <th
-            v-if="md.action == 'define' && page == 'define'"
-            class="text-xs-center"
-          >
-            <v-icon
-              class="m_add"
-              color="white"
-              @click="newItem"
-            >
-              add
-            </v-icon>
-          </th>
-          <th
-            v-for="header in props.headers"
-            :key="header.text"
-            :class="[
-              'column sortable',
-              pagination.descending ? 'desc' : 'asc',
-              header.value === pagination.sortBy ? 'active' : ''
-            ]"
-            @click="changeSort(header.value)"
-          >
-            <v-btn
-              v-if="
-                md.action == 'apply' &&
-                  header.value == 'name' &&
-                  page == 'define'
-              "
-              small
-              fab
-              class="elevation-1"
-              color="info"
-              @click.stop.prevent="applyItem"
-            >
-              <span class="headline">+</span>
-            </v-btn>
-            <span v-html="header.text" />
-            <v-icon small>
-              arrow_upward
-            </v-icon>
-          </th>
-        </tr>
+    > 
+      
+      <template v-if="md.action == 'define' && page == 'define'" v-slot:header.action="{ header }">
+        <v-icon class="m_add" color="white" @click="newItem">
+          add
+        </v-icon>
       </template>
-      <template
-        slot="items"
-        slot-scope="props"
-      >
-        <td
-          v-if="md.action == 'define' && page == 'define'"
-          class="text-xs-center"
-        >
-          <v-icon
-            class="m_delete"
-            color="white"
-            @click="deleteItem(props.item)"
-          >
-            delete
-          </v-icon>
-          <v-icon
-            class="m_edit"
-            color="white"
-            @click="editItem(props.item)"
-          >
-            edit
-          </v-icon>
-        </td>
-        <template v-for="header in tbhs">
-          <td
-            :key="header.id"
-            v-html="inf.ds[header.value](props.item[header.value])"
-          />
-        </template>
+      <template v-if="md.action == 'define' && page == 'define'" v-slot:item.action="{ item }" >
+        <v-icon class="m_delete" color="white" @click="deleteItem(item)">
+          delete
+        </v-icon>
+        <v-icon class="m_edit" color="white" @click="editItem(item)">
+          edit
+        </v-icon>
+      </template>
+      <template v-for="header in inf.tbhs"  v-slot:[hd(header)]="{ item }" >
+        <span :key="header.id" v-html="inf.ds[header.value](item[header.value])">
+        </span>
       </template>
     </v-data-table>
     <img
@@ -99,52 +40,23 @@
   </v-flex>
 </template>
 <script>
-import { mds, query } from "@/constants/app1/static";
-import { Infs } from "@/constants/app1/Infs";
+import { mapState,mapGetters,mapActions } from 'vuex'
 export default {
-  apollo: {
-    id: apolloState("id"),
-    project:{
-      query: readServerQ("project", "ID!", query),
-      variables() { return { input: this.id,}},
-    },
-    page: apolloState("page"),
-    search: apolloState("search"),    
-    slg: apolloState("slg")
-  },
   data: () => ({
-    id:1,
-    pagination: {
-      sortBy: "name",
-      descending: false
-    },
-    project: { nodes: [] },
+    sort:{by:["name"],desc:[true]},
     editedIndex: -1,
-    tbhs:["name", "X", "Z"]
   }),
   computed: {
+    ...mapState(['project','page','search']),
+    ...mapGetters(['ac','md','inf']),
     path(name) {
       return require(`@/assets/images/${name}.png` )
     },
-    pagination2() {
-      if (this.page == "results") {
-        return { sortBy: "name", descending: false };
-      } else {
-        return { sortBy: "name", descending: true };
+    headers(){
+      if (this.md.action == 'define' && this.page == 'define'){
+      return [{ text: '', value: 'action', sortable: false,align: 'center' },...this.inf.tbhs];  
       }
-    },
-    md() {
-      return mds[this.slg];
-    },
-    inf() {
-      if (this.slg in Infs){
-        if ("tbhs" in Infs[this.slg]){
-          this.tbhs=Infs[this.slg].tbhs
-          return Infs[this.slg];
-        }
-      }
-      
-      return {};
+      return this.inf.tbhs;
     },
     items() {
       if (this.page == "results" && "fltR" in this.inf) {
@@ -164,15 +76,18 @@ export default {
     page: {
       handler(val) {
         if (val == "results") {
-          this.pagination.descending = false;
+          this.sort.desc = [false];
         } else {
-          this.pagination.descending = true;
+          this.sort.desc = [true];
         }
       }
-    }
+    },
   },
 
   methods: {
+    hd(header){
+      return "item." + header.value 
+    },
     console(val) {
       console.log(val);
     },
@@ -185,44 +100,26 @@ export default {
       }
     },
     open() {
-      this.$apollo.mutate(
-        argMutate("stateChange", { state: "dialog", value: true })
-      );
+      this.stateChange({ state: "dialog", value: true });
     },
     applyItem() {
-      this.$apollo.mutate(
-        argMutate("stateChange", { state: "action", value: "apply" })
-      );
-      this.$apollo.mutate(
-        argMutate("stateChange", { state: "editedIndex", value: -1 })
-      );
+      this.stateChange({ state: "action", value: "apply" });
+      this.stateChange({ state: "editedIndex", value: -1 });
       this.open();
     },
     newItem() {
-      this.$apollo.mutate(
-        argMutate("stateChange", { state: "action", value: "create" })
-      );
-      this.$apollo.mutate(
-        argMutate("stateChange", { state: "editedIndex", value: -1 })
-      );
+      this.stateChange({ state: "action", value: "create" });
+      this.stateChange({ state: "editedIndex", value: -1 });
       this.open();
     },
     editItem(item) {
-      this.$apollo.mutate(
-        argMutate("stateChange", { state: "action", value: "update" })
-      );
-      this.$apollo.mutate(
-        argMutate("stateChange", { state: "editedIndex", value: item.id })
-      );
+      this.stateChange({ state: "action", value: "update" });
+      this.stateChange({ state: "editedIndex", value: item.id });
       this.open();
     },
     deleteItem(item) {
-      this.$apollo.mutate(
-        argMutate("stateChange", { state: "action", value: "delete" })
-      );
-      this.$apollo.mutate(
-        argMutate("stateChange", { state: "editedIndex", value: item.id })
-      );
+      this.stateChange({ state: "action", value: "delete" });
+      this.stateChange({ state: "editedIndex", value: item.id });
       this.open();
     }
   }

@@ -40,7 +40,6 @@ export default {
       return this.projects;
     }
   },
-
   methods: {
     ...mapActions(['stateChange']),
     console(val) {
