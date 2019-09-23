@@ -157,7 +157,6 @@ export default {
       if (!this.$v.$invalid) {
         this.stateChange({ state: "error", value: false })
         try {
-        console.log({"X-CSRFToken": this.csrf})
         if (this.action === "delete") {
           response = await this.$axios.$delete(
             `/api/projects/${ this.editedIndex }`

@@ -202,7 +202,7 @@ export default {
         this.$v.$reset();
         if (val > 0) {
           let item;
-          item = this.items.find(cv => cv.id == val);
+          item = this.project[this.md.model].find(cv => cv.id == val);
           let editedItem;
           editedItem = this.inf.fe(item);
           for (const [key, value] of Object.entries(item)) {
@@ -219,7 +219,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(['stateChange']),
+    ...mapActions(['stateChange','login','aProject']),
     console(val) {
       console.log(val);
     },
@@ -232,41 +232,33 @@ export default {
       let rtn = [];
       this.$v.$touch();
       if (!this.$v.$invalid) {
-        if (this.editedIndex > -1) {
-          if (this.action === "delete") {
-
-            response = await this.$apollo.mutate(
-              mutateServer(
-                "delete",
-                "DeleteInput!",
-                { id: this.editedIndex, model: this.md.model },
-                this.query
-              )
-            );
-            rtn = response.data["delete"]["rtn"];
+        this.stateChange({ state: "error", value: false })
+        try {
+          if (this.editedIndex > -1) {
+            if (this.action === "delete") {
+              response = await this.$axios.$delete(
+              `/api/${ this.md.model }/${ this.editedIndex }/`
+              );
+            } else {
+              response = await this.$axios.$put(
+              `/api/${ this.md.model }/${ this.editedIndex }/`,
+              { project:this.project.url,...this.inf.fm(this.editedItem) }
+              );
+            }
           } else {
-            response = await this.$apollo.mutate(
-              mutateServer(
-                this.inf.update.mutation,
-                this.inf.update.type,
-                { id: this.editedIndex, data: this.inf.fm(this.editedItem) },
-                this.query
-              )
-            );
-            rtn = response.data[this.inf.update.mutation]["rtn"];
+            response = await this.$axios.$post(
+              `/api/${ this.md.model }/`,
+              { project:this.project.url,...this.inf.fm(this.editedItem) }
+              );
           }
-        } else {
-          response = await this.$apollo.mutate(
-            mutateServer(
-              this.inf.create.mutation,
-              this.inf.create.type,
-              { id: this.project.id, data: this.inf.fm(this.editedItem) },
-              this.query
-            )
-          );
-          rtn = response.data[this.inf.create.mutation]["rtn"];
+          console.log({response:response})
+        } catch(e) {
+          console.log(e)
+          this.login()
+          this.stateChange({ state: "error", value: true })
+          this.close();
         }
-        this.stateChange({ state: "project", value: rtn });
+        this.aProject({id:this.$route.params.id})
         if (this.editedIndex > -1) {
           this.close();
         } else {

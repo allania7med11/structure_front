@@ -11,7 +11,7 @@
         </v-layout>
       </v-flex>
     </v-layout>
-    <!-- <m_form v-if="test"  /> -->
+    <m_form v-if="test"  />
   </v-container>
 </template>
 
@@ -20,6 +20,7 @@ import { mds } from "@/constants/app1/static";
 import m_select from "@/components/app1/m_select";
 import { mapState } from 'vuex'
 import m_table from "@/components/app1/m_table";
+import m_form from "@/components/app1/m_form";
 
 /* import m_pages from "@/components/app1/m_pages";
 import m_form from "@/components/app1/m_form";
@@ -30,6 +31,7 @@ export default {
   components: {
     m_select,
     m_table,
+    m_form,
     /* m_pages,
     m_table,
     m_form,
