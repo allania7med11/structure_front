@@ -73,6 +73,7 @@
 import { required } from "vuelidate/lib/validators"
 import {  Acs  } from "../constants/app1/static";
 import { mapState,mapActions } from 'vuex'
+import { sortDate  } from "@/constants/static";
 export default {
   data: () => ({
     editedItem: { name: null }
@@ -90,6 +91,7 @@ export default {
     defaultItem() {
       return{
         "create":{name: null},
+        "update":{name: null},
         "copy":{name: null,id:null},
         "delete":{}
       }
@@ -100,6 +102,10 @@ export default {
     vld() {
       return{
         "create":{name: { 
+          required , 
+          unique: value => !this.projects.find(cv => cv.id != this.editedIndex ? cv.name == value : false) 
+          }},
+        "update":{name: { 
           required , 
           unique: value => !this.projects.find(cv => cv.id != this.editedIndex ? cv.name == value : false) 
           }},
@@ -131,16 +137,20 @@ export default {
     dialog(val) {
       val || this.close();
     },
-    action: {
+    editedIndex: {
       handler(val) {
         this.$v.$reset();
-        this.editedItem = Object.assign({}, this.defaultItem[val]);
+        if (val > 0) {
+          this.editedItem = Object.assign({}, this.projects.find(cv => cv.id == val));
+        } else {
+          this.editedItem = Object.assign({}, this.defaultItem[this.action]);
+        }
       }
     }
   },
 
   methods: {
-    ...mapActions(['stateChange','login']),
+    ...mapActions(['stateChange','login',"aProjects"]),
     console(val) {
       console.log(val);
     },
@@ -157,29 +167,35 @@ export default {
       if (!this.$v.$invalid) {
         this.stateChange({ state: "error", value: false })
         try {
-        if (this.action === "delete") {
-          response = await this.$axios.$delete(
-            `/api/projects/${ this.editedIndex }`
-          );
-        }  
-        else if (this.action === "create") {
-          response = await this.$axios.$post(
-            "/api/projects/",
-            { name: this.editedItem.name }
-          );
-        }
-        else {
-           response = await this.$apollo.mutate(
-            mutateServer(
-              "copyProject",
-              "CopyProjectInput!",
-              { name: this.editedItem.name,id: this.editedItem.id },
-              this.query
-            )
-          );
-        }
-        projects= await this.$axios.$get("/api/projects/?auth=private");
-        this.stateChange({ state: "projects", value: projects })
+          if (this.editedIndex > -1) {
+            if (this.action === "delete") {
+              response = await this.$axios.$delete(
+              `/api/projects/${ this.editedIndex }/`
+              );
+            } else {
+              response = await this.$axios.$put(
+              `/api/projects/${ this.editedIndex }/`,
+              { name: this.editedItem.name }
+              );
+            }
+          } 
+          else if (this.action === "create") {
+            response = await this.$axios.$post(
+              "/api/projects/",
+              { name: this.editedItem.name }
+            );
+          }
+          else {
+            response = await this.$apollo.mutate(
+              mutateServer(
+                "copyProject",
+                "CopyProjectInput!",
+                { name: this.editedItem.name,id: this.editedItem.id },
+                this.query
+              )
+            );
+          }
+          await this.aProjects();
         } catch(e) {
           console.log(e)
           this.login()

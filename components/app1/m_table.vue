@@ -2,14 +2,12 @@
   <v-flex
     xs12
     md12
-  >
+  > 
     <v-data-table
       :headers="headers"
       :hide-default-header="false"
       :items="items"
       class="elevation-1"
-      :sort-by="sort.by"
-      :sort-desc="sort.desc"
       item-key="name"
       :search="search"
     > 
@@ -20,12 +18,15 @@
         </v-icon>
       </template>
       <template v-if="md.action == 'define' && page == 'define'" v-slot:item.action="{ item }" >
-        <v-icon class="m_delete" color="white" @click="deleteItem(item)">
-          delete
-        </v-icon>
-        <v-icon class="m_edit" color="white" @click="editItem(item)">
-          edit
-        </v-icon>
+        <span  v-if="item.project !== defaultProject.url">
+          <v-icon class="m_delete" color="white" @click="deleteItem(item)">
+            delete
+          </v-icon>
+          <v-icon class="m_edit" color="white" @click="editItem(item)">
+            edit
+          </v-icon>
+        </span>
+        
       </template>
       <template v-for="header in Object.keys(inf.ds)"  v-slot:[hd(header)]="{ item }" >
         <ul :key="header.id" style="list-style-type:none;padding-left: 0;">
@@ -47,12 +48,11 @@
 import { mapState,mapGetters,mapActions } from 'vuex'
 export default {
   data: () => ({
-    sort:{by:["name"],desc:[true]},
     editedIndex: -1,
   }),
   computed: {
-    ...mapState(['project','page','search']),
-    ...mapGetters(['ac','md','inf']),
+    ...mapState(['project','page','search','defaultProject']),
+    ...mapGetters(['ac','md','inf','model']),
     path(name) {
       return require(`@/assets/images/${name}.png` )
     },
@@ -65,27 +65,16 @@ export default {
     items() {
       if (this.page == "results" && "fltR" in this.inf) {
         if ("flt" in this.inf) {
-          return this.inf.flt(this.inf.fltR(this.project[this.md.model]));
+          return this.inf.flt(this.inf.fltR(this.model));
         } else {
-          return this.inf.fltR(this.project[this.md.model]);
+          return this.inf.fltR(this.model);
         }
       }
       if ("flt" in this.inf) {
-        return this.inf.flt(this.project[this.md.model]);
+        return this.inf.flt(this.model);
       }
-      return this.project[this.md.model];
+      return this.model;
     }
-  },
-  watch: {
-    page: {
-      handler(val) {
-        if (val == "results") {
-          this.sort.desc = [false];
-        } else {
-          this.sort.desc = [true];
-        }
-      }
-    },
   },
 
   methods: {

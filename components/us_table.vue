@@ -13,12 +13,15 @@
     <v-data-table :headers="headers" :items="items" class="elevation-1">
         <template v-slot:item.action="{ item }">
           <nuxt-link  :to="`/projects/${item.id}`">
-              <v-btn class="mx-2" color="primary" >
-                <v-icon >edit</v-icon>Open
-              </v-btn> 
-            </nuxt-link>            
+            <v-btn class="mx-2" color="primary" >
+              <v-icon >folder_open</v-icon>
+            </v-btn> 
+          </nuxt-link>  
+          <v-btn  class="mx-2" color="warning"  @click="editItem(item)">
+            <v-icon >edit</v-icon>
+          </v-btn>            
           <v-btn class="mx-2" color="error"  @click="deleteItem(item)">
-            <v-icon >delete</v-icon>Delete
+            <v-icon >delete</v-icon>
           </v-btn>
         </template>
     </v-data-table> 
@@ -29,7 +32,7 @@ import { mapState,mapActions } from 'vuex'
 
 export default {
   data: () => ({
-    headers: [{ text: 'Name', value: 'name' },{ text: '', value: 'action', sortable: false,align: 'right' }]
+    headers: [{ text: 'Name', value: 'name' },{ text: 'Modified Date', value: 'modified_date' },{ text: '', value: 'action', sortable: false,align: 'right' }]
   }),
   computed: {
     ...mapState(['projects','dialog','action','editedIndex','search']),
@@ -56,6 +59,11 @@ export default {
     copyItem() {
       this.stateChange({ state: "action", value: "copy" })
       this.stateChange({ state: "editedIndex", value: -1 })
+      this.open();
+    },
+    editItem(item) {
+      this.stateChange({ state: "action", value: "update" })
+      this.stateChange({ state: "editedIndex", value: item.id })
       this.open();
     },
     deleteItem(item) {
