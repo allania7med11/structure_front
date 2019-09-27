@@ -126,7 +126,6 @@ export default {
     ...mapState(['username','projects']),
   }, 
   methods:{
-    ...mapActions(['login']),
     itsL() {
       return this.items.filter(cv => !("right" in cv));
     },
@@ -137,9 +136,7 @@ export default {
       return test
     }
   },
-  mounted(){
-    this.login()
-  }
+  
   
   
 };

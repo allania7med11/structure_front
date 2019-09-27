@@ -17,6 +17,12 @@ export default {
   
   components: {
     Header
+  },
+  methods:{
+    ...mapActions(['login'])
+  },
+  mounted(){
+    this.login()
   }
 }
 </script>

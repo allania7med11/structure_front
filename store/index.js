@@ -51,14 +51,14 @@ export const actions = {
   },
   async login({commit,dispatch}) {
     try{
-      var US= await this.$axios.$get("/api/users/")
+      var US= await this.$axios.$get("/api/users/current/")
       var csrftoken = await Cookies.get('csrftoken');
       commit('stateChange',{state:"csrf",value:csrftoken}) ;     
       console.log({"csrftoken":csrftoken})
-      var defaultProject= await this.$axios.$get(`/api/projects/1/`)
+      var defaultProject= await this.$axios.$get(`/api/projects/default/`)
       commit('stateChange',{state:"defaultProject",value:defaultProject})
-      if (US.length>0){
-        commit('stateChange',{state:"username",value:US[0].username})
+      if (!!US.url){
+        commit('stateChange',{state:"username",value:US.username})
         dispatch("aProjects")
       } else {
         commit('stateChange',{state:"username",value:false})
