@@ -3,8 +3,9 @@ import { sections, dls, applys, nrs, srs, brs, mds } from "./static";
 import { Flds } from "./Flds";
 const math = require("mathjs");
 export let idt = x => x;
-let bl = x => (x ? "check" : "times");
-let bl2 = (x,id) => (Array.isArray(x) ? bl(x[id]) : bl(x));
+let testArray = (x,id) => (Array.isArray(x) ? x[id] : x);
+let bl = (x,id) => testArray(x,id) ? "check" : "times"
+let url = (x,id) => testArray(x,id).name ;
 const capitalize = s => {
   if (typeof s !== "string") return "";
   return s.charAt(0).toUpperCase() + s.slice(1);
@@ -312,12 +313,12 @@ export const Infs = {
   bars: fInf({
     name: "bars",
     flds: ["name", "N1", "N2"],
-    ds: { N1: vl => vl.name, N2: vl => vl.name }
+    ds: { N1: [{type:"url",value:url}], N2: [{type:"url",value:url}] }
   }),
   supports: fInf({
     name: "supports",
     flds: ["name", "UX", "UZ", "RY"],
-    ds: { UX: [{type:"bl2",value:bl2}], UZ: [{type:"bl2",value:bl2}], RY: [{type:"bl2",value:bl2}] },
+    ds: { UX: [{type:"bl",value:bl}], UZ: [{type:"bl",value:bl}], RY: [{type:"bl",value:bl}] },
     fltR: vl => {
       return vl.filter(cv => cv["nodes"].length > 0);
     }
@@ -327,14 +328,16 @@ export const Infs = {
     flds: ["name", "UX1", "UZ1", "RY1", "UX2", "UZ2", "RY2"],
     fldsT: ["name", "UX", "UZ", "RY"],
     fmhs: [[["name"], ["UX1", "UX2"], ["UZ1", "UZ2"], ["RY1", "RY2"]]],
+    ds: { UX: [{type:"bl",value:bl},{type:"bl",value:bl}], UZ: [{type:"bl",value:bl},{type:"bl",value:bl}], RY: [{type:"bl",value:bl},{type:"bl",value:bl}] },
     flt: vl =>
       vl.map(cv => {
         return {
           id: cv.id,
           name: cv.name,
-          UX: bl2([cv.UX1, cv.UX2]),
-          UZ: bl2([cv.UZ1, cv.UZ2]),
-          RY: bl2([cv.RY1, cv.RY2])
+          project: cv.project,
+          UX: [cv.UX1, cv.UX2],
+          UZ: [cv.UZ1, cv.UZ2],
+          RY: [cv.RY1, cv.RY2]
         };
       }),
     fltR: vl => {

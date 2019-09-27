@@ -157,7 +157,7 @@ export default {
             label: header.text,
             ["error-messages"]: this.Errors[header.value](),
             ["item-text"]: "name",
-            ["item-value"]: "id",
+            ["item-value"]: "url",
             items: header.chs ? header.chs : this.project[header["from"]]
           };
         },
@@ -206,8 +206,8 @@ export default {
           let editedItem;
           editedItem = this.inf.fe(item);
           for (const [key, value] of Object.entries(item)) {
-            if (value.id) {
-              editedItem[key] = value.id;
+            if (value.url) {
+              editedItem[key] = value.url;
             }
           }
           this.editedItem = Object.assign({}, editedItem);

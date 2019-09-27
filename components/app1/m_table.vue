@@ -30,9 +30,9 @@
       </template>
       <template v-for="header in Object.keys(inf.ds)"  v-slot:[hd(header)]="{ item }" >
         <ul :key="header.id" style="list-style-type:none;padding-left: 0;">
-          <li v-for="hd in inf.ds[header]" :key="hd.id">
-            <v-icon small v-if="hd.type==='bl2'">fas fa-{{ hd.value(item[header],hd.id) }}</v-icon>
-            <span v-else >hd.value(item[header],hd.id)</span>
+          <li v-for="(hd, index) in inf.ds[header]" :key="hd.id">
+            <v-icon small v-if="hd.type==='bl'">fas fa-{{ hd.value(item[header],index) }}</v-icon>
+            <span v-else >{{ hd.value(item[header],index) }}</span>
           </li>
         </ul>
       </template>
