@@ -2,7 +2,8 @@
   <v-flex
     xs12
     md6
-  >
+  > 
+    {{ editedItem }}
     <v-card
       v-if="dialog"
       flat
@@ -143,7 +144,7 @@ export default {
 
   computed: {
     ...mapState(['project','dialog','slg','action','editedIndex']),
-    ...mapGetters(['ac','md','inf']),
+    ...mapGetters(['ac','md','inf','modelField']),
     bd() {
       return {
         checkbox: header => {
@@ -158,7 +159,7 @@ export default {
             ["error-messages"]: this.Errors[header.value](),
             ["item-text"]: "name",
             ["item-value"]: "url",
-            items: header.chs ? header.chs : this.project[header["from"]]
+            items: header.chs ? header.chs : this.modelField(header["from"])
           };
         },
         number: header => {
@@ -271,18 +272,18 @@ export default {
       let rtn = [];
       this.$v.$touch();
       if (!this.$v.$invalid) {
-        response = await this.$apollo.mutate(
-          mutateServer(
-            "apply",
-            "ApplyInput!",
-            { ...this.inf.mt({ ...this.editedItem, ...{ action: action } }) },
-            this.query
-          )
-        );
-        rtn = response.data["apply"]["rtn"];
-        await this.$apollo.mutate(
-          argMutate("stateChange", { state: "project", value: rtn })
-        );
+        try {
+        response = await this.$axios.$post(
+              `${ this.editedItem.name }apply/`,
+              { ...this.inf.mt({ ...this.editedItem, action: action,project:this.project.url }) },
+              );
+        } catch(e) {
+          console.log(e)
+          this.login()
+          this.stateChange({ state: "error", value: true })
+          this.close();
+        }
+        this.aProject({id:this.$route.params.id})
         this.$v.$reset();
       }
     }

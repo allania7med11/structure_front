@@ -65,11 +65,9 @@ var fInf = function(obj) {
     let from = mds[obj.name].from;
     obj["mt"] = vl => {
       return {
-        id: vl.name,
-        model: model,
-        ls: vl[from],
-        submit: vl.action,
-        apt: from
+        project: vl.project,
+        lst: vl[from],
+        action: vl.action,
       };
     };
     obj["flt"] = vl => {
@@ -241,13 +239,13 @@ var fAInf = function(obj) {
   obj["ds"] = {};
   if (obj.type) {
     obj["fldsT"] = ["name", "type", obj.from];
-    obj["ds"]["type"] = vl => vl.replace("_", " ");
+    obj["ds"]["type"] = [{type:"aaa",value:(x,id) => testArray(x,id).replace("_", " ")}];
   }
-  obj["ds"][obj.from] = vl =>
-    vl
-      .map(a => a.name)
-      .sort((a, b) => a - b)
-      .join(",");
+  obj["ds"][obj.from] = [{
+    type:"list",value:x => {
+      return x.map(a => a.name).sort((a, b) => a - b).join(",")
+    }
+  }];
   return obj;
 };
 function frd(x, rd) {

@@ -17,6 +17,12 @@
           add
         </v-icon>
       </template>
+      <template v-if="md.action == 'apply' && page == 'define'" v-slot:header.name="{ header }">
+        <v-btn small fab class="elevation-1" color="info" @click.stop.prevent="applyItem">
+          <span class="headline">+</span>
+        </v-btn>
+        name
+      </template>
       <template v-if="md.action == 'define' && page == 'define'" v-slot:item.action="{ item }" >
         <span  v-if="item.project !== defaultProject.url">
           <v-icon class="m_delete" color="white" @click="deleteItem(item)">
@@ -26,12 +32,12 @@
             edit
           </v-icon>
         </span>
-        
       </template>
       <template v-for="header in Object.keys(inf.ds)"  v-slot:[hd(header)]="{ item }" >
         <ul :key="header.id" style="list-style-type:none;padding-left: 0;">
           <li v-for="(hd, index) in inf.ds[header]" :key="hd.id">
             <v-icon small v-if="hd.type==='bl'">fas fa-{{ hd.value(item[header],index) }}</v-icon>
+            <span v-else-if="hd.type==='list'" >{{ hd.value(item[header]) }}</span>
             <span v-else >{{ hd.value(item[header],index) }}</span>
           </li>
         </ul>

@@ -32,13 +32,22 @@ export const getters ={
     return Infs[state.slg]; 
   },
   model:(state,getters) => {
+    var field=getters.md.model
     if (state.defaultProject.id !== state.project.id){
-      return [...state.project[getters.md.model],...state.defaultProject[getters.md.model]]
+      return [...state.project[field],...state.defaultProject[field]]
       .sort(sortDate(state.page === "results"))
     } else {
-      return state.project[getters.md.model].sort(sortDate(state.page === "results"))
+      return state.project[field].sort(sortDate(state.page === "results"))
     }
-  }  
+  },
+  modelField:(state) => (field) => {
+    if (state.defaultProject.id !== state.project.id){
+      return [...state.project[field],...state.defaultProject[field]]
+      .sort(sortDate(state.page === "results"))
+    } else {
+      return state.project[field].sort(sortDate(state.page === "results"))
+    }
+  }   
 }
 export const mutations = {
   stateChange (state,input) {
@@ -84,7 +93,9 @@ export const actions = {
   async aProject({commit},input) {
     try{
       var project= await this.$axios.$get(`/api/projects/${input.id}/`)
+      var defaultProject= await this.$axios.$get(`/api/projects/default/`)
       commit('stateChange',{state:"project",value:project})   
+      commit('stateChange',{state:"defaultProject",value:defaultProject})
     } catch (error) {
       console.error(error);
     }
