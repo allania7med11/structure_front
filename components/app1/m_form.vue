@@ -207,8 +207,8 @@ export default {
           let editedItem;
           editedItem = this.inf.fe(item);
           for (const [key, value] of Object.entries(item)) {
-            if (value.url) {
-              editedItem[key] = value.url;
+            if (value.id) {
+              editedItem[key] = value.id;
             }
           }
           this.editedItem = Object.assign({}, editedItem);
@@ -243,13 +243,13 @@ export default {
             } else {
               response = await this.$axios.$put(
               `/api/${ this.md.model }/${ this.editedIndex }/`,
-              { project:this.project.url,...this.inf.fm(this.editedItem) }
+              { project:this.project.id,...this.inf.fm(this.editedItem) }
               );
             }
           } else {
             response = await this.$axios.$post(
               `/api/${ this.md.model }/`,
-              { project:this.project.url,...this.inf.fm(this.editedItem) }
+              { project:this.project.id,...this.inf.fm(this.editedItem) }
               );
           }
           console.log({response:response})
@@ -274,8 +274,8 @@ export default {
       if (!this.$v.$invalid) {
         try {
         response = await this.$axios.$post(
-              `${ this.editedItem.name }apply/`,
-              { ...this.inf.mt({ ...this.editedItem, action: action,project:this.project.url }) },
+              `/api/${ this.md.model }/${ this.editedIndex }/apply/`,
+              { ...this.inf.mt({ ...this.editedItem, action: action,project:this.project.id }) },
               );
         } catch(e) {
           console.log(e)

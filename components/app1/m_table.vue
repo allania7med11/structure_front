@@ -24,7 +24,7 @@
         name
       </template>
       <template v-if="md.action == 'define' && page == 'define'" v-slot:item.action="{ item }" >
-        <span  v-if="item.project !== defaultProject.url">
+        <span  v-if="item.project.id !== '1'">
           <v-icon class="m_delete" color="white" @click="deleteItem(item)">
             delete
           </v-icon>
