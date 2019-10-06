@@ -19,7 +19,6 @@ export const state = () => ({
   action: 'create',
   projects:[],
   project:{'nodes':[],'bars':[],'supports':[]},
-  defaultProject:{'nodes':[],'bars':[],'supports':[]}
 })
 export const getters ={
   ac: state => {
@@ -36,11 +35,8 @@ export const getters ={
     return state.project[field].sort(sortDate(state.page === "results"))
   },
   modelField:(state) => (field) => {
-    if (state.defaultProject.id !== state.project.id){
-      return state.project[field].sort(sortDate(state.page === "results"))
-    } else {
-      return state.project[field].sort(sortDate(state.page === "results"))
-    }
+    console.log(state.project[field])
+    return state.project[field].sort(sortDate(state.page === "results"))
   }   
 }
 export const mutations = {
@@ -58,8 +54,6 @@ export const actions = {
       var csrftoken = await Cookies.get('csrftoken');
       commit('stateChange',{state:"csrf",value:csrftoken}) ;     
       console.log({"csrftoken":csrftoken})
-      var defaultProject= await this.$axios.$get(`/api/projects/default/`)
-      commit('stateChange',{state:"defaultProject",value:defaultProject})
       if (!!US.id){
         commit('stateChange',{state:"username",value:US.username})
         dispatch("aProjects")
@@ -74,7 +68,7 @@ export const actions = {
   },
   async aProjects({commit}) {
     try{
-      var projects= await this.$axios.$get("/api/projects/?auth=private")
+      var projects= await this.$axios.$get("/api/projects/")
         commit('stateChange',{
           state:"projects",
           value:projects.sort(sortDate(false))

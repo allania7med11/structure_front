@@ -57,7 +57,7 @@ export default {
     editedIndex: -1,
   }),
   computed: {
-    ...mapState(['project','page','search','defaultProject']),
+    ...mapState(['project','page','search']),
     ...mapGetters(['ac','md','inf','model']),
     path(name) {
       return require(`@/assets/images/${name}.png` )

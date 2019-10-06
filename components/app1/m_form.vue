@@ -158,8 +158,8 @@ export default {
             label: header.text,
             ["error-messages"]: this.Errors[header.value](),
             ["item-text"]: "name",
-            ["item-value"]: "url",
-            items: header.chs ? header.chs : this.modelField(header["from"])
+            ["item-value"]: "id",
+            items: header.chs ? header.chs : this.project[header["from"]]
           };
         },
         number: header => {
@@ -204,8 +204,10 @@ export default {
         if (val > 0) {
           let item;
           item = this.project[this.md.model].find(cv => cv.id == val);
+          console.log(item)
           let editedItem;
           editedItem = this.inf.fe(item);
+          console.log(editedItem)
           for (const [key, value] of Object.entries(item)) {
             if (value.id) {
               editedItem[key] = value.id;
@@ -274,7 +276,7 @@ export default {
       if (!this.$v.$invalid) {
         try {
         response = await this.$axios.$post(
-              `/api/${ this.md.model }/${ this.editedIndex }/apply/`,
+              `/api/${ this.md.model }/${ this.editedItem.name }/apply/`,
               { ...this.inf.mt({ ...this.editedItem, action: action,project:this.project.id }) },
               );
         } catch(e) {
