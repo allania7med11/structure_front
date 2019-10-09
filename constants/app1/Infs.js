@@ -4,8 +4,13 @@ import { Flds } from "./Flds";
 const math = require("mathjs");
 export let idt = x => x;
 let testArray = (x,id) => (Array.isArray(x) ? x[id] : x);
-let bl = (x,id) => testArray(x,id) ? "check" : "times"
-let url = (x,id) => testArray(x,id).name ;
+var Dsvalue={
+  bl:(x,id) => testArray(x,id) ? "check" : "times",
+  name : (x,id) => testArray(x,id).name ,
+  unite : (value) => (x,id) => testArray(x,id)*value ,
+  idt : (x,id) =>  x[id],
+
+}
 const capitalize = s => {
   if (typeof s !== "string") return "";
   return s.charAt(0).toUpperCase() + s.slice(1);
@@ -76,8 +81,11 @@ var fInf = function(obj) {
   }
   return obj;
 };
-var gftr = (obj, cv, vl) =>
-  String(obj.unites[vl].vl * JSON.parse(cv.features)[vl]);
+var gftr = (obj, cv, vl) =>{
+  return math.round(obj.unites[vl].vl *JSON.parse(cv.features)[vl], obj.unites[vl].rd)
+  
+}
+  
 var fSrsInf = function(obj) {
   obj["tbhs"] = obj["fldsT"].map(cv => Flds[obj.name][cv]);
   obj["flt"] = vl =>
@@ -119,6 +127,7 @@ var fSInf = function(obj) {
         .filter(cv => cv.type == obj.name)
         .map(cv => {
           return {
+            project: cv.project,
             id: cv.id,
             name: cv.name,
             material: cv.material.name,
@@ -134,15 +143,20 @@ var fSInf = function(obj) {
         .filter(cv => cv.type == obj.name)
         .map(cv => {
           return {
+            project: cv.project,
             id: cv.id,
             name: cv.name,
             material: cv.material.name,
             ...obj.fltp.reduce((ac, vl) => {
-              ac[vl.name] = vl.gp.map(cv2 => gftr(obj, cv, cv2)).join("<br>");
+              ac[vl.name] = vl.gp.map(cv2 => gftr(obj, cv, cv2));
               return ac;
             }, {})
           };
         });
+    obj["ds"] =obj.fltp.reduce((ac, vl) => {
+          ac[vl.name] = vl.gp.map(() => {return {type:"idt",value:Dsvalue.idt} });
+          return ac;
+        }, {})
   }
 
   obj["fe"] = item => {
@@ -150,7 +164,7 @@ var fSInf = function(obj) {
       name: item.name,
       material: item.material,
       ...obj.features.reduce((ac, vl) => {
-        ac[vl] = obj.unites[vl].vl * JSON.parse(item.features)[vl];
+        ac[vl] = math.round(obj.unites[vl].vl * JSON.parse(item.features)[vl],obj.unites[vl].rd);
         return ac;
       }, {})
     };
@@ -160,6 +174,11 @@ var fSInf = function(obj) {
       name: item.name,
       material: item.material,
       type: obj.name,
+      /* features: obj.features.reduce((ac, vl) => {
+          ac[vl] = item[vl] / obj.unites[vl].vl;
+          return ac;
+        }, {}
+      ), */
       features: JSON.stringify(
         obj.features.reduce((ac, vl) => {
           ac[vl] = item[vl] / obj.unites[vl].vl;
@@ -311,12 +330,14 @@ export const Infs = {
   bars: fInf({
     name: "bars",
     flds: ["name", "N1", "N2"],
-    ds: { N1: [{type:"url",value:url}], N2: [{type:"url",value:url}] }
+    ds: { N1: [{type:"name",value:Dsvalue.name}], N2: [{type:"name",value:Dsvalue.name}] }
   }),
   supports: fInf({
     name: "supports",
     flds: ["name", "UX", "UZ", "RY"],
-    ds: { UX: [{type:"bl",value:bl}], UZ: [{type:"bl",value:bl}], RY: [{type:"bl",value:bl}] },
+    ds: { UX: [{type:"bl",value:Dsvalue.bl}], 
+          UZ: [{type:"bl",value:Dsvalue.bl}], 
+          RY: [{type:"bl",value:Dsvalue.bl}] },
     fltR: vl => {
       return vl.filter(cv => cv["nodes"].length > 0);
     }
@@ -326,7 +347,9 @@ export const Infs = {
     flds: ["name", "UX1", "UZ1", "RY1", "UX2", "UZ2", "RY2"],
     fldsT: ["name", "UX", "UZ", "RY"],
     fmhs: [[["name"], ["UX1", "UX2"], ["UZ1", "UZ2"], ["RY1", "RY2"]]],
-    ds: { UX: [{type:"bl",value:bl},{type:"bl",value:bl}], UZ: [{type:"bl",value:bl},{type:"bl",value:bl}], RY: [{type:"bl",value:bl},{type:"bl",value:bl}] },
+    ds: { UX: [{type:"bl",value:Dsvalue.bl},{type:"bl",value:Dsvalue.bl}], 
+          UZ: [{type:"bl",value:Dsvalue.bl},{type:"bl",value:Dsvalue.bl}], 
+          RY: [{type:"bl",value:Dsvalue.bl},{type:"bl",value:Dsvalue.bl}] },
     flt: vl =>
       vl.map(cv => {
         return {
@@ -346,7 +369,7 @@ export const Infs = {
     name: "materials",
     flds: ["name", "YM", "Density"],
     defaultItem: { Density: 0 },
-    ds: { Density: x => 10 ** 3 * x },
+    ds: { Density: [{ type:"unite",value:Dsvalue.unite(10**3)}] },
     fe: item => {
       return {
         name: item.name,

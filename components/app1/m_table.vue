@@ -3,6 +3,7 @@
     xs12
     md12
   > 
+    {{ this.items }}
     <v-data-table
       :headers="headers"
       :hide-default-header="false"
@@ -69,6 +70,7 @@ export default {
       return this.inf.tbhs;
     },
     items() {
+      console.log(this.model)
       if (this.page == "results" && "fltR" in this.inf) {
         if ("flt" in this.inf) {
           return this.inf.flt(this.inf.fltR(this.model));

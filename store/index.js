@@ -81,6 +81,7 @@ export const actions = {
   async aProject({commit},input) {
     try{
       var project= await this.$axios.$get(`/api/projects/${input.id}/`)
+      console.log(project)
       commit('stateChange',{state:"project",value:project})   
     } catch (error) {
       console.error(error);

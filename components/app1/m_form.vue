@@ -249,6 +249,7 @@ export default {
               );
             }
           } else {
+            console.log(this.inf.fm(this.editedItem))
             response = await this.$axios.$post(
               `/api/${ this.md.model }/`,
               { project:this.project.id,...this.inf.fm(this.editedItem) }

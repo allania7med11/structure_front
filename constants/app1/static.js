@@ -39,7 +39,8 @@ export const sections = {
       return ac;
     }, {}),
     flds: ["name", "material", "b", "h"],
-    fmhs: [[["name"], ["material"]], [["b", "h"], ["image"]]]
+    fmhs: [[["name"], ["material"]], [["b", "h"], ["image"]]],
+    
   },
   Rectangular_Hollow: {
     image: {
@@ -361,7 +362,7 @@ export const srs = {
       name: "Ax_Iy",
       gp: ["Ax", "Iy"],
       text: "Ax[cm4]<br>Iy[cm8]",
-      value: "Ax_Iy"
+      value: "Ax_Iy",
     },
     {
       name: "Cy_H",
