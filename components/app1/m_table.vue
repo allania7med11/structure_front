@@ -3,7 +3,6 @@
     xs12
     md12
   > 
-    {{ this.items }}
     <v-data-table
       :headers="headers"
       :hide-default-header="false"

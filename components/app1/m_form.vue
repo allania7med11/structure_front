@@ -3,7 +3,6 @@
     xs12
     md6
   > 
-    {{ editedItem }}
     <v-card
       v-if="dialog"
       flat

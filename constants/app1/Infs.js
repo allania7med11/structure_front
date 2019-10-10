@@ -392,7 +392,7 @@ export const Infs = {
       return ac;
     }, {}),
     ds: ["FX", "FZ", "CY"].reduce((ac, cv) => {
-      ac[cv] = x => 10 ** 3 * x;
+      ac[cv] = [{ type:"unite",value:Dsvalue.unite(10**3)}];
       return ac;
     }, {}),
     fe: item => {
