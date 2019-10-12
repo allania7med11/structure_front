@@ -1,9 +1,9 @@
 <template>
   <v-container class="pa-0" fluid>
-    <!-- <m_pages /> -->
+    <m_pages />
     <v-layout align-start justify-space-around wrap>
-      <!-- <m_chart /> -->
-      <v-flex xs12 md10>
+      <m_chart />
+      <v-flex xs12 md5>
         <v-layout column>
           <m_select />
           <m_table v-if="!testDetail" />
@@ -21,7 +21,8 @@ import m_select from "@/components/app1/m_select";
 import { mapState } from 'vuex'
 import m_table from "@/components/app1/m_table";
 import m_form from "@/components/app1/m_form";
-
+import m_chart from "@/components/app1/m_chart";
+import m_pages from "@/components/app1/m_pages";
 /* import m_pages from "@/components/app1/m_pages";
 import m_form from "@/components/app1/m_form";
 import m_chart from "@/components/app1/m_chart";
@@ -32,7 +33,9 @@ export default {
     m_select,
     m_table,
     m_form,
-    /* m_pages,
+    m_chart,
+    m_pages,
+    /* 
     m_table,
     m_form,
     m_chart,

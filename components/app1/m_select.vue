@@ -1,8 +1,8 @@
 <template>
   <v-flex xs12 md12>
     <v-layout row wrap justify-space-between>
-      <v-flex xs3 md2 >
-        <v-btn color="info" @click="sc = !sc">
+      <v-flex xs4 md4 >
+        <v-btn block  color="info" @click="sc = !sc">
           <v-icon>list</v-icon>
           {{ fslg.text }}
         </v-btn>

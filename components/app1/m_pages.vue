@@ -1,9 +1,6 @@
 <template>
   <v-layout>
-    <v-flex
-      ml-4
-      mt-2
-    >
+    <v-flex ml-4 mt-2>
       <v-btn-toggle
         :key="componentKey"
         v-model="page"
@@ -44,27 +41,20 @@
 </template>
 
 <script>
-import { query, test } from "@/constants/app1/static";
+import { mapState,mapActions } from 'vuex'
 export default {
-  apollo: {
-    id: apolloState("id"),
-    project:{
-      query: readServerQ("project", "ID!", query),
-      variables() { return { input: this.id} }
-    },
-  },
   data() {
     return {
       componentKey: 0,
       error: false,
       errorM: "",
-      project: { nodes: [],name:"" },
       page: "define",
       results: "Solve",
       progress: false
     };
   },
   methods: {
+    ...mapActions(['stateChange']),
     console(val) {
       console.log(val);
     },
@@ -89,9 +79,7 @@ export default {
           this.run();
         }
       } else if (this.page == "define") {
-        this.$apollo.mutate(
-          argMutate("stateChange", { state: "page", value: this.page })
-        );
+        this.stateChange({ state: "page", value: this.page })
         this.results = "Solve";
       }
     },
@@ -99,18 +87,18 @@ export default {
       this.progress = true;
       let response = {};
       let rtn = [];
-      response = await this.$apollo.mutate(
+      /* response = await this.$apollo.mutate(
         mutateServer("run", "RunInput!", { id: this.project.id }, query)
-      );
+      ); */
 
       rtn = response.data["run"]["rtn"];
       if (rtn) {
-        await this.$apollo.mutate(
+        /* await this.$apollo.mutate(
           argMutate("stateChange", { state: "project", value: rtn })
         );
         this.$apollo.mutate(
           argMutate("stateChange", { state: "page", value: this.page })
-        );
+        ); */
         this.results = "Results";
       } else {
         this.errorM = "Unstable structure";
@@ -120,6 +108,9 @@ export default {
       }
       this.progress = false;
     }
+  },
+  computed: {
+    ...mapState(['project','page']),
   }
 };
 </script>

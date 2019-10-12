@@ -82,8 +82,8 @@ var fInf = function(obj) {
   return obj;
 };
 var gftr = (obj, cv, vl) =>{
+  console.log(JSON.parse(cv.features),vl,JSON.parse(cv.features)["PX"])
   return math.round(obj.unites[vl].vl *JSON.parse(cv.features)[vl], obj.unites[vl].rd)
-  
 }
   
 var fSrsInf = function(obj) {
@@ -199,6 +199,7 @@ var fDInf = function(obj) {
         .filter(cv => cv.type == obj.name)
         .map(cv => {
           return {
+            project:cv.project,
             id: cv.id,
             name: cv.name,
             Axes: cv.Axes,
@@ -214,15 +215,20 @@ var fDInf = function(obj) {
         .filter(cv => cv.type == obj.name)
         .map(cv => {
           return {
+            project:cv.project,
             id: cv.id,
             name: cv.name,
             Axes: cv.Axes,
             ...obj.fltp.reduce((ac, vl) => {
-              ac[vl.name] = vl.gp.map(cv2 => gftr(obj, cv, cv2)).join("<br>");
+              ac[vl.name] = vl.gp.map(cv2 => gftr(obj, cv, cv2));
               return ac;
             }, {})
           };
         });
+    obj["ds"] =obj.fltp.reduce((ac, vl) => {
+          ac[vl.name] = vl.gp.map(() => {return {type:"idt",value:Dsvalue.idt} });
+          return ac;
+        }, {})
   }
 
   obj["fe"] = item => {

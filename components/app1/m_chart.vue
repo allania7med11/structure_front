@@ -25,19 +25,12 @@
 </template>
 
 <script>
+import { mapState,mapGetters,mapActions } from 'vuex'
 import chart from "./cps/chart";
 import { cht, DChfn } from "@/constants/app1/chart";
-import { query } from "@/constants/app1/static";
 export default {
   components: {
     chart
-  },
-  apollo: {
-    id: apolloState("id"),
-    project:{
-      query: readServerQ("project", "ID!", query),
-      variables() { return { input: this.id} }
-    },
   },
   data: () => ({
     id:1,
@@ -49,16 +42,14 @@ export default {
       cdn: ["Point Loads", "Support"],
       cdb: ["Distributed Loads", "Section", "Release"]
     },
-    project: { nodes: [], bars: [] }
   }),
   computed: {
+    ...mapState(['project']),
     rcht() {
-      if (!this.$apollo.queries.project.loading) {
-        let ch;
-        ch = DChfn(this.project, this.dt);
-        return ch;
-      }
-      return null;
+      console.log("this.project",this.project)
+      let ch;
+      ch = DChfn(this.project, this.dt);
+      return ch;
     }
   },
   methods: {
