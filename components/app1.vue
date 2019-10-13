@@ -1,6 +1,6 @@
 <template>
   <v-container class="pa-0" fluid>
-    <m_pages />
+      <m_pages />
     <v-layout align-start justify-space-around wrap>
       <m_chart />
       <v-flex xs12 md5>

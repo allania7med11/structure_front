@@ -7,14 +7,14 @@
         @change="fpage"
       > 
         <v-btn
-          flat
+          text
           class="text-none"
           value="define"
         >
           {{ project["name"] }}
         </v-btn>
         <v-btn
-          flat
+          text
           class="text-none"
           value="results"
         >
@@ -32,7 +32,7 @@
         :value="error"
         color="error"
         icon="warning"
-        outline
+        outlined
       >
         {{ errorM }}
       </v-alert>
@@ -48,7 +48,6 @@ export default {
       componentKey: 0,
       error: false,
       errorM: "",
-      page: "define",
       results: "Solve",
       progress: false
     };

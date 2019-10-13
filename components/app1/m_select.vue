@@ -13,13 +13,13 @@
           single-line hide-details @change="searchChange"/>
       </v-flex>
     </v-layout>
-    <v-layout row wrap>
+    <v-layout row >
       <v-flex xs12>
         <v-card v-show="sc" :key="componentKey">
           <v-card-title>
             <v-flex :-dynamic-flex-="true">
               <v-layout row>
-                <v-flex mx-1>
+                <v-flex mx-1 xs4>
                   <v-select
                     v-model="sl1"
                     :label="label[0]"
@@ -28,7 +28,7 @@
                     item-value="id"
                   />
                 </v-flex>
-                <v-flex mx-1>
+                <v-flex mx-1 xs2>
                   <v-select
                     v-if="its2"
                     v-model="sl2"
@@ -38,7 +38,7 @@
                     item-value="id"
                   />
                 </v-flex>
-                <v-flex mx-1>
+                <v-flex mx-1 xs5>
                   <v-select
                     v-if="its3"
                     v-model="sl3"
