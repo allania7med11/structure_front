@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
-import { sections, dls, applys, test } from "./static";
-import { Infs } from "./Infs";
-import { Flds } from "./Flds";
+import { sections, dls, applys, test } from "./static2";
+import { Infs } from "./Infs2";
+import { Flds } from "./Flds2";
 
 let derr = (self, name, cv) => {
   return Flds[name][cv].type === "checkbox"

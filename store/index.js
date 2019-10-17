@@ -1,9 +1,9 @@
 const axios = require('axios');
 import moment from 'moment'
 import Cookies from 'js-cookie/src/js.cookie.js'
-import { mds, Acs } from "@/constants/app1/static";
+import { mds, Acs } from "~/constants/app1/static2";
 import { sortDate  } from "@/constants/static";
-import { Infs } from "@/constants/app1/Infs";
+import { Infs } from "~/constants/app1/Infs2";
 export const strict = false
 export const state = () => ({
   username:false,

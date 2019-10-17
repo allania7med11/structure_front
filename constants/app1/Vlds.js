@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
 import { required, integer, minValue } from "vuelidate/lib/validators";
-import { sections, dls, applys, test } from "./static";
-import { Infs } from "./Infs";
-import { Flds } from "./Flds";
+import { sections, dls, applys, test } from "./static2";
+import { Infs } from "./Infs2";
+import { Flds } from "./Flds2";
 var unique = function(self, args) {
   return value =>
     !self.project[args["from"]].find(cv =>

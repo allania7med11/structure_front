@@ -7,6 +7,7 @@
       v-if="dialog"
       flat
       class="fixed"
+      :style="$vuetify.breakpoint.mdAndUp  ? { 'width': '45%' } : { 'width': '100%' }"
     >
       <v-card-text class="pa-0">
         <v-container class="pa-1">

@@ -28,7 +28,7 @@
                     item-value="id"
                   />
                 </v-flex>
-                <v-flex mx-1 xs2>
+                <v-flex mx-1 :xs2="its3" :xs4="!its3" >
                   <v-select
                     v-if="its2"
                     v-model="sl2"
@@ -58,13 +58,14 @@
 </template>
 <script>
 import { mapState,mapActions } from 'vuex'
-import { tbs, tbsR,  labels, mds } from "@/constants/app1/static";
+import { labels, mds } from "@/constants/app1/static";
+import { Orders } from "@/constants/app1/order";
 import app1 from "@/components/app1";
 export default {
   data: () => {
     return {
       componentKey: 0,
-      tbs: tbs,
+      tbs: Orders.tbs,
       sl1: 0,
       sl2: 0,
       sl3: 0,
@@ -122,9 +123,9 @@ export default {
         this.sl2 = 0;
         this.sl3 = 0;
         if (val == "results") {
-          this.tbs = tbsR(this.project);
+          this.tbs = Orders.tbsR(this.project);
         } else {
-          this.tbs = tbs;
+          this.tbs = Orders.tbs;
         }
         this.componentKey += 1;
       }

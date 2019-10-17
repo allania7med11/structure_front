@@ -3,7 +3,7 @@
     <v-flex ml-4 mt-2>
       <v-btn-toggle
         :key="componentKey"
-        v-model="page"
+        v-model="choice"
         @change="fpage"
       > 
         <v-btn
@@ -49,16 +49,17 @@ export default {
       error: false,
       errorM: "",
       results: "Solve",
-      progress: false
+      progress: false,
+      choice: "define",
     };
   },
   methods: {
-    ...mapActions(['stateChange']),
+    ...mapActions(['stateChange','aProject']),
     console(val) {
       console.log(val);
     },
     fpage() {
-      if (this.page == "results") {
+      if (this.choice == "results") {
         let isolates = this.project.nodes.filter(
           cv => cv.N1.length == 0 && cv.N2.length == 0
         );
@@ -70,39 +71,31 @@ export default {
               .map(cv => String(cv.name))
               .join(",");
           this.error = true;
-          this.page = "define";
+          this.choice = "define";
           this.componentKey += 1;
         } else {
           this.errorM = "";
           this.error = false;
           this.run();
         }
-      } else if (this.page == "define") {
-        this.stateChange({ state: "page", value: this.page })
+      } else if (this.choice == "define") {
+        this.stateChange({ state: "page", value: "define" })
         this.results = "Solve";
       }
     },
     async run() {
       this.progress = true;
-      let response = {};
-      let rtn = [];
-      /* response = await this.$apollo.mutate(
-        mutateServer("run", "RunInput!", { id: this.project.id }, query)
-      ); */
-
-      rtn = response.data["run"]["rtn"];
-      if (rtn) {
-        /* await this.$apollo.mutate(
-          argMutate("stateChange", { state: "project", value: rtn })
-        );
-        this.$apollo.mutate(
-          argMutate("stateChange", { state: "page", value: this.page })
-        ); */
+      // var results= await this.$axios.$get(`/api/projects/${this.project.id}/run/`)
+      var results= true
+      if (results) {
+        console.log(results)
+        this.aProject({id:this.$route.params.id})
         this.results = "Results";
+        this.stateChange({ state: "page", value: this.choice });
       } else {
         this.errorM = "Unstable structure";
         this.error = true;
-        this.page = "define";
+        this.stateChange({ state: "page", value: "define" });
         this.componentKey += 1;
       }
       this.progress = false;

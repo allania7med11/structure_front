@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import { mapState,mapGetters,mapActions } from 'vuex'
 import chart from "./cps/chart";
 import { chdt, Plfn } from "@/constants/app1/chart";
 import { mds, query, Units } from "@/constants/app1/static";
@@ -25,24 +26,13 @@ export default {
   components: {
     chart
   },
-  apollo: {
-    id: apolloState("id"),
-    project:{
-      query: readServerQ("project", "ID!", query),
-      variables() { return { input: this.id,}},
-      // variables:{ input: 1}
-    },
-    slg: apolloState("slg"),
-    detailIndex: apolloState("detailIndex"),
-  },
+  
   data: () => ({
-    slg:"FX",
-    id:1,
     X: 0,
     Xn: 0,
-    detailIndex: -1
   }),
   computed: {
+    ...mapState(['project','slg','detailIndex']),
     fonction() {
       return this.slg + this.dt.unite.lb + "=" + this.exp;
     },
@@ -100,13 +90,10 @@ export default {
       return [0];
     },
     rcht() {
-      if (!this.$apollo.queries.project.loading) {
-        let dtj = chdt(this.bar, this.dt, this.fct, this.xm);
-        let ch;
-        ch = Plfn(dtj);
-        return ch;
-      }
-      return null;
+      let dtj = chdt(this.bar, this.dt, this.fct, this.xm);
+      let ch;
+      ch = Plfn(dtj);
+      return ch;
     }
   },
   methods: {
@@ -114,7 +101,7 @@ export default {
       console.log(val);
     },
     fct(t) {
-      return math.eval(this.exp, { x: t });
+      return math.evaluate(this.exp, { x: t });
     },
     change(cv) {
       if (cv == 0) {

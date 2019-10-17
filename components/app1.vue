@@ -7,7 +7,7 @@
         <v-layout column>
           <m_select />
           <m_table v-if="!testDetail" />
-          <!-- <m_detail v-if="testDetail" />  -->
+          <m_detail v-if="testDetail" /> 
         </v-layout>
       </v-flex>
     </v-layout>
@@ -23,10 +23,11 @@ import m_table from "@/components/app1/m_table";
 import m_form from "@/components/app1/m_form";
 import m_chart from "@/components/app1/m_chart";
 import m_pages from "@/components/app1/m_pages";
+import m_detail from "@/components/app1/m_detail";
 /* import m_pages from "@/components/app1/m_pages";
 import m_form from "@/components/app1/m_form";
 import m_chart from "@/components/app1/m_chart";
-import m_detail from "@/components/app1/m_detail"; */
+ */
 export default {
   name: "App",
   components: {
@@ -35,6 +36,7 @@ export default {
     m_form,
     m_chart,
     m_pages,
+    m_detail
     /* 
     m_table,
     m_form,

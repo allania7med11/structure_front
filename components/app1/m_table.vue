@@ -1,19 +1,17 @@
 <template>
-  <v-flex
-    xs12
-    md12
-  > 
+  <v-flex xs12 md12> 
+    {{ inf.ds }}
     <v-data-table
       :headers="headers"
       :hide-default-header="false"
       :items="items"
-      class="elevation-1"
+      class="elevation-1 "
       item-key="name"
       :search="search"
     > 
       
       <template v-if="md.action == 'define' && page == 'define'" v-slot:header.action="{ header }">
-        <v-icon class="m_add" color="white" @click="newItem">
+          <v-icon class="m_add" color="white" @click="newItem">
           add
         </v-icon>
       </template>
@@ -182,5 +180,8 @@ td {
   text-align: left;
   border: 1px solid #9fa8da;
   width: 1px;
+}
+.pre-formatted {
+  white-space: pre;
 }
 </style>
