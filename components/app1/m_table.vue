@@ -1,11 +1,10 @@
 <template>
   <v-flex xs12 md12> 
-    {{ inf.ds }}
     <v-data-table
       :headers="headers"
       :hide-default-header="false"
       :items="items"
-      class="elevation-1 "
+      class="elevation-1 pre-formatted"
       item-key="name"
       :search="search"
     > 
@@ -16,10 +15,9 @@
         </v-icon>
       </template>
       <template v-if="md.action == 'apply' && page == 'define'" v-slot:header.name="{ header }">
-        <v-btn small fab class="elevation-1" color="info" @click.stop.prevent="applyItem">
+        <v-btn x-small fab class="elevation-1" color="info" @click.stop.prevent="applyItem">
           <span class="headline">+</span>
-        </v-btn>
-        name
+        </v-btn><span> name</span>
       </template>
       <template v-if="md.action == 'define' && page == 'define'" v-slot:item.action="{ item }" >
         <span  v-if="item.project.id !== '1'">
@@ -50,13 +48,14 @@
 </template>
 <script>
 import { mapState,mapGetters,mapActions } from 'vuex'
+import { mStore } from "@/constants/static";
 export default {
   data: () => ({
     editedIndex: -1,
   }),
   computed: {
-    ...mapState(['project','page','search']),
-    ...mapGetters(['ac','md','inf','model']),
+    ...mapState(mStore.state('project',['project','page','search'])),
+    ...mapGetters(mStore.getter('project',['ac','md','inf','model'])),
     path(name) {
       return require(`@/assets/images/${name}.png` )
     },
@@ -67,15 +66,22 @@ export default {
       return this.inf.tbhs;
     },
     items() {
-      console.log(this.model)
-      if (this.page == "results" && "fltR" in this.inf) {
-        if ("flt" in this.inf) {
+      if (this.page == "results" && !!this.inf.fltR) {
+        if ( !!this.inf.flt ) {
           return this.inf.flt(this.inf.fltR(this.model));
         } else {
           return this.inf.fltR(this.model);
         }
       }
-      if ("flt" in this.inf) {
+      console.log("this.inf.fltRM",!!this.inf.fltRM)
+      if (this.page == "results" && !!this.inf.fltRM) {
+        if ( !!this.inf.flt ) {
+          return this.inf.flt(this.inf.fltRM(this.project,this.model));
+        } else {
+          return this.inf.fltRM(this.project,this.model);
+        }
+      }
+      if (!!this.inf.flt) {
         return this.inf.flt(this.model);
       }
       return this.model;
@@ -83,7 +89,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(['stateChange']),
+    ...mapActions(mStore.getter('project',['projectChange'])),
     hd(header){
       return "item." + header 
     },
@@ -99,26 +105,26 @@ export default {
       }
     },
     open() {
-      this.stateChange({ state: "dialog", value: true });
+      this.projectChange({ state: "dialog", value: true });
     },
     applyItem() {
-      this.stateChange({ state: "action", value: "apply" });
-      this.stateChange({ state: "editedIndex", value: -1 });
+      this.projectChange({ state: "action", value: "apply" });
+      this.projectChange({ state: "editedIndex", value: -1 });
       this.open();
     },
     newItem() {
-      this.stateChange({ state: "action", value: "create" });
-      this.stateChange({ state: "editedIndex", value: -1 });
+      this.projectChange({ state: "action", value: "create" });
+      this.projectChange({ state: "editedIndex", value: -1 });
       this.open();
     },
     editItem(item) {
-      this.stateChange({ state: "action", value: "update" });
-      this.stateChange({ state: "editedIndex", value: item.id });
+      this.projectChange({ state: "action", value: "update" });
+      this.projectChange({ state: "editedIndex", value: item.id });
       this.open();
     },
     deleteItem(item) {
-      this.stateChange({ state: "action", value: "delete" });
-      this.stateChange({ state: "editedIndex", value: item.id });
+      this.projectChange({ state: "action", value: "delete" });
+      this.projectChange({ state: "editedIndex", value: item.id });
       this.open();
     }
   }

@@ -1,24 +1,27 @@
-import { Statics } from "./static";
+import { Groups,Lists,Statics} from "./static";
+import { help } from "./help";
 export const groupF ={
     applys:function(name) {
 		let obj = {};
+		const apply=Groups.applys[name]
 		obj["name"] = {
 		  text: "Name",
 		  value: "name",
 		  type: "select",
-		  from: applys[name].model
+		  from: apply.model
 		};
-		obj[applys[name].from] = {
-		  text: "List of " + applys[name].from,
-		  value: applys[name].from,
+		obj[apply.from] = {
+		  text: "List of " + apply.from,
+		  value: apply.from,
 		  type: "text"
 		};
-		if (applys[name].type) {
+		if (apply.type) {
 		  obj["type"] = { text: "type", value: "type", type: "text" };
 		}
 		return obj;
 	},
     sections : function(name) {
+		const section=Groups.sections[name]
 		return {
 		  name: { text: "Name", value: "name", type: "text" },
 		  material: {
@@ -27,14 +30,14 @@ export const groupF ={
 			type: "select",
 			from: "materials"
 		  },
-		  ...test(sections[name], "fltp", []).reduce((ac, cv) => {
+		  ...help.test(section, "fltp", []).reduce((ac, cv) => {
 			ac[cv.name] = cv;
 			return ac;
 		  }, {}),
-		  image: sections[name].image ? sections[name].image : undefined,
-		  ...sections[name].features.reduce((ac, cv) => {
+		  image: section.image ? section.image : undefined,
+		  ...section.features.reduce((ac, cv) => {
 			ac[cv] = {
-			  text: cv + sections[name].unites[cv].lb,
+			  text: cv + section.unites[cv].lb,
 			  value: cv,
 			  type: "number"
 			};
@@ -43,13 +46,14 @@ export const groupF ={
 		};
 	},
     dls:function(name) {
+		const dl=Groups.dls[name]
 		return {
 		  name: { text: "Name", value: "name", type: "text" },
-		  ...test(dls[name], "fltp", []).reduce((ac, cv) => {
+		  ...help.test(dl, "fltp", []).reduce((ac, cv) => {
 			ac[cv.name] = cv;
 			return ac;
 		  }, {}),
-		  Axes: dls[name].flds.includes("Axes")
+		  Axes: dl.flds.includes("Axes")
 			? {
 				name: "Axes",
 				text: "Axes",
@@ -58,9 +62,9 @@ export const groupF ={
 				chs: [{ name: "Global", id: "G" }, { name: "Local", id: "L" }]
 			  }
 			: undefined,
-		  ...dls[name].features.reduce((ac, cv) => {
+		  ...dl.features.reduce((ac, cv) => {
 			ac[cv] = {
-			  text: cv + dls[name].unites[cv].lb,
+			  text: cv + dl.unites[cv].lb,
 			  value: cv,
 			  type: "number"
 			};
@@ -69,11 +73,12 @@ export const groupF ={
 		};
 	  },
     nrs:function(name) {
+		const nr=Groups.nrs[name]
 		return {
 		  name: { text: "Name", value: "name", type: "text" },
-		  ...nrs[name].features.reduce((ac, cv) => {
+		  ...nr.features.reduce((ac, cv) => {
 			ac[cv] = {
-			  text: cv + nrs[name].unites[cv].lb,
+			  text: cv + nr.unites[cv].lb,
 			  value: cv,
 			  type: "number"
 			};
@@ -82,12 +87,13 @@ export const groupF ={
 		};
 	  },
     brs:function(name) {
+		const br=Groups.brs[name]
 		return {
 		  name: { text: "Name", value: "name", type: "text" },
 		  nodes: { text: "Nodes", value: "nodes", type: "text" },
-		  ...brs[name].features.reduce((ac, cv) => {
+		  ...br.features.reduce((ac, cv) => {
 			ac[cv] = {
-			  text: cv + brs[name].unites[cv].lb,
+			  text: cv + br.unites[cv].lb,
 			  value: cv,
 			  type: "number"
 			};
@@ -138,7 +144,7 @@ export const Flds = {
 		type: "number"
 	  }
 	},
-	...List.sections.reduce((ac, cv) => {
+	...Lists.sections.reduce((ac, cv) => {
 	  ac[cv] = groupF.sections(cv);
 	  return ac;
 	}, {}),
@@ -148,15 +154,15 @@ export const Flds = {
 	  FZ: { text: "FZ[KN]", value: "FZ", type: "number" },
 	  CY: { text: "CY[KN*m]", value: "CY", type: "number" }
 	},
-	...List.dls.reduce((ac, cv) => {
+	...Lists.dls.reduce((ac, cv) => {
 	  ac[cv] = groupF.dls(cv);
 	  return ac;
 	}, {}),
-	...List.applys.reduce((ac, cv) => {
+	...Lists.applys.reduce((ac, cv) => {
 	  ac[cv] = groupF.applys(cv);
 	  return ac;
 	}, {}),
-	...List.nrs.reduce((ac, cv) => {
+	...Lists.nrs.reduce((ac, cv) => {
 	  ac[cv] = groupF.nrs(cv);
 	  return ac;
 	}, {}),
@@ -168,7 +174,7 @@ export const Flds = {
 		  return ac;
 		}, {})
 	},
-	...List.brs.reduce((ac, cv) => {
+	...Lists.brs.reduce((ac, cv) => {
 	  ac[cv] = groupF.brs(cv);
 	  return ac;
 	}, {})

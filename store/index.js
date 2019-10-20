@@ -1,44 +1,17 @@
 const axios = require('axios');
 import moment from 'moment'
 import Cookies from 'js-cookie/src/js.cookie.js'
-import { mds, Acs } from "~/constants/app1/static2";
 import { sortDate  } from "@/constants/static";
-import { Infs } from "~/constants/app1/Infs2";
 export const strict = false
+
+
 export const state = () => ({
   username:false,
   error:false,
   csrf:false,
-  id: 1,
-  editedIndex: -1,
-  detailIndex: -1,
-  dialog: false,
-  page: 'define',
-  search: '',
-  slg: "nodes",
-  action: 'create',
   projects:[],
-  project:{'nodes':[],'bars':[],'supports':[]},
 })
-export const getters ={
-  ac: state => {
-    return Acs[state.action]; 
-  },
-  md: state => {
-    return mds[state.slg]; 
-  },
-  inf: state => {
-    return Infs[state.slg]; 
-  },
-  model:(state,getters) => {
-    var field=getters.md.model
-    return state.project[field].sort(sortDate(state.page === "results"))
-  },
-  modelField:(state) => (field) => {
-    console.log(state.project[field])
-    return state.project[field].sort(sortDate(state.page === "results"))
-  }   
-}
+
 export const mutations = {
   stateChange (state,input) {
     state[input.state]=input.value
@@ -53,7 +26,6 @@ export const actions = {
       var US= await this.$axios.$get("/api/users/current/")
       var csrftoken = await Cookies.get('csrftoken');
       commit('stateChange',{state:"csrf",value:csrftoken}) ;     
-      console.log({"csrftoken":csrftoken})
       if (!!US.id){
         commit('stateChange',{state:"username",value:US.username})
         dispatch("aProjects")
@@ -66,26 +38,17 @@ export const actions = {
       console.error(error);
     }
   },
-  async aProjects({commit}) {
+  async aProjects({commit,state}) {
     try{
       var projects= await this.$axios.$get("/api/projects/")
         commit('stateChange',{
           state:"projects",
           value:projects.sort(sortDate(false))
           .map(cv => Object.assign({}, cv,{modified_date:moment(String(cv.modified_date)).format('MM/DD/YYYY hh:mm')}))
-        })   
+        })  
+      console.log(state) 
     } catch (error) {
       console.error(error);
     }
   },
-  async aProject({commit},input) {
-    try{
-      var project= await this.$axios.$get(`/api/projects/${input.id}/`)
-      console.log(project)
-      commit('stateChange',{state:"project",value:project})   
-    } catch (error) {
-      console.error(error);
-    }
-  }
-  
 }

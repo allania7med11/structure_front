@@ -1,7 +1,7 @@
 <template>
   <v-flex xs12 md12>
     <v-layout row wrap justify-space-between>
-      <v-flex xs4 md4 >
+      <v-flex xs5 md5 >
         <v-btn block  color="info" @click="sc = !sc">
           <v-icon>list</v-icon>
           {{ fslg.text }}
@@ -58,7 +58,9 @@
 </template>
 <script>
 import { mapState,mapActions } from 'vuex'
-import { labels, mds } from "@/constants/app1/static";
+import { mStore } from "@/constants/static";
+import { mds } from "@/constants/app1/static";
+import { help } from "@/constants/app1/help";
 import { Orders } from "@/constants/app1/order";
 import app1 from "@/components/app1";
 export default {
@@ -75,9 +77,9 @@ export default {
     };
   },
   computed: {
-    ...mapState(['project','slg','page']),
+    ...mapState(mStore.state('project',['project','slg','page'])),
     label: function() {
-      return labels[mds[this.slg]["action"]];
+      return help.labels[mds[this.slg]["action"]];
     },
     testDetail() {
       return mds[this.slg].action == "details";
@@ -106,12 +108,12 @@ export default {
         : this.its2
         ? this.its2[this.sl2]
         : this.tbs[this.sl1];
-      this.stateChange({ state: "slg", value: rtn.name })
+      this.projectChange({ state: "slg", value: rtn.name })
       if (!rtn.text) {
         rtn.text = rtn.label;
       }
       if (rtn.text == "Detailed Analysis") {
-        this.stateChange({ state: "detailIndex", value: this.its2[this.sl2].name })
+        this.projectChange({ state: "detailIndex", value: this.its2[this.sl2].name })
       }
       return rtn;
     }
@@ -137,11 +139,9 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['stateChange']),
+    ...mapActions(mStore.getter('project',['projectChange'])),
     searchChange() {
-      this.stateChange({ state: "search", value: this.search })
-      console.log("searchChange")
-      console.log(this.search)
+      this.projectChange({ state: "search", value: this.search })
     }
   }
 };

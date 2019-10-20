@@ -26,6 +26,7 @@
 
 <script>
 import { mapState,mapGetters,mapActions } from 'vuex'
+import { mStore } from "@/constants/static";
 import chart from "./cps/chart";
 import { cht, DChfn } from "@/constants/app1/chart";
 export default {
@@ -44,10 +45,10 @@ export default {
     },
   }),
   computed: {
-    ...mapState(['project']),
+    ...mapState(mStore.state('project',['project'])),
     rcht() {
-      console.log("this.project",this.project)
       let ch;
+      console.log("this.project",this.project)
       ch = DChfn(this.project, this.dt);
       return ch;
     }

@@ -1,7 +1,8 @@
 /* eslint-disable no-console */
-import { sections, dls, applys, test } from "./static2";
-import { Infs } from "./Infs2";
-import { Flds } from "./Flds2";
+import { Lists,Groups} from "./static";
+import { help } from "./help";
+import { Infs } from "./Infs";
+import { Flds } from "./Flds";
 
 let derr = (self, name, cv) => {
   return Flds[name][cv].type === "checkbox"
@@ -15,7 +16,7 @@ let derr = (self, name, cv) => {
 };
 var fErr = function(self, name, obj) {
   let err = Infs[name].flds.reduce((ac, cv) => {
-    ac[cv] = test(obj, cv, derr(self, name, cv));
+    ac[cv] = help.test(obj, cv, derr(self, name, cv));
     return ac;
   }, {});
   return err;
@@ -30,7 +31,7 @@ var fSErr = function(self, name) {
         errors.push("Section with this name already exist.");
       return errors;
     },
-    ...sections[name].features.reduce((ac, cv) => {
+    ...Groups.sections[name].features.reduce((ac, cv) => {
       ac[cv] = () => {
         const errors = [];
         if (!self.$v.editedItem[cv].$dirty) return errors;
@@ -55,7 +56,7 @@ var fDErr = function(self) {
     }
   };
 };
-export const Errs = {
+const Errs = {
   nodes: self => {
     return fErr(self, "nodes", {
       name: () => {
@@ -192,7 +193,7 @@ export const Errs = {
       }
     });
   },
-  ...sections.List.reduce((ac, cv) => {
+  ...Lists.sections.reduce((ac, cv) => {
     ac[cv] = self => {
       return fErr(self, cv, fSErr(self, cv));
     };
@@ -210,16 +211,18 @@ export const Errs = {
       }
     });
   },
-  ...dls.List.reduce((ac, cv) => {
+  ...Lists.dls.reduce((ac, cv) => {
     ac[cv] = self => {
       return fErr(self, cv, fDErr(self));
     };
     return ac;
   }, {}),
-  ...applys.List.reduce((ac, cv) => {
+  ...Lists.applys.reduce((ac, cv) => {
     ac[cv] = self => {
       return fErr(self, cv, {});
     };
     return ac;
   }, {})
 };
+
+export { Errs }

@@ -18,16 +18,13 @@
 <script>
 import { mds } from "@/constants/app1/static";
 import m_select from "@/components/app1/m_select";
-import { mapState } from 'vuex'
+import { mapGetters } from 'vuex'
+import { mStore } from "@/constants/static";
 import m_table from "@/components/app1/m_table";
 import m_form from "@/components/app1/m_form";
 import m_chart from "@/components/app1/m_chart";
 import m_pages from "@/components/app1/m_pages";
 import m_detail from "@/components/app1/m_detail";
-/* import m_pages from "@/components/app1/m_pages";
-import m_form from "@/components/app1/m_form";
-import m_chart from "@/components/app1/m_chart";
- */
 export default {
   name: "App",
   components: {
@@ -37,19 +34,14 @@ export default {
     m_chart,
     m_pages,
     m_detail
-    /* 
-    m_table,
-    m_form,
-    m_chart,
-    m_detail */
   },
   computed: {
-    ...mapState(['slg']),
+    ...mapGetters(mStore.getter('project',['md'])),
     test() {
-      return ["define", "apply"].includes(mds[this.slg].action);
+      return ["define", "apply"].includes(this.md.action);
     },
     testDetail() {
-      return mds[this.slg].action === "details";
+      return this.md.action === "details";
     }
   }
 };

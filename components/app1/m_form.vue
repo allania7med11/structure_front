@@ -128,10 +128,11 @@
 </template>
 
 <script>
-import { test } from "@/constants/app1/static";
+import { mapState,mapGetters,mapActions } from 'vuex'
+import { help } from "@/constants/app1/help";
 import { Vlds } from "@/constants/app1/Vlds";
 import { Errs } from "@/constants/app1/Errs";
-import { mapState,mapGetters,mapActions } from 'vuex'
+import { mStore } from "@/constants/static";
 export default {
   data: () => ({
     editedItem: { name: null, X: null, Z: null }
@@ -143,8 +144,8 @@ export default {
   },
 
   computed: {
-    ...mapState(['project','dialog','slg','action','editedIndex']),
-    ...mapGetters(['ac','md','inf','modelField']),
+    ...mapState(mStore.state('project',['project','dialog','slg','action','editedIndex'])),
+    ...mapGetters(mStore.getter('project',['ac','md','inf','modelField'])),
     bd() {
       return {
         checkbox: header => {
@@ -180,8 +181,8 @@ export default {
         }
       };
     },
-    dlt() {
-      return test(this.md, "text", "") + '"' + this.editedItem.name + '"';
+    dlt() {0
+      return help.test(this.md, "text", "") + '"' + this.editedItem.name + '"';
     },
     Errors() {
       return Errs[this.slg](this);
@@ -193,7 +194,7 @@ export default {
     },
     slg: {
       handler(val) {
-        this.stateChange({ state: "dialog", value: false });
+        this.projectChange({ state: "dialog", value: false });
         this.$v.$reset();
         this.editedItem = Object.assign({}, this.inf.defaultItem);
       }
@@ -204,10 +205,8 @@ export default {
         if (val > 0) {
           let item;
           item = this.project[this.md.model].find(cv => cv.id == val);
-          console.log(item)
           let editedItem;
           editedItem = this.inf.fe(item);
-          console.log(editedItem)
           for (const [key, value] of Object.entries(item)) {
             if (value.id) {
               editedItem[key] = value.id;
@@ -222,12 +221,13 @@ export default {
   },
 
   methods: {
-    ...mapActions(['stateChange','login','aProject']),
+    ...mapActions(['login']),
+    ...mapActions(mStore.getter('project',['projectChange','aProject'])),
     console(val) {
       console.log(val);
     },
     close() {
-      this.stateChange({ state: "dialog", value: false });
+      this.projectChange({ state: "dialog", value: false });
       this.$v.$reset();
     },
     async save() {
@@ -235,7 +235,8 @@ export default {
       let rtn = [];
       this.$v.$touch();
       if (!this.$v.$invalid) {
-        this.stateChange({ state: "error", value: false })
+        this.projectChange({ state: "results", value: "Solve" })
+        this.projectChange({ state: "error", value: false })
         try {
           if (this.editedIndex > -1) {
             if (this.action === "delete") {
@@ -249,17 +250,15 @@ export default {
               );
             }
           } else {
-            console.log(this.inf.fm(this.editedItem))
             response = await this.$axios.$post(
               `/api/${ this.md.model }/`,
               { project:this.project.id,...this.inf.fm(this.editedItem) }
               );
           }
-          console.log({response:response})
         } catch(e) {
           console.log(e)
           this.login()
-          this.stateChange({ state: "error", value: true })
+          this.projectChange({ state: "error", value: true })
           this.close();
         }
         this.aProject({id:this.$route.params.id})
@@ -275,15 +274,16 @@ export default {
       let rtn = [];
       this.$v.$touch();
       if (!this.$v.$invalid) {
+        this.projectChange({ state: "results", value: "Solve" })
         try {
         response = await this.$axios.$post(
               `/api/${ this.md.model }/${ this.editedItem.name }/apply/`,
-              { ...this.inf.mt({ ...this.editedItem, action: action,project:this.project.id }) },
+              { action: action,lst:this.editedItem[this.inf.Static.from],project:this.project.id },
               );
         } catch(e) {
           console.log(e)
           this.login()
-          this.stateChange({ state: "error", value: true })
+          this.projectChange({ state: "error", value: true })
           this.close();
         }
         this.aProject({id:this.$route.params.id})

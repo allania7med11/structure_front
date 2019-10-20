@@ -1,40 +1,44 @@
 /* eslint-disable no-console */
 import { required, integer, minValue } from "vuelidate/lib/validators";
-import { sections, dls, applys, test } from "./static2";
-import { Infs } from "./Infs2";
-import { Flds } from "./Flds2";
-var unique = function(self, args) {
-  return value =>
-    !self.project[args["from"]].find(cv =>
-      cv.id != self.editedIndex ? cv.name == value : false
-    );
-};
-var uniqueXZ = function(self) {
-  return () =>
-    !self.project["nodes"].find(cv =>
-      cv.id != self.editedIndex
-        ? cv.X == self.editedItem.X && cv.Z == self.editedItem.Z
-        : false
-    );
-};
-var uniqueN12 = function(self) {
-  return () =>
-    !self.project["bars"].find(cv =>
-      cv.id != self.editedIndex
-        ? cv.N1.id == self.$v.editedItem.N1.$model &&
-          cv.N2.id == self.$v.editedItem.N2.$model
-        : false
-    );
-};
-var notSameN12 = function(self) {
-  return () => self.editedItem.N1 != self.editedItem.N2;
-};
+import { Lists,Groups } from "./static";
+import { help } from "./help";
+import { Infs } from "./Infs";
+import { Flds } from "./Flds";
+const vldsF={
+  unique : function(self, args) {
+    return value =>
+      !self.project[args["from"]].find(cv =>
+        cv.id != self.editedIndex ? cv.name == value : false
+      )
+  },
+  uniqueXZ : function(self) {
+    return () =>
+      !self.project["nodes"].find(cv =>
+        cv.id != self.editedIndex
+          ? cv.X == self.editedItem.X && cv.Z == self.editedItem.Z
+          : false
+      );
+  },
+  uniqueN12:function(self) {
+    return () =>
+      !self.project["bars"].find(cv =>
+        cv.id != self.editedIndex
+          ? cv.N1.id == self.$v.editedItem.N1.$model &&
+            cv.N2.id == self.$v.editedItem.N2.$model
+          : false
+      );
+  },
+  notSameN12 : function(self) {
+    return () => self.editedItem.N1 != self.editedItem.N2;
+  }
+}
+
 let dvld = (name, cv) => {
   return Flds[name][cv].type === "checkbox" ? {} : { required };
 };
 var fVld = function(name, obj) {
   let err = Infs[name].flds.reduce((ac, cv) => {
-    ac[cv] = test(obj, cv, dvld(name, cv));
+    ac[cv] = help.test(obj, cv, dvld(name, cv));
     return ac;
   }, {});
   return err;
@@ -43,31 +47,31 @@ var fSVld = function(self, name) {
   return {
     name: {
       required,
-      unique: unique(self, { from: "sections" })
+      unique: vldsF.unique(self, { from: "sections" })
     },
-    ...sections[name].features.reduce((ac, cv) => {
+    ...Groups.sections[name].features.reduce((ac, cv) => {
       ac[cv] = { required, min0: value => value > 0 };
       return ac;
     }, {})
   };
 };
 
-export const Vlds = {
+const Vlds = {
   nodes: self => {
     return fVld("nodes", {
       name: {
         required,
         integer,
         min0: value => value > 0,
-        unique: unique(self, { from: "nodes" })
+        unique: vldsF.unique(self, { from: "nodes" })
       },
       X: {
         required,
-        uniqueXZ: uniqueXZ(self)
+        uniqueXZ: vldsF.uniqueXZ(self)
       },
       Z: {
         required,
-        uniqueXZ: uniqueXZ(self)
+        uniqueXZ: vldsF.uniqueXZ(self)
       }
     });
   },
@@ -77,17 +81,17 @@ export const Vlds = {
         required,
         integer,
         min0: value => value > 0,
-        unique: unique(self, { from: "bars" })
+        unique: vldsF.unique(self, { from: "bars" })
       },
       N1: {
         required,
-        notSameN12: notSameN12(self),
-        uniqueN12: uniqueN12(self)
+        notSameN12: vldsF.notSameN12(self),
+        uniqueN12: vldsF.uniqueN12(self)
       },
       N2: {
         required,
-        notSameN12: notSameN12(self),
-        uniqueN12: uniqueN12(self)
+        notSameN12: vldsF.notSameN12(self),
+        uniqueN12: vldsF.uniqueN12(self)
       }
     });
   },
@@ -95,7 +99,7 @@ export const Vlds = {
     return fVld("supports", {
       name: {
         required,
-        unique: unique(self, { from: "supports" })
+        unique: vldsF.unique(self, { from: "supports" })
       }
     });
   },
@@ -103,7 +107,7 @@ export const Vlds = {
     return fVld("releases", {
       name: {
         required,
-        unique: unique(self, { from: "releases" })
+        unique: vldsF.unique(self, { from: "releases" })
       }
     });
   },
@@ -111,7 +115,7 @@ export const Vlds = {
     return fVld("materials", {
       name: {
         required,
-        unique: unique(self, { from: "materials" })
+        unique: vldsF.unique(self, { from: "materials" })
       },
       YM: {
         required,
@@ -123,7 +127,7 @@ export const Vlds = {
       }
     });
   },
-  ...sections.List.reduce((ac, cv) => {
+  ...Lists.sections.reduce((ac, cv) => {
     ac[cv] = self => {
       return fVld(cv, fSVld(self, cv));
     };
@@ -133,22 +137,24 @@ export const Vlds = {
     return fVld("pls", {
       name: {
         required,
-        unique: unique(self, { from: "pls" })
+        unique: vldsF.unique(self, { from: "pls" })
       }
     });
   },
-  ...dls.List.reduce((ac, cv) => {
+  ...Lists.dls.reduce((ac, cv) => {
     ac[cv] = self => {
       return fVld(cv, {
-        name: { required, unique: unique(self, { from: "dls" }) }
+        name: { required, unique: vldsF.unique(self, { from: "dls" }) }
       });
     };
     return ac;
   }, {}),
-  ...applys.List.reduce((ac, cv) => {
+  ...Lists.applys.reduce((ac, cv) => {
     ac[cv] = () => {
       return fVld(cv, {});
     };
     return ac;
   }, {})
 };
+
+export { Vlds }

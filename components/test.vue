@@ -120,7 +120,6 @@ export default {
     },
     search: {
       handler(val) {
-        console.log("table")
         console.log(val)
       }
     }

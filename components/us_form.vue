@@ -71,7 +71,7 @@
 
 <script>
 import { required } from "vuelidate/lib/validators"
-import {  Acs  } from "../constants/app1/static";
+import {  help  } from "../constants/app1/help";
 import { mapState,mapActions } from 'vuex'
 import { sortDate  } from "@/constants/static";
 export default {
@@ -86,7 +86,7 @@ export default {
   computed: {
     ...mapState(['projects','dialog','action','editedIndex','csrf']),
     ac() {
-      return Acs[this.action];
+      return help.Acs[this.action];
     },
     defaultItem() {
       return{

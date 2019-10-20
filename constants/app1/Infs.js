@@ -1,11 +1,7 @@
-import { Lists,Statics } from "./static";
+const math = require("mathjs");
+import { Lists,Groups,Statics } from "./static";
+import { help } from "./help";
 import { Flds } from "./Flds";
-var Dsvalue={
-    bl:(x,id) => testArray(x,id) ? "check" : "times",
-    name : (x,id) => testArray(x,id).name ,
-    unite : (value) => (x,id) => testArray(x,id)*value ,
-    idt : (x,id) =>  x[id],
-  }
 class cInfs {
     constructor(Static, Fld) {
       this.Static = Static;
@@ -16,62 +12,121 @@ class cInfs {
       }
     get flds() {
         if(this.Static.group=="applys"){
-            return this.Static.type ? ["name", "type", static.from]:["name", static.from]
+            return ["name", this.Static.from]
         }
         return this.Static.flds;
     }
     get fldsGroup() {
         if(this.Static.hasOwnProperty("features")){
-            return this.flds.filter(cv => !this.flds.includes(cv))
+            return this.flds.filter(cv => !this.Static.features.includes(cv))
         }
         return [];
     }
     get fldsT() {
+        if(this.Static.group=="applys"){
+            return this.Static.type ? ["name", "type", this.Static.from]:["name", this.Static.from]
+        }
         return !this.Static.hasOwnProperty("fldsT")?this.flds:this.Static.fldsT;
       }
     get tbhs() {
         return this.fldsT.map(cv => this.Fld[cv]);;
       }
+    featuretr(cv, vl){
+        return math.round(this.Static.unites[vl].vl *JSON.parse(cv.features)[vl], this.Static.unites[vl].rd)
+    }
+    Unitetr(value, unite){
+        const unt=this.Static.unites[unite]
+        return String(math.round(unt.vl *value, unt.rd))
+    }
     get flt(){
         if(["sections","dls"].includes(this.Static.group) ){
             let fltFeatures=!this.Static.hasOwnProperty("fltp")? 
-                (ac, vl) => {ac[vl] = gftr(obj, cv, vl);return ac}:
-                (ac, vl) => {ac[vl.name] = vl.gp.map(cv2 => gftr(obj, cv, cv2)).join("\n");return ac;}                 
+                features => this.Static.features.reduce((ac, fld) => {ac[fld] = this.Unitetr(features[fld], fld);return ac},{} ):
+                features => this.Static.fltp.reduce((ac, Gp) => {ac[Gp.name] = Gp.gp.map(fld => this.Unitetr(features[fld],fld)).join("\n");return ac;},{})                 
             return vl =>
-                vl.filter(cv => cv.type == this.Static.name)
+                vl.filter(cv => cv.type == this.name)
                 .map(cv => {
                     return {
                         project: cv.project,
                         id: cv.id,
-                        ...this.fldsGroup.reduce((ac, vl) => {ac[vl] = cv[vl];return ac;}, {}),
-                        ...this.Static.features.reduce(fltFeatures, {})
+                        ...this.fldsGroup.reduce((ac, vl) => {ac[vl] =help.test(cv[vl],'name',cv[vl]);return ac;}, {}),
+                        ...fltFeatures(JSON.parse(cv.features))
                     };
                 }); 
         }
-        if (this.Static.name=="nrs"){
+        if(this.Static.group==="applys" ){
+            return vl => {
+                return vl.filter(cv => cv[this.Static.from].length > 0);
+            } 
+        }
+        if (this.Static.group=="nrs"){
+            return vl =>
+                vl.map(cv => {
+                    console.log(cv)
+                    return {
+                        id: cv.id,
+                        name: cv.name,
+                        type: cv.type,
+                        ...this.Static.features.reduce((ac, fld, i) => {
+                            ac[fld] = this.Unitetr(cv[this.name][i],fld);
+                            return ac;
+                          }, {})
+                    };
+                })
+        }
+        if (this.Static.name=="srs"){
             return vl =>
                 vl.map(cv => {
                     return {
                         id: cv.id,
                         name: cv.name,
                         type: cv.type,
-                        ...obj.fltp.reduce((ac, Gp) => {
+                        ...this.Static.fltp.reduce((ac, Gp) => {
                         ac[Gp.name] = Gp.gp
-                            .map(fld => String(math.round(obj.unites[fld].vl * cv[fld], obj.unites[fld].rd))
-                            ).join("\n");
+                            .map(fld =>this.Unitetr(cv[fld],fld)).join("\n");
                         return ac;
                         }, {})
+                    };
+                })
+        }
+        if (this.Static.group=="brs"){
+            return vl =>
+                vl.map(cv => {
+                    return {
+                        id: cv.id,
+                        name: cv.name,
+                        nodes: `${cv.N1.name}\n${cv.N2.name}`,
+                        ...this.Static.fltp.reduce((ac, Gp) => {
+                            ac[Gp.name] = Gp.gp
+                                .map(fld => this.Unitetr(cv[this.name][fld],Gp.name))
+                                .join("\n");
+                            return ac;
+                            }, {}
+                        )
                     };
                 })
         }
         return false
     }
     get fltR(){
-        let name=this.Static.group+"Apply"
+        let name=this.name+"Apply"
+        console.log(name)
         if(Lists.applys.includes(name)){
-            let apply=Groups.applys[apply].from
+            let apply=Groups.applys[name].from
+            console.log(this.name,apply)
             return vl =>{ return vl.filter(cv => cv[apply].length > 0) };
         }
+        return false
+    }
+    get fltRM(){
+        if (this.name==="materials"){
+            return (pr,md) =>{
+                const materials=pr["sections"].filter(cv => cv["bars"].length > 0).map(cv2=>cv2.material.name)
+                console.log("materials",materials)
+                return md.filter(cv => materials.includes(cv.name)) 
+            } 
+        }
+        return false
     }
     get ds() {
         let rtn={}
@@ -81,16 +136,10 @@ class cInfs {
                 return x.map(a => a.name).sort((a, b) => a - b).join(",")
                 }
             }]
-            return !this.Static.type ? rtn:
-                rtn.update({type:[{type:"aaa",value:(x,id) => testArray(x,id).replace("_", " ")}]})
-		}
-		if(this.Static.group=="sections"){
-            return !this.Static.hasOwnProperty("fltp") ? rtn:
-                rtn.update(
-					this.Static.fltp.reduce((ac, vl) => {
-						ac[vl.name] = vl.gp.map(() => {return {type:"idt",value:Dsvalue.idt} });
-						return ac;
-					}, {}))
+            if (!!this.Static.type){
+                rtn["type"]=[{type:"aaa",value:(x,id) => help.testArray(x,id).replace("_", " ")}]
+            }
+            return rtn
         }
         return !this.Static.hasOwnProperty("ds")?{}:this.Static.ds;
     }
@@ -101,14 +150,30 @@ class cInfs {
             cv.map(cv2 => cv2.map(cv3 => this.Fld[cv3]))
           );
     }
+    get defaultItem() {
+        let di = this.flds.reduce((ac, cv) => {
+            ac[cv] = this.Fld[cv].type === "checkbox" ? false : null;
+            return ac;
+        }, {});
+        if(["sections","dls"].includes(this.Static.group)){
+            di["type"] =this.name
+        }
+        if (!this.Static.hasOwnProperty("defaultItem")) {
+            return di;
+        } else {
+            return Object.assign({}, di, this.Static["defaultItem"]);
+        }
+    }
     get fe() {
-        if(this.Static.group=="sections"){
+        if(["sections","dls"].includes(this.Static.group)){
             return item => {
+                console.log(item)
+                const features=JSON.parse(item.features)
                 return {
-                    name: item.name,
-                    material: item.material,
-                    ...obj.features.reduce((ac, vl) => {
-                        ac[vl] = math.round(obj.unites[vl].vl * JSON.parse(item.features)[vl],obj.unites[vl].rd);
+                    type:item.type,
+                    ...this.fldsGroup.reduce((ac, vl) => {ac[vl] =item[vl];return ac;}, {}),
+                    ...this.Static.features.reduce((ac, vl) => {
+                        ac[vl] = math.round(this.Static.unites[vl].vl * features[vl],this.Static.unites[vl].rd);
                         return ac;
                     }, {})
                 };
@@ -118,15 +183,14 @@ class cInfs {
             item =>this.flds.reduce((ac, vl) => {ac[vl] = item[vl];return ac;}, {});
     }
     get fm() {
-        if(this.Static.group=="sections"){
+        if(["sections","dls"].includes(this.Static.group)){
             return item => {
                 return {
-                    name: item.name,
-                    material: item.material,
-                    type: obj.name,
+                    type:item.type,
+                    ...this.fldsGroup.reduce((ac, vl) => {ac[vl] =item[vl];return ac;}, {}),
                     features: JSON.stringify(
-                    obj.features.reduce((ac, vl) => {
-                        ac[vl] = item[vl] / obj.unites[vl].vl;
+                    this.Static.features.reduce((ac, vl) => {
+                        ac[vl] = item[vl] / this.Static.unites[vl].vl;
                         return ac;
                     }, {})
                     )
@@ -137,4 +201,9 @@ class cInfs {
     }
 }
 
-export const Infs = Lists.all.reduce((ac,cv)=>{ac[cv]=new cInfs(Statics[cv],Flds[cv])})
+var Infs = {}
+Lists.all.forEach(function(cv) {
+    Infs[cv]=new cInfs(Statics[cv],Flds[cv])
+  });
+
+export { Infs }

@@ -22,6 +22,7 @@ export default {
     ...mapActions(['login'])
   },
   mounted(){
+    console.log("this.$store",this.$store)
     this.login()
   }
 }

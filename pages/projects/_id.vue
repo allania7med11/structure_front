@@ -8,6 +8,7 @@
 <script>
 import { mapState,mapActions } from 'vuex'
 import app1 from "@/components/app1";
+import { mStore } from "@/constants/static";
 
 export default {
   components: {
@@ -17,13 +18,13 @@ export default {
     show:true
   }),
   computed:{
-    ...mapState(["project"]),
+    ...mapState(mStore.state("project",["project"])),
   },
   methods:{
-      ...mapActions(['aProject']),
+      ...mapActions(mStore.getter("project",['reset','aProject'])),
   }, 
   mounted(){
-    console.log({id:"this.$route.params.id"})
+    this.reset()
     this.aProject({id:this.$route.params.id})
   } 
 }

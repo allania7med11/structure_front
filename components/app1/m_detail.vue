@@ -1,16 +1,16 @@
 <template>
-  <div class="wrapper">
+  <div class="wrapper pre-formatted">
     <chart v-if="rcht != null" :height="250" :chartdata="rcht.data" :options="rcht.options"/>
 
     <v-flex xs12 ma-1>
-      <p class="font-weight-black" v-html="fonction"/>
+      <p class="font-weight-black" v-text="fonction"/>
     </v-flex>
     <v-layout>
       <v-flex ma-1>
         <v-text-field v-model.number="X" label="X[m]" @change="change"/>
       </v-flex>
       <v-flex ma-1>
-        <span v-html="result" />
+        <span v-text="result" />
       </v-flex>
     </v-layout>
   </div>
@@ -18,21 +18,22 @@
 
 <script>
 import { mapState,mapGetters,mapActions } from 'vuex'
+import { mStore } from "@/constants/static";
 import chart from "./cps/chart";
 import { chdt, Plfn } from "@/constants/app1/chart";
-import { mds, query, Units } from "@/constants/app1/static";
+import { mds, query } from "@/constants/app1/static";
+import { Units } from "@/constants/app1/help";
 const math = require("mathjs");
 export default {
   components: {
     chart
   },
-  
   data: () => ({
     X: 0,
     Xn: 0,
   }),
   computed: {
-    ...mapState(['project','slg','detailIndex']),
+    ...mapState(mStore.state('project',['project','slg','detailIndex'])),
     fonction() {
       return this.slg + this.dt.unite.lb + "=" + this.exp;
     },
@@ -40,7 +41,7 @@ export default {
       return (
         this.slg +
         this.dt.unite.lb +
-        "<br>" +
+        "\n" +
         String(math.round(this.fct(this.Xn), this.dt.unite.rd))
       );
     },
@@ -119,6 +120,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.pre-formatted {
+  white-space: pre;
+}
 .wrapper {
   background-color: white;
   position: relative;

@@ -42,19 +42,19 @@
 
 <script>
 import { mapState,mapActions } from 'vuex'
+import { mStore } from "@/constants/static";
 export default {
   data() {
     return {
       componentKey: 0,
       error: false,
       errorM: "",
-      results: "Solve",
       progress: false,
       choice: "define",
     };
   },
   methods: {
-    ...mapActions(['stateChange','aProject']),
+    ...mapActions(mStore.getter('project',['projectChange','aProject'])),
     console(val) {
       console.log(val);
     },
@@ -72,37 +72,41 @@ export default {
               .join(",");
           this.error = true;
           this.choice = "define";
-          this.componentKey += 1;
         } else {
           this.errorM = "";
           this.error = false;
           this.run();
         }
       } else if (this.choice == "define") {
-        this.stateChange({ state: "page", value: "define" })
-        this.results = "Solve";
+        this.projectChange({ state: "page", value: "define" })
       }
     },
     async run() {
-      this.progress = true;
-      // var results= await this.$axios.$get(`/api/projects/${this.project.id}/run/`)
-      var results= true
-      if (results) {
-        console.log(results)
+      if(this.results==="Solve"){
+        this.progress = true;
+        var results= await this.$axios.$get(`/api/projects/${this.project.id}/run/`)
+        if (!!results) {
         this.aProject({id:this.$route.params.id})
-        this.results = "Results";
-        this.stateChange({ state: "page", value: this.choice });
+        this.projectChange({ state: "results", value: "Results" })
+        this.projectChange({ state: "page", value: this.choice });
+        } else {
+          this.errorM = "Unstable structure";
+          this.error = true;
+          this.projectChange({ state: "page", value: "define" });
+        }
+        this.progress = false;
       } else {
-        this.errorM = "Unstable structure";
-        this.error = true;
-        this.stateChange({ state: "page", value: "define" });
-        this.componentKey += 1;
+        this.projectChange({ state: "page", value: this.choice });
       }
-      this.progress = false;
     }
   },
   computed: {
-    ...mapState(['project','page']),
+    ...mapState(mStore.state('project',['project','page','results'])),
+  },
+  watch:{
+    results(){
+      this.componentKey += 1;  
+    }
   }
 };
 </script>
