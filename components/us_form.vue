@@ -74,6 +74,7 @@ import { required } from "vuelidate/lib/validators"
 import {  help  } from "../constants/app1/help";
 import { mapState,mapActions } from 'vuex'
 import { sortDate  } from "@/constants/static";
+import { mStore } from "@/constants/static";
 export default {
   data: () => ({
     editedItem: { name: null }
@@ -84,7 +85,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(['projects','dialog','action','editedIndex','csrf']),
+    ...mapState(mStore.state('projects',['projects','dialog','action','editedIndex'])),
     ac() {
       return help.Acs[this.action];
     },
@@ -150,12 +151,13 @@ export default {
   },
 
   methods: {
-    ...mapActions(['stateChange','login',"aProjects"]),
+    ...mapActions(['login']),
+    ...mapActions(mStore.getter('projects',['projectsChange','aProjects'])),
     console(val) {
       console.log(val);
     },
     close() {
-      this.stateChange({ state: "dialog", value: false })
+      this.projectsChange({ state: "dialog", value: false })
       this.editedItem = Object.assign({}, this.defaultItem["create"]);
       this.$v.$reset();
     },
@@ -165,7 +167,7 @@ export default {
       let rtn = [];
       this.$v.$touch();
       if (!this.$v.$invalid) {
-        this.stateChange({ state: "error", value: false })
+        this.projectsChange({ state: "error", value: false })
         try {
           if (this.editedIndex > -1) {
             if (this.action === "delete") {
@@ -199,7 +201,7 @@ export default {
         } catch(e) {
           console.log(e)
           this.login()
-          this.stateChange({ state: "error", value: true })
+          this.projectsChange({ state: "error", value: true })
         }
         this.close();
       }

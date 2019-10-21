@@ -16,7 +16,7 @@ const initialState= () => {
     results: "Solve",
   }
 }
-export const state = initialState()
+export const state = () => initialState()
 export const getters ={
     ac: state => {
       return help.Acs[state.action]; 

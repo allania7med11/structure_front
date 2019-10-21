@@ -29,13 +29,14 @@
 </template>
 <script>
 import { mapState,mapActions } from 'vuex'
+import { mStore } from "@/constants/static";
 
 export default {
   data: () => ({
     headers: [{ text: 'Name', value: 'name' },{ text: 'Modified Date', value: 'modified_date' },{ text: '', value: 'action', sortable: false,align: 'right' }]
   }),
   computed: {
-    ...mapState(['projects','dialog','action','editedIndex','search']),
+    ...mapState(mStore.state('projects',['projects','search'])),
     formTitle () {
         return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
       },
@@ -44,31 +45,31 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['stateChange']),
+    ...mapActions(mStore.getter('projects',['projectsChange'])),
     console(val) {
       console.log(val);
     },
     open() {
-      this.stateChange({ state: "dialog", value: true })
+      this.projectsChange({ state: "dialog", value: true })
     },
     newItem() {
-      this.stateChange({ state: "action", value: "create" })
-      this.stateChange({ state: "editedIndex", value: -1 })
+      this.projectsChange({ state: "action", value: "create" })
+      this.projectsChange({ state: "editedIndex", value: -1 })
       this.open();
     }, 
     copyItem() {
-      this.stateChange({ state: "action", value: "copy" })
-      this.stateChange({ state: "editedIndex", value: -1 })
+      this.projectsChange({ state: "action", value: "copy" })
+      this.projectsChange({ state: "editedIndex", value: -1 })
       this.open();
     },
     editItem(item) {
-      this.stateChange({ state: "action", value: "update" })
-      this.stateChange({ state: "editedIndex", value: item.id })
+      this.projectsChange({ state: "action", value: "update" })
+      this.projectsChange({ state: "editedIndex", value: item.id })
       this.open();
     },
     deleteItem(item) {
-      this.stateChange({ state: "action", value: "delete" })
-      this.stateChange({ state: "editedIndex", value: item.id })
+      this.projectsChange({ state: "action", value: "delete" })
+      this.projectsChange({ state: "editedIndex", value: item.id })
       this.open();
     }
   }
