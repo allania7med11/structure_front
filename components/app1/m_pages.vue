@@ -9,6 +9,13 @@
         <v-btn
           text
           class="text-none"
+          value="projects"
+        >
+          projects
+        </v-btn>
+        <v-btn
+          text
+          class="text-none"
           value="define"
         >
           {{ project["name"] }}
@@ -59,7 +66,10 @@ export default {
       console.log(val);
     },
     fpage() {
-      if (this.choice == "results") {
+      if (this.choice == "projects") {
+        $nuxt.$router.push({ path: '/projects' })
+      }
+      else if (this.choice == "results") {
         let isolates = this.project.nodes.filter(
           cv => cv.N1.length == 0 && cv.N2.length == 0
         );

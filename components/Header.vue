@@ -1,8 +1,8 @@
 <template>
   <div>
     <v-toolbar>
-      <v-toolbar-items>
-        <v-btn text to="/projects">
+      <v-toolbar-items >
+        <v-btn text to="/projects" exact>
           <v-avatar >
             <img class="my-1" src="~/assets/favicon.png" alt="EffectiveWebApp">
           </v-avatar>
@@ -11,67 +11,14 @@
           </span>
         </v-btn>
       </v-toolbar-items>
-      <v-toolbar-items class="d-flex d-sm-none">
-          <v-btn text v-for="item in itsL()" :key="item.id" :to="item.to" >
-              <v-icon>fas fa-{{ item.icon }}</v-icon>
-          </v-btn>
-      </v-toolbar-items>
-      <v-toolbar-items class="d-none d-sm-flex">
-          <v-btn text v-for="item in itsL()" :key="item.id" :to="item.to" >
-              {{ item.title }}           
-          </v-btn>
-      </v-toolbar-items>
+      <template v-for="item in itsL()">
+              <hdr :item="item" :key="item.id"></hdr>
+      </template>
       <v-spacer  />
-      <v-toolbar-items class="d-flex d-sm-none">
-          <template v-for="item in itsR()">
-              <v-btn v-if="'to' in item" :key="item.id" :to="item.to" text>
-                  <v-icon>fas fa-{{ item.icon }}</v-icon>
-              </v-btn>
-              <v-btn v-else-if="'href' in item" :key="item.id" :href="item.href" text>
-                <v-icon small>fas fa-{{ item.icon }}</v-icon>
-              </v-btn>
-              <v-menu  v-else :key="item.id" offset-y >
-                <template v-slot:activator="{ on }">
-                    <v-btn v-on="on" text>
-                      <v-icon small>fas fa-user</v-icon>
-                      <span class="mx-1">{{ username }}</span>
-                      <v-icon>mdi-anchor</v-icon>
-                    </v-btn>
-                </template>
-                <v-list>
-                  <v-list-tile  :href="item.its[0].href">
-                    <v-list-tile-title >{{ item.its[0].title }}</v-list-tile-title>
-                  </v-list-tile>
-                </v-list>
-              </v-menu>
-          </template>
-      </v-toolbar-items>
-      <v-toolbar-items class="d-none d-sm-flex">
-          <template v-for="item in itsR()">
-              <v-btn v-if="'to' in item" :key="item.id" :to="item.to" text>
-                <v-icon small>fas fa-{{ item.icon }}</v-icon>
-                <span class="mx-1">{{ item.title }}</span>
-              </v-btn>
-              <v-btn v-else-if="'href' in item" :key="item.id" :href="item.href" text>
-                <v-icon small>fas fa-{{ item.icon }}</v-icon>
-                <span class="mx-1">{{ item.title }}</span>
-              </v-btn>
-              <v-menu  v-else :key="item.id" offset-y >
-                <template v-slot:activator="{ on }">
-                    <v-btn v-on="on" text>
-                      <v-icon small>fas fa-user</v-icon>
-                      <span class="mx-1">{{ username }}</span>
-                      <v-icon small>fas fa-caret-down</v-icon>
-                    </v-btn>
-                </template>
-                <v-list>
-                  <v-list-item  :href="item.its[0].href">
-                    <v-list-tile-title >{{ item.its[0].title }}</v-list-tile-title>
-                  </v-list-item>
-                </v-list>
-              </v-menu>
-          </template>
-      </v-toolbar-items>     
+      <template v-for="item in itsR()">
+              <hdr :item="item" :key="item.id"></hdr>
+      </template>
+          
     </v-toolbar>
   </div>
 </template>
@@ -79,43 +26,16 @@
 
 <script>
 import { mapState,mapActions } from 'vuex'
+import hdr from '@/components/cps/hdr'
 export default {
+  components: {
+    hdr
+  },
   data() {
     return {
       clipped: false,
       drawer: false,
       fixed: false,
-      items: [
-        {
-          icon: "home",
-          title: "Welcome",
-          to: "/"
-        },
-        {
-          icon: "info-circle",
-          title: "Inspire",
-          to: "/inspire"
-        },
-        {
-          icon: "user",
-          title: "Sign Up",
-          href: "/accounts/signup",
-          right: true,
-          anonymous: true
-        },
-        {
-          icon: "sign-in-alt",
-          title: "Log In",
-          href: "/accounts/login",
-          right: true,
-          anonymous: true
-        },
-        {
-          right: true,
-          username: true,
-          its: [{ title: "Log Out", href: "/accounts/logout" }]
-        }
-      ],
       miniVariant: false,
       right: true,
       rightDrawer: false,
@@ -124,6 +44,56 @@ export default {
   },
   computed: {
     ...mapState(['username','projects']),
+    items() {
+      return [
+        {
+          icon: "fas fa-home",
+          title: "Welcome",
+          type:"btn",
+          bind:{to: "/"}
+        },
+        {
+          icon:"menu_book",
+          title:"Tutorials",
+          type:"list",
+          its: [
+            { title: "Beam Calculator",bind:{to: "/Tutorials/Beam"}},
+            { title: "Roof and Truss Calculator",bind:{to: "/Tutorials/TrussStructure"}},
+            { title: "Frame Calculator",bind:{to: "/Tutorials/FrameStructure"}},
+            { title: "Beams with Internal Hinges",bind:{to: "/Tutorials/BeamsInternalHinges"}}
+            ]
+        },
+        {
+          icon: "fas fa-info-circle",
+          title: "Inspire",
+          type:"btn",
+          bind:{to: "/inspire"}
+        },
+        {
+          icon: "fas fa-user",
+          title: "Sign Up",
+          type:"btn",
+          bind:{href: "/accounts/signup"},
+          right: true,
+          anonymous: true
+        },
+        {
+          icon: "fas fa-sign-in-alt",
+          title: "Log In",
+          type:"btn",
+          bind:{href: "/accounts/login"},
+          right: true,
+          anonymous: true
+        },
+        {
+          right: true,
+          username: true,
+          icon: "fas fa-user",
+          title:this.username,
+          type:"username",
+          its: [{ title: "Log Out",bind:{href: "/accounts/logout"},}]
+        }
+      ]},
   }, 
   methods:{
     itsL() {

@@ -1,18 +1,64 @@
 <template>
-  <div>
-    kkkk
-    <v-icon>fas fa-home</v-icon>
-    <v-icon>mdi-anchor</v-icon>
-    <v-icon>event</v-icon>
+  <div class="grey darken-4 white--text pa-5 ma-0 text-center"   >
+    <v-container fluid>
+      <v-row>
+        <v-col cols="12" >
+          <h1>Free Online Structure Analysis Software</h1>
+          <p>EffectiveWebApp offers an effective structure analysis software for engineers.</p>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col md="5">
+          <h2 >Easy to use:</h2>
+          <p>
+            Design truss and frame 2D structure very easy with unlimited supports, sections,
+            <br />beams and loads to define
+          </p>
+          <h2 >Effective:</h2>
+          <p>Calculate and get all diagrams and equations of efforts,stress and displacements for each beam in the structure and a lot more...</p>
+          <h2 >Free:</h2>
+          <p>Save all your work online to your free account so no download required and you can access to all your projects anytime from any devices</p>
+          <v-btn href="/accounts/signup" rounded color="primary" dark>Sign up for Free</v-btn>
+        </v-col>
+        <v-col md="7">
+          <center>
+            <iframe
+              width="610"
+              height="343"
+              src="https://www.youtube.com/embed/videoseries?list=PLDFGldFvahMtwgBPyknkKHGuu0pB1VMD4&amp;index=0"
+              frameborder="0"
+              allowfullscreen
+            ></iframe>
+          </center>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col cols="12" >
+          <h2 class="green--text">Resourceful:</h2>
+          <p>
+            In the tutorial section ,you can find all the resources that you need like Beam Calculator,Roof and Truss Calculator,Frame Calculator and Beams with Internal Hinges Calculator....
+            where we walk you through the creation of each type of those structure step by step so you become able to design and calculate
+            any type of structure and get all the results you need easily for free with no limitation
+          </p>
+          <p>
+            you can check out also our
+            <strong>android application</strong>:
+            <a href="https://play.google.com/store/apps/details?id=com.effectivewebapp">Link</a>
+          </p>
+          <p>Enjoy!!!</p>
+        </v-col>
+      </v-row>
+    </v-container>
   </div>
 </template>
 
 <script>
-export default {
-
-}
+export default {};
 </script>
 
-<style>
-
+<style scoped>
+  h2 {
+    color: rgb(76,175,5);
+  }
 </style>
+

@@ -39,11 +39,11 @@
         </ul>
       </template>
     </v-data-table>
-    <img
+    <v-img
       v-if="inf.image"
       :src="require(`@/assets/images/${inf.image.src}.png`)"
       height="150"
-    >
+    ></v-img>
   </v-flex>
 </template>
 <script>

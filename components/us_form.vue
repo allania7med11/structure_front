@@ -110,7 +110,10 @@ export default {
           required , 
           unique: value => !this.projects.find(cv => cv.id != this.editedIndex ? cv.name == value : false) 
           }},
-        "copy":{name: { required },id: { required }},
+        "copy":{name: { 
+          required ,
+          unique: value => !this.projects.find(cv => cv.id != this.editedIndex ? cv.name == value : false) 
+          },id: { required }},
         "delete":{}
       }
     },
@@ -187,14 +190,10 @@ export default {
               { name: this.editedItem.name }
             );
           }
-          else {
-            response = await this.$apollo.mutate(
-              mutateServer(
-                "copyProject",
-                "CopyProjectInput!",
-                { name: this.editedItem.name,id: this.editedItem.id },
-                this.query
-              )
+          else if (this.action === "copy") {
+            response = await this.$axios.$post(
+              `/api/projects/${ this.editedItem.id }/copy/`,
+              { name: this.editedItem.name }
             );
           }
           await this.aProjects();
