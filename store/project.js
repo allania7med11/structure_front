@@ -2,6 +2,7 @@ import { mds } from "~/constants/app1/static";
 import { help } from "~/constants/app1/help";
 import { Infs } from "~/constants/app1/Infs";
 import { sortDate  } from "@/constants/static";
+import { Orders } from "@/constants/app1/order";
 const initialState= () => {
   return {
     id: 1,
@@ -14,6 +15,7 @@ const initialState= () => {
     slg: "nodes",
     action: 'create',
     results: "Solve",
+    pages:true
   }
 }
 export const state = () => initialState()
@@ -33,7 +35,14 @@ export const getters ={
     },
     modelField:(state) => (field) => {
       return state.project[field].sort(sortDate(state.page === "results"))
-    }   
+    },
+    tbs:(state) =>  {
+      if(state.page=="results"){
+        return Orders.tbsR(state.project)
+      }
+      return Orders.tbs
+    },
+
 }
 export const mutations = {
   projectChange (state,input) {

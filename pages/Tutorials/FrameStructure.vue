@@ -1,5 +1,5 @@
 <template>
-  <div class="white pa-5 ma-0 text-center">
+  <div class="pa-5 ma-0">
     <h2 class="green--text">1.Introduction</h2>
     <p>Hello and welcome to another structure analysis tutorial.</p>
     <p>In the last tutorials , we create our free account and our first Truss structure.</p>
@@ -7,9 +7,7 @@
     <p>In the end of this tutorial , you will be able to design and calculate any Frame structure and get all the analysis you need easily.</p>
     <p>
       You can check out the full project in this
-      <a
-        href="{% url 'Full_Project'  'FrameStructure')"
-      >link</a>.So let's start it
+      <n-link to="/Full_Project/FrameStructure">link</n-link>..So let's start it
     </p>
 
     <h2 class="green--text">2.Design Structure</h2>

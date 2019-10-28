@@ -7,29 +7,27 @@
           <p>EffectiveWebApp offers an effective structure analysis software for engineers.</p>
         </v-col>
       </v-row>
-      <v-row>
-        <v-col md="5">
-          <h2 >Easy to use:</h2>
+      <v-row no-gutters>
+        <v-col cols="12" md="5">
+          <h2 class="green--text">Easy to use:</h2>
           <p>
             Design truss and frame 2D structure very easy with unlimited supports, sections,
             <br />beams and loads to define
           </p>
-          <h2 >Effective:</h2>
+          <h2 class="green--text">Effective:</h2>
           <p>Calculate and get all diagrams and equations of efforts,stress and displacements for each beam in the structure and a lot more...</p>
-          <h2 >Free:</h2>
+          <h2 class="green--text">Free:</h2>
           <p>Save all your work online to your free account so no download required and you can access to all your projects anytime from any devices</p>
-          <v-btn href="/accounts/signup" rounded color="primary" dark>Sign up for Free</v-btn>
+          <v-btn href="/accounts/signup" class="mb-5" rounded color="primary" dark>Sign up for Free</v-btn>
         </v-col>
-        <v-col md="7">
-          <center>
-            <iframe
-              width="610"
-              height="343"
-              src="https://www.youtube.com/embed/videoseries?list=PLDFGldFvahMtwgBPyknkKHGuu0pB1VMD4&amp;index=0"
-              frameborder="0"
-              allowfullscreen
-            ></iframe>
-          </center>
+        <v-col cols="12" md="7">
+          <iframe
+            width="100%"
+            height="343"
+            src="https://www.youtube.com/embed/videoseries?list=PLDFGldFvahMtwgBPyknkKHGuu0pB1VMD4&amp;index=0"
+            frameborder="0"
+            allowfullscreen
+          ></iframe>
         </v-col>
       </v-row>
       <v-row>
@@ -56,9 +54,5 @@
 export default {};
 </script>
 
-<style scoped>
-  h2 {
-    color: rgb(76,175,5);
-  }
-</style>
+
 

@@ -73,7 +73,6 @@ export default {
           return this.inf.fltR(this.model);
         }
       }
-      console.log("this.inf.fltRM",!!this.inf.fltRM)
       if (this.page == "results" && !!this.inf.fltRM) {
         if ( !!this.inf.flt ) {
           return this.inf.flt(this.inf.fltRM(this.project,this.model));

@@ -206,6 +206,70 @@ class cOrders{
                     : ["Apply"]
             }
         ]}
+    orderT (pr){  
+      return [
+          "Nodes",
+          "Bars",
+          { name: "Supports", children: ["Apply", "Define"] },
+          { name: "Releases", children: ["Apply", "Define"] },
+          "Materials",
+          {
+              name: "Sections",
+              children: [
+                  "Apply",
+                  {
+                  name: "Define",
+                  children: Lists.sections.filter(
+                      tp => !!pr.sections.find(sc => sc.type == tp && sc.bars.length > 0)
+                  )
+                  }
+              ]
+          },
+          {
+              name: "PLs",
+              children: pr.pls.find(cv => cv.nodes.length > 0)
+                  ? ["Apply", "Define"]
+                  : ["Apply"]
+          },
+          {
+              name: "DLs",
+              children: pr.dls.find(cv => cv.bars.length > 0)
+                  ? [
+                      "Apply",
+                      {
+                      name: "Define",
+                      children: Lists.dls.filter(
+                          tp => !!pr.dls.find(dl => dl.type == tp && dl.bars.length > 0)
+                      )
+                      }
+                  ]
+                  : ["Apply"]
+          },
+          { name: "Nrs", children: ["Rc", "Dp"] },
+          "Srs",
+          { name: "Brs", children: ["Rl", "Rg", "Ql", "Qg"] },
+          {
+              label: "Detailed Analysis",
+              id: 11,
+              children: pr.bars
+                  .sort((a, b) => a.name - b.name)
+                  .map((cv, i) => {
+                  return {
+                      label: cv.name,
+                      name: cv.id,
+                      id: i,
+                      children: Lists.dts.map((cv2, i2) => {
+                      return {
+                          label: cv2,
+                          id: i2,
+                          name: cv2,
+                          text: "Detailed Analysis"
+                      };
+                      })
+                  };
+                  })
+          }
+      ]}
     fchs(order){
         let rs = order.map((cv, i) =>
         typeof cv === "string" || cv instanceof String
@@ -241,6 +305,10 @@ class cOrders{
     tbsR(pr){
         let rs = this.fchs(this.orderR(pr));
         return rs;    
+    }
+    tbsT(pr){
+      let rs = this.fchs(this.orderT(pr));
+      return rs;    
     }
 }
 

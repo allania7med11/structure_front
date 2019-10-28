@@ -26,10 +26,7 @@
 
 export default {
   name:"hdr",
-  props: ["item"],
-  mounted:function(){
-    console.log("this.item",this.item)
-  }
+  props: ["item"]
 };
 </script>
 

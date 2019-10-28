@@ -48,7 +48,6 @@ export default {
     ...mapState(mStore.state('project',['project'])),
     rcht() {
       let ch;
-      console.log("this.project",this.project)
       ch = DChfn(this.project, this.dt);
       return ch;
     }

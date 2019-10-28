@@ -1,7 +1,7 @@
 <template>
   <v-flex
     xs12
-    md6
+    md8
   >
     <v-btn color="primary" @click="newItem">
     <v-icon >add</v-icon>New Project

@@ -77,7 +77,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(mStore.state('project',['project','slg','page'])),
+    ...mapState(mStore.state('project',['project','slg','page','pages'])),
     label: function() {
       return help.labels[mds[this.slg]["action"]];
     },
@@ -120,11 +120,16 @@ export default {
   },
   watch: {
     page: {
+      immediate: true,
       handler(val) {
         this.sl1 = 0;
         this.sl2 = 0;
         this.sl3 = 0;
-        if (val == "results") {
+        if (!this.pages) {
+          this.tbs = Orders.tbsT(this.project);
+          console.log("this.tbs",this.tbs)
+        }
+        else if (val === "results") {
           this.tbs = Orders.tbsR(this.project);
         } else {
           this.tbs = Orders.tbs;

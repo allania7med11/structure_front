@@ -19,11 +19,11 @@ export default {
     Header
   },
   methods:{
-    ...mapActions(['login'])
+    ...mapActions(['login','tutorials'])
   },
   mounted(){
-    console.log("this.$store",this.$store)
     this.login()
+    
   }
 }
 </script>

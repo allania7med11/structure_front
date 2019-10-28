@@ -60,8 +60,12 @@ class cInfs {
             } 
         }
         if (this.Static.group=="nrs"){
-            return vl =>
-                vl.map(cv => {
+            return vl =>{
+                let nr=vl
+                if (this.Static.name=="Rc"){
+                  nr=nr.filter(cv => cv["Support"])
+                }
+                return vl.map(cv => {
                     console.log(cv)
                     return {
                         id: cv.id,
@@ -72,7 +76,7 @@ class cInfs {
                             return ac;
                           }, {})
                     };
-                })
+                })}
         }
         if (this.Static.name=="srs"){
             return vl =>
@@ -124,6 +128,12 @@ class cInfs {
                 const materials=pr["sections"].filter(cv => cv["bars"].length > 0).map(cv2=>cv2.material.name)
                 console.log("materials",materials)
                 return md.filter(cv => materials.includes(cv.name)) 
+            } 
+        }
+        if (this.name==="Rc"){
+            return (pr,md) =>{
+                const supports=pr["supports"].filter(cv => (cv["UX"]||cv["UZ"]||cv["RY"])).map(cv2=>cv2.name)
+                return md.filter(cv => supports.includes(cv.Support.name)) 
             } 
         }
         return false

@@ -1,6 +1,6 @@
 <template>
   <v-container class="pa-0" fluid>
-      <m_pages />
+      <m_pages v-if="pages" />
     <v-layout align-start justify-space-around wrap>
       <m_chart />
       <v-flex xs12 md5>
@@ -18,7 +18,7 @@
 <script>
 import { mds } from "@/constants/app1/static";
 import m_select from "@/components/app1/m_select";
-import { mapGetters } from 'vuex'
+import { mapState,mapGetters,mapActions } from "vuex";
 import { mStore } from "@/constants/static";
 import m_table from "@/components/app1/m_table";
 import m_form from "@/components/app1/m_form";
@@ -36,6 +36,7 @@ export default {
     m_detail
   },
   computed: {
+    ...mapState(mStore.state('project',['pages'])),
     ...mapGetters(mStore.getter('project',['md'])),
     test() {
       return ["define", "apply"].includes(this.md.action);
