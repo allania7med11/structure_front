@@ -64,10 +64,10 @@ export default {
             ]
         },
         {
-          icon: "fas fa-info-circle",
-          title: "Inspire",
+          icon: "fas fa-envelope",
+          title: "Contact",
           type:"btn",
-          bind:{to: "/inspire"}
+          bind:{to: "/contact"}
         },
         {
           icon: "fas fa-user",
