@@ -160,7 +160,7 @@ export default {
             ["error-messages"]: this.Errors[header.value](),
             ["item-text"]: "name",
             ["item-value"]: "id",
-            items: header.chs ? header.chs : this.project[header["from"]]
+            items: header.chs ? header.chs : [...this.project[header["from"]]].sort((a,b)=>a.name-b.name)
           };
         },
         number: header => {

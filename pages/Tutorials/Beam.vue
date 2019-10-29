@@ -1,5 +1,20 @@
 <template>
   <div class="pa-5 ma-0">
+    <v-container fluid>
+      <v-row justify="center">
+        <v-col cols="12" md="8">
+          <h1 class="text-center  font-weight-bold my-2">
+            Free Online Beam Calculator</h1>
+          <iframe
+            width="100%"
+            height="343"
+            src="https://www.youtube.com/embed/videoseries?list=PLDFGldFvahMtwgBPyknkKHGuu0pB1VMD4&amp;index=1"
+            frameborder="0"
+            allowfullscreen
+          ></iframe>
+        </v-col>
+      </v-row>
+    </v-container>
     <h2 class="green--text">1.Introduction</h2>
     <p>Hello and welcome to your first structure analysis tutorial.</p>
     <p>In this tutorials , we will create our free account and first project.</p>
@@ -64,6 +79,8 @@
 </template>
 
 <script>
-export default {};
+export default {
+
+};
 </script>
 

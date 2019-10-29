@@ -1,5 +1,20 @@
 <template>
   <div class="pa-5 ma-0">
+    <v-container fluid>
+      <v-row justify="center">
+        <v-col cols="12" md="8">
+          <h1 class="text-center font-weight-bold my-2">
+            Free Online Beams with Internal Hinges Calculator</h1>
+          <iframe
+            width="100%"
+            height="343"
+            src="https://www.youtube.com/embed/videoseries?list=PLDFGldFvahMtwgBPyknkKHGuu0pB1VMD4&amp;index=4"
+            frameborder="0"
+            allowfullscreen
+          ></iframe>
+        </v-col>
+      </v-row>
+    </v-container>
     <h2 class="green--text">1.Introduction</h2>
     <p>So do you want to learn how to calculate any structure with Internal Hinges ?</p>
     <p>

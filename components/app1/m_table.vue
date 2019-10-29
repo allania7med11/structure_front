@@ -1,5 +1,5 @@
 <template>
-  <v-flex xs12 md12> 
+  <v-flex xs12 md12>
     <v-data-table
       :headers="headers"
       :hide-default-header="false"
@@ -7,77 +7,78 @@
       class="elevation-1 pre-formatted"
       item-key="name"
       :search="search"
-    > 
-      
+      :sort-by="sort.by"
+      :sort-desc="sort.desc"
+    >
       <template v-if="md.action == 'define' && page == 'define'" v-slot:header.action="{ header }">
-          <v-icon class="m_add" color="white" @click="newItem">
-          add
-        </v-icon>
+        <v-icon class="m_add" color="white" @click="newItem">add</v-icon>
       </template>
       <template v-if="md.action == 'apply' && page == 'define'" v-slot:header.name="{ header }">
         <v-btn x-small fab class="elevation-1" color="info" @click.stop.prevent="applyItem">
           <span class="headline">+</span>
-        </v-btn><span> name</span>
+        </v-btn>
+        <span>name</span>
       </template>
-      <template v-if="md.action == 'define' && page == 'define'" v-slot:item.action="{ item }" >
-        <span  v-if="item.project.id !== '1'">
-          <v-icon class="m_delete" color="white" @click="deleteItem(item)">
-            delete
-          </v-icon>
-          <v-icon class="m_edit" color="white" @click="editItem(item)">
-            edit
-          </v-icon>
+      <template v-if="md.action == 'define' && page == 'define'" v-slot:item.action="{ item }">
+        <span v-if="item.project.id !== '1'">
+          <v-icon class="m_delete" color="white" @click="deleteItem(item)">delete</v-icon>
+          <v-icon class="m_edit" color="white" @click="editItem(item)">edit</v-icon>
         </span>
       </template>
-      <template v-for="header in Object.keys(inf.ds)"  v-slot:[hd(header)]="{ item }" >
+      <template v-for="header in Object.keys(inf.ds)" v-slot:[hd(header)]="{ item }">
         <ul :key="header.id" style="list-style-type:none;padding-left: 0;">
           <li v-for="(hd, index) in inf.ds[header]" :key="hd.id">
             <v-icon small v-if="hd.type==='bl'">fas fa-{{ hd.value(item[header],index) }}</v-icon>
-            <span v-else-if="hd.type==='list'" >{{ hd.value(item[header]) }}</span>
-            <span v-else >{{ hd.value(item[header],index) }}</span>
+            <span v-else-if="hd.type==='list'">{{ hd.value(item[header]) }}</span>
+            <span v-else>{{ hd.value(item[header],index) }}</span>
           </li>
         </ul>
       </template>
     </v-data-table>
-    <v-img
-      v-if="inf.image"
-      :src="require(`@/assets/images/${inf.image.src}.png`)"
-      height="150"
-    ></v-img>
+    <v-img v-if="inf.image" :src="require(`@/assets/images/${inf.image.src}.png`)" height="150"></v-img>
   </v-flex>
 </template>
 <script>
-import { mapState,mapGetters,mapActions } from 'vuex'
+import { mapState, mapGetters, mapActions } from "vuex";
 import { mStore } from "@/constants/static";
 export default {
   data: () => ({
-    editedIndex: -1,
+    editedIndex: -1
   }),
   computed: {
-    ...mapState(mStore.state('project',['project','page','search'])),
-    ...mapGetters(mStore.getter('project',['ac','md','inf','model'])),
+    ...mapState(mStore.state("project", ["project", "page", "search"])),
+    ...mapGetters(mStore.getter("project", ["ac", "md", "inf", "model"])),
     path(name) {
-      return require(`@/assets/images/${name}.png` )
+      return require(`@/assets/images/${name}.png`);
     },
-    headers(){
-      if (this.md.action == 'define' && this.page == 'define'){
-      return [{ text: '', value: 'action', sortable: false,align: 'center' },...this.inf.tbhs];  
+    sort() {
+      if (this.page == "results") {
+        return { by: ["name"], desc: [false] };
+      }
+      return { by: ["name"], desc: [true] };
+    },
+    headers() {
+      if (this.md.action == "define" && this.page == "define") {
+        return [
+          { text: "", value: "action", sortable: false, align: "center" },
+          ...this.inf.tbhs
+        ];
       }
       return this.inf.tbhs;
     },
     items() {
       if (this.page == "results" && !!this.inf.fltR) {
-        if ( !!this.inf.flt ) {
+        if (!!this.inf.flt) {
           return this.inf.flt(this.inf.fltR(this.model));
         } else {
           return this.inf.fltR(this.model);
         }
       }
       if (this.page == "results" && !!this.inf.fltRM) {
-        if ( !!this.inf.flt ) {
-          return this.inf.flt(this.inf.fltRM(this.project,this.model));
+        if (!!this.inf.flt) {
+          return this.inf.flt(this.inf.fltRM(this.project, this.model));
         } else {
-          return this.inf.fltRM(this.project,this.model);
+          return this.inf.fltRM(this.project, this.model);
         }
       }
       if (!!this.inf.flt) {
@@ -88,9 +89,9 @@ export default {
   },
 
   methods: {
-    ...mapActions(mStore.getter('project',['projectChange'])),
-    hd(header){
-      return "item." + header 
+    ...mapActions(mStore.getter("project", ["projectChange"])),
+    hd(header) {
+      return "item." + header;
     },
     console(val) {
       console.log(val);

@@ -3,7 +3,8 @@
     <v-container fluid>
       <v-row>
         <v-col cols="12" >
-          <h1>Free Online Structure Analysis Software</h1>
+          <h1 class="font-weight-bold my-2">
+            Free Online Structure Analysis Software</h1>
           <p>EffectiveWebApp offers an effective structure analysis software for engineers.</p>
         </v-col>
       </v-row>
