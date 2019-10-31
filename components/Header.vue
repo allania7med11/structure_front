@@ -44,6 +44,11 @@ export default {
   },
   computed: {
     ...mapState(['username','projects']),
+    usernameDisplay(){
+      if(this.username.length > 20) {
+          return this.username.slice(0,19)+"...";
+        }
+      return this.username;},
     items() {
       return [
         {
@@ -89,7 +94,7 @@ export default {
           right: true,
           username: true,
           icon: "fas fa-user",
-          title:this.username,
+          title:this.usernameDisplay,
           type:"username",
           its: [{ title: "Log Out",bind:{href: "/accounts/logout"},}]
         }
