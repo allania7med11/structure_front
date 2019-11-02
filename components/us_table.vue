@@ -29,8 +29,8 @@
   </v-container>
 </template>
 <script>
-import { mapState, mapActions } from "vuex";
-import { mStore } from "@/constants/static";
+import { mapState, mapActions } from "vuex"
+import { mStore } from "@/constants/static"
 
 export default {
   data: () => ({
@@ -43,44 +43,44 @@ export default {
   computed: {
     ...mapState(mStore.state("projects", ["projects", "search"])),
     formTitle() {
-      return this.editedIndex === -1 ? "New Item" : "Edit Item";
+      return this.editedIndex === -1 ? "New Item" : "Edit Item"
     },
     items() {
-      return this.projects;
+      return this.projects
     }
   },
   methods: {
     ...mapActions(mStore.getter("projects", ["projectsChange"])),
     console(val) {
-      console.log(val);
+      console.log(val)
     },
     open() {
-      this.projectsChange({ state: "dialog", value: true });
+      this.projectsChange({ state: "dialog", value: true })
     },
     newItem() {
-      this.projectsChange({ state: "action", value: "create" });
-      this.projectsChange({ state: "editedIndex", value: -1 });
-      this.open();
+      this.projectsChange({ state: "action", value: "create" })
+      this.projectsChange({ state: "editedIndex", value: -1 })
+      this.open()
     },
     copyItem() {
-      this.projectsChange({ state: "action", value: "copy" });
-      this.projectsChange({ state: "editedIndex", value: -1 });
-      this.open();
+      this.projectsChange({ state: "action", value: "copy" })
+      this.projectsChange({ state: "editedIndex", value: -1 })
+      this.open()
     },
     editItem(item) {
-      this.projectsChange({ state: "action", value: "update" });
-      this.projectsChange({ state: "editedIndex", value: item.id });
-      this.open();
+      this.projectsChange({ state: "action", value: "update" })
+      this.projectsChange({ state: "editedIndex", value: item.id })
+      this.open()
     },
     deleteItem(item) {
-      this.projectsChange({ state: "action", value: "delete" });
-      this.projectsChange({ state: "editedIndex", value: item.id });
-      this.open();
+      this.projectsChange({ state: "action", value: "delete" })
+      this.projectsChange({ state: "editedIndex", value: item.id })
+      this.open()
     }
   }
-};
+}
 </script>
-<style  scoped>
+<style scoped>
 table.v-table tbody td:not(:nth-child(1)) {
   padding: 5px;
 }

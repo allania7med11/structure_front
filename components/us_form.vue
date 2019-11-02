@@ -1,20 +1,13 @@
 <template>
   <v-flex xs12 md6>
-    <v-card
-      v-if="dialog"
-      flat
-      class="fixed"
-    >
+    <v-card v-if="dialog" flat class="fixed">
       <v-card-text class="pa-0">
         <v-container class="pa-1">
-          <v-form
-            ref="form"
-            lazy-validation
-          >
+          <v-form ref="form" lazy-validation>
             <v-layout>
               <template v-if="action === 'delete'">
                 <v-flex class="mt-2">
-                  <br>
+                  <br />
                   <p class="title text-md-center">
                     Are you sure you want to delete this project ?
                   </p>
@@ -22,20 +15,23 @@
               </template>
               <template v-else>
                 <v-flex>
-                  <v-container >
+                  <v-container>
                     <v-layout justify-space-around row>
-                      <v-flex class="pa-1" >
-                        <v-text-field v-model="$v.editedItem.name.$model" label="Name" :error-messages="Errors.name()">
-                        </v-text-field>
+                      <v-flex class="pa-1">
+                        <v-text-field
+                          v-model="$v.editedItem.name.$model"
+                          label="Name"
+                          :error-messages="Errors.name()"
+                        />
                       </v-flex>
                       <v-flex class="pa-1">
-                       <v-select
+                        <v-select
                           v-if="action == 'copy'"
+                          v-model="$v.editedItem.id.$model"
                           label="Project"
                           :items="this.projects"
                           item-text="name"
                           item-value="id"
-                          v-model="$v.editedItem.id.$model"
                           :error-messages="Errors.id()"
                         />
                       </v-flex>
@@ -43,24 +39,15 @@
                   </v-container>
                 </v-flex>
               </template>
-                <v-flex ma-1>
-                    <v-icon
-                    small
-                    @click="close"
-                    >
-                    close
-                    </v-icon>
-                    <br>
-                    <v-icon
-                    :class="ac.class"
-                    color="white"
-                    @click="save"
-                    >
-                    {{
-                        ac.name
-                    }}
-                    </v-icon>
-                </v-flex>
+              <v-flex ma-1>
+                <v-icon small @click="close">
+                  close
+                </v-icon>
+                <br />
+                <v-icon :class="ac.class" color="white" @click="save">
+                  {{ ac.name }}
+                </v-icon>
+              </v-flex>
             </v-layout>
           </v-form>
         </v-container>
@@ -71,10 +58,9 @@
 
 <script>
 import { required } from "vuelidate/lib/validators"
-import {  help  } from "../constants/app1/help";
-import { mapState,mapActions } from 'vuex'
-import { sortDate  } from "@/constants/static";
-import { mStore } from "@/constants/static";
+import { help } from "../constants/app1/help"
+import { mapState, mapActions } from "vuex"
+import { mStore } from "@/constants/static"
 export default {
   data: () => ({
     editedItem: { name: null }
@@ -82,133 +68,145 @@ export default {
   validations() {
     return {
       editedItem: this.vld[this.action]
-    };
+    }
   },
   computed: {
-    ...mapState(mStore.state('projects',['projects','dialog','action','editedIndex'])),
+    ...mapState(
+      mStore.state("projects", ["projects", "dialog", "action", "editedIndex"])
+    ),
     ac() {
-      return help.Acs[this.action];
+      return help.Acs[this.action]
     },
     defaultItem() {
-      return{
-        "create":{name: null},
-        "update":{name: null},
-        "copy":{name: null,id:null},
-        "delete":{}
+      return {
+        create: { name: null },
+        update: { name: null },
+        copy: { name: null, id: null },
+        delete: {}
       }
     },
     items() {
-      return this.projects;
+      return this.projects
     },
     vld() {
-      return{
-        "create":{name: { 
-          required , 
-          unique: value => !this.projects.find(cv => cv.id != this.editedIndex ? cv.name == value : false) 
-          }},
-        "update":{name: { 
-          required , 
-          unique: value => !this.projects.find(cv => cv.id != this.editedIndex ? cv.name == value : false) 
-          }},
-        "copy":{name: { 
-          required ,
-          unique: value => !this.projects.find(cv => cv.id != this.editedIndex ? cv.name == value : false) 
-          },id: { required }},
-        "delete":{}
+      return {
+        create: {
+          name: {
+            required,
+            unique: value =>
+              !this.projects.find(cv =>
+                cv.id != this.editedIndex ? cv.name == value : false
+              )
+          }
+        },
+        update: {
+          name: {
+            required,
+            unique: value =>
+              !this.projects.find(cv =>
+                cv.id != this.editedIndex ? cv.name == value : false
+              )
+          }
+        },
+        copy: {
+          name: {
+            required,
+            unique: value =>
+              !this.projects.find(cv =>
+                cv.id != this.editedIndex ? cv.name == value : false
+              )
+          },
+          id: { required }
+        },
+        delete: {}
       }
     },
     Errors() {
       return {
-          name:() => {
-            const errors = []
-            if (!this.$v.editedItem.name.$dirty) return errors
-            !this.$v.editedItem.name.required && errors.push('Name is required.')
-            !this.$v.editedItem.name.unique && errors.push("Project with this name already exist.")
-            return errors
-          },
-          id:() => {
-            const errors = []
-            if (!this.$v.editedItem.id.$dirty) return errors
-            !this.$v.editedItem.id.required && errors.push('Project is required.')
-            return errors
-          }
-      };
+        name: () => {
+          const errors = []
+          if (!this.$v.editedItem.name.$dirty) return errors
+          !this.$v.editedItem.name.required && errors.push("Name is required.")
+          !this.$v.editedItem.name.unique &&
+            errors.push("Project with this name already exist.")
+          return errors
+        },
+        id: () => {
+          const errors = []
+          if (!this.$v.editedItem.id.$dirty) return errors
+          !this.$v.editedItem.id.required && errors.push("Project is required.")
+          return errors
+        }
+      }
     }
-
   },
 
   watch: {
     dialog(val) {
-      val || this.close();
+      val || this.close()
     },
     editedIndex: {
       handler(val) {
-        this.$v.$reset();
+        this.$v.$reset()
         if (val > 0) {
-          this.editedItem = Object.assign({}, this.projects.find(cv => cv.id == val));
+          this.editedItem = Object.assign(
+            {},
+            this.projects.find(cv => cv.id == val)
+          )
         } else {
-          this.editedItem = Object.assign({}, this.defaultItem[this.action]);
+          this.editedItem = Object.assign({}, this.defaultItem[this.action])
         }
       }
     }
   },
 
   methods: {
-    ...mapActions(['login']),
-    ...mapActions(mStore.getter('projects',['projectsChange','aProjects'])),
+    ...mapActions(["login"]),
+    ...mapActions(mStore.getter("projects", ["projectsChange", "aProjects"])),
     console(val) {
-      console.log(val);
+      console.log(val)
     },
     close() {
       this.projectsChange({ state: "dialog", value: false })
-      this.editedItem = Object.assign({}, this.defaultItem["create"]);
-      this.$v.$reset();
+      this.editedItem = Object.assign({}, this.defaultItem["create"])
+      this.$v.$reset()
     },
     async save() {
-      let response = {};
-      let projects = [];
-      let rtn = [];
-      this.$v.$touch();
+      this.$v.$touch()
       if (!this.$v.$invalid) {
         this.projectsChange({ state: "error", value: false })
         try {
           if (this.editedIndex > -1) {
             if (this.action === "delete") {
-              response = await this.$axios.$delete(
-              `/api/projects/${ this.editedIndex }/`
-              );
+              await this.$axios.$delete(`/api/projects/${this.editedIndex}/`)
             } else {
-              response = await this.$axios.$put(
-              `/api/projects/${ this.editedIndex }/`,
-              { name: this.editedItem.name }
-              );
+              await this.$axios.$put(`/api/projects/${this.editedIndex}/`, {
+                name: this.editedItem.name
+              })
             }
-          } 
-          else if (this.action === "create") {
-            response = await this.$axios.$post(
-              "/api/projects/",
+          } else if (this.action === "create") {
+            await this.$axios.$post("/api/projects/", {
+              name: this.editedItem.name
+            })
+          } else if (this.action === "copy") {
+            await this.$axios.$post(
+              `/api/projects/${this.editedItem.id}/copy/`,
               { name: this.editedItem.name }
-            );
+            )
           }
-          else if (this.action === "copy") {
-            response = await this.$axios.$post(
-              `/api/projects/${ this.editedItem.id }/copy/`,
-              { name: this.editedItem.name }
-            );
-          }
-          await this.aProjects();
-        } catch(e) {
+          await this.aProjects()
+        } catch (e) {
           console.log(e)
           this.login()
           this.projectsChange({ state: "error", value: true })
         }
-        this.close();
+        this.close()
       }
-    } 
+    }
   }
-};
+}
 </script>
-<style  scoped>
+<style scoped>
 .modal-backdrop {
   opacity: 0.1 !important;
 }
@@ -225,28 +223,20 @@ export default {
   box-shadow: none !important;
 }
 
-
-
 .m_add {
   margin: 1px;
   background-color: #304ffe;
-
-  
 }
 .m_edit {
   margin: 1px;
   background-color: #ffc107;
-  
 }
 .m_delete {
   margin: 1px;
   background-color: #ff5722;
-  
 }
 .m_apply {
   margin: 1px;
   background-color: #4caf50;
-  
 }
-
 </style>

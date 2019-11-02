@@ -1,6 +1,6 @@
 <template>
-  <v-app >
-    <Header/>
+  <v-app>
+    <!-- <Header/> -->
     <v-content>
       <v-container>
         <nuxt />
@@ -10,20 +10,18 @@
 </template>
 
 <script>
-import { mapState,mapActions } from 'vuex'
-import Header from '~/components/Header.vue'
+// import { mapActions } from "vuex"
+// import Header from '~/components/Header.vue'
 export default {
   // middleware: 'auth',
-  
-  components: {
+  /*  components: {
     Header
-  },
-  methods:{
-    ...mapActions(['login','tutorials'])
-  },
-  mounted(){
+  }, */
+  /* mounted() {
     this.login()
-    
-  }
+  },
+  methods: {
+    ...mapActions(["login", "tutorials"])
+  } */
 }
 </script>

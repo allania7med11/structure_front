@@ -1,19 +1,25 @@
 <template>
   <v-flex xs12 md12>
     <v-layout row wrap justify-space-between>
-      <v-flex xs5 md5 >
-        <v-btn block  color="info" @click="sc = !sc">
+      <v-flex xs5 md5>
+        <v-btn block color="info" @click="sc = !sc">
           <v-icon>list</v-icon>
           {{ fslg.text }}
         </v-btn>
       </v-flex>
       <v-flex xs4 md3>
         <v-text-field
-          v-if="!testDetail" v-model="search" append-icon="search" label="Search"
-          single-line hide-details @change="searchChange"/>
+          v-if="!testDetail"
+          v-model="search"
+          append-icon="search"
+          label="Search"
+          single-line
+          hide-details
+          @change="searchChange"
+        />
       </v-flex>
     </v-layout>
-    <v-layout row >
+    <v-layout row>
       <v-flex xs12>
         <v-card v-show="sc" :key="componentKey">
           <v-card-title>
@@ -28,7 +34,7 @@
                     item-value="id"
                   />
                 </v-flex>
-                <v-flex mx-1 :xs2="its3" :xs4="!its3" >
+                <v-flex mx-1 :xs2="its3" :xs4="!its3">
                   <v-select
                     v-if="its2"
                     v-model="sl2"
@@ -57,12 +63,11 @@
   </v-flex>
 </template>
 <script>
-import { mapState,mapActions } from 'vuex'
-import { mStore } from "@/constants/static";
-import { mds } from "@/constants/app1/static";
-import { help } from "@/constants/app1/help";
-import { Orders } from "@/constants/app1/order";
-import app1 from "@/components/app1";
+import { mapState, mapActions } from "vuex"
+import { mStore } from "@/constants/static"
+import { mds } from "@/constants/app1/static"
+import { help } from "@/constants/app1/help"
+import { Orders } from "@/constants/app1/order"
 export default {
   data: () => {
     return {
@@ -73,68 +78,74 @@ export default {
       sl3: 0,
       sc: false,
       dialog: false,
-      search:""
-    };
+      search: ""
+    }
   },
   computed: {
-    ...mapState(mStore.state('project',['project','slg','page','pages'])),
+    ...mapState(mStore.state("project", ["project", "slg", "page", "pages"])),
     label: function() {
-      return help.labels[mds[this.slg]["action"]];
+      return help.labels[mds[this.slg]["action"]]
     },
     testDetail() {
-      return mds[this.slg].action == "details";
+      return mds[this.slg].action == "details"
     },
     dynamicFlex: function() {
-      return this.its3 ? "xs12" : this.its2 ? "xs10" : "xs6";
+      return this.its3 ? "xs12" : this.its2 ? "xs10" : "xs6"
     },
     its2: function() {
-      this.sl2 = 0;
-      this.sl3 = 0;
-      return this.tbs[this.sl1].children ? this.tbs[this.sl1].children : null;
+      return this.tbs[this.sl1].children ? this.tbs[this.sl1].children : null
     },
     its3: function() {
       if (this.its2) {
         return this.its2[this.sl2].children
           ? this.its2[this.sl2].children
-          : null;
+          : null
       } else {
-        return null;
+        return null
       }
     },
     fslg: function() {
-      let rtn;
+      let rtn
       rtn = this.its3
         ? this.its3[this.sl3]
         : this.its2
         ? this.its2[this.sl2]
-        : this.tbs[this.sl1];
+        : this.tbs[this.sl1]
       this.projectChange({ state: "slg", value: rtn.name })
       if (!rtn.text) {
-        rtn.text = rtn.label;
+        rtn.text = rtn.label
       }
       if (rtn.text == "Detailed Analysis") {
-        this.projectChange({ state: "detailIndex", value: this.its2[this.sl2].name })
+        this.projectChange({
+          state: "detailIndex",
+          value: this.its2[this.sl2].name
+        })
       }
-      return rtn;
+      return rtn
     }
   },
   watch: {
+    its2: {
+      handler() {
+        this.sl2 = 0
+        this.sl3 = 0
+      }
+    },
     page: {
       immediate: true,
       handler(val) {
-        this.sl1 = 0;
-        this.sl2 = 0;
-        this.sl3 = 0;
+        this.sl1 = 0
+        this.sl2 = 0
+        this.sl3 = 0
         if (!this.pages) {
-          this.tbs = Orders.tbsT(this.project);
-          console.log("this.tbs",this.tbs)
-        }
-        else if (val === "results") {
-          this.tbs = Orders.tbsR(this.project);
+          this.tbs = Orders.tbsT(this.project)
+          console.log("this.tbs", this.tbs)
+        } else if (val === "results") {
+          this.tbs = Orders.tbsR(this.project)
         } else {
-          this.tbs = Orders.tbs;
+          this.tbs = Orders.tbs
         }
-        this.componentKey += 1;
+        this.componentKey += 1
       }
     },
     search: {
@@ -144,12 +155,12 @@ export default {
     }
   },
   methods: {
-    ...mapActions(mStore.getter('project',['projectChange'])),
+    ...mapActions(mStore.getter("project", ["projectChange"])),
     searchChange() {
       this.projectChange({ state: "search", value: this.search })
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped></style>

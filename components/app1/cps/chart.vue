@@ -1,5 +1,5 @@
 <script>
-import { Scatter } from "vue-chartjs";
+import { Scatter } from "vue-chartjs"
 export default {
   extends: Scatter,
   props: {
@@ -14,11 +14,11 @@ export default {
   },
   watch: {
     chartdata() {
-      this.renderChart(this.chartdata, this.options);
+      this.renderChart(this.chartdata, this.options)
     }
   },
   mounted() {
-    this.renderChart(this.chartdata, this.options);
+    this.renderChart(this.chartdata, this.options)
   }
-};
+}
 </script>

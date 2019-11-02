@@ -1,49 +1,34 @@
 <template>
-  <v-flex
-    xs12
-    md6
-  > 
+  <v-flex xs12 md6>
     <v-card
       v-if="dialog"
       flat
       class="fixed"
-      :style="$vuetify.breakpoint.mdAndUp  ? { 'width': '45%' } : { 'width': '100%' }"
+      :style="
+        $vuetify.breakpoint.mdAndUp ? { width: '45%' } : { width: '100%' }
+      "
     >
       <v-card-text class="pa-0">
         <v-container class="pa-1">
-          <v-form
-            ref="form"
-            lazy-validation
-          >
+          <v-form ref="form" lazy-validation>
             <v-layout>
               <template v-if="md.action == 'define'">
                 <v-flex ma-1>
-                  <v-icon
-                    small
-                    @click="close">
+                  <v-icon small @click="close">
                     close
                   </v-icon>
-                  <br>
-                  <v-icon
-                    :class="ac.class"
-                    color="white"
-                    @click="save"
-                  >
-                    {{
-                      ac.name
-                    }}
+                  <br />
+                  <v-icon :class="ac.class" color="white" @click="save">
+                    {{ ac.name }}
                   </v-icon>
                 </v-flex>
               </template>
               <template v-else-if="md.action == 'apply'">
                 <v-flex ma-1>
-                  <v-icon
-                    small
-                    @click="close"
-                  >
+                  <v-icon small @click="close">
                     close
                   </v-icon>
-                  <br>
+                  <br />
                   <v-icon
                     class="m_delete"
                     color="white"
@@ -51,18 +36,14 @@
                   >
                     save_alt
                   </v-icon>
-                  <v-icon
-                    class="m_apply"
-                    color="white"
-                    @click="apply('apply')"
-                  >
+                  <v-icon class="m_apply" color="white" @click="apply('apply')">
                     save_alt
                   </v-icon>
                 </v-flex>
               </template>
               <template v-if="action === 'delete'">
                 <v-flex class="mt-2">
-                  <br>
+                  <br />
                   <p class="title text-md-center">
                     Are you sure you want to delete {{ dlt }} ?
                   </p>
@@ -76,10 +57,7 @@
                       :key="fmh.id"
                       justify-space-around
                     >
-                      <v-flex
-                        v-for="headers in fmh"
-                        :key="headers.id"
-                      >
+                      <v-flex v-for="headers in fmh" :key="headers.id">
                         <v-layout column>
                           <v-flex
                             v-for="header in headers"
@@ -111,7 +89,7 @@
                             <img
                               v-else-if="header.type == 'image'"
                               v-bind="bd[header.type](header)"
-                            >
+                            />
                           </v-flex>
                         </v-layout>
                       </v-flex>
@@ -128,11 +106,11 @@
 </template>
 
 <script>
-import { mapState,mapGetters,mapActions } from 'vuex'
-import { help } from "@/constants/app1/help";
-import { Vlds } from "@/constants/app1/Vlds";
-import { Errs } from "@/constants/app1/Errs";
-import { mStore } from "@/constants/static";
+import { mapState, mapGetters, mapActions } from "vuex"
+import { help } from "@/constants/app1/help"
+import { Vlds } from "@/constants/app1/Vlds"
+import { Errs } from "@/constants/app1/Errs"
+import { mStore } from "@/constants/static"
 export default {
   data: () => ({
     editedItem: { name: null, X: null, Z: null }
@@ -140,19 +118,27 @@ export default {
   validations() {
     return {
       editedItem: Vlds[this.slg](this)
-    };
+    }
   },
 
   computed: {
-    ...mapState(mStore.state('project',['project','dialog','slg','action','editedIndex'])),
-    ...mapGetters(mStore.getter('project',['ac','md','inf','modelField'])),
+    ...mapState(
+      mStore.state("project", [
+        "project",
+        "dialog",
+        "slg",
+        "action",
+        "editedIndex"
+      ])
+    ),
+    ...mapGetters(mStore.getter("project", ["ac", "md", "inf", "modelField"])),
     bd() {
       return {
         checkbox: header => {
           return {
             label: header.text,
             ["error-messages"]: this.Errors[header.value]()
-          };
+          }
         },
         select: header => {
           return {
@@ -160,138 +146,146 @@ export default {
             ["error-messages"]: this.Errors[header.value](),
             ["item-text"]: "name",
             ["item-value"]: "id",
-            items: header.chs ? header.chs : [...this.project[header["from"]]].sort((a,b)=>a.name-b.name)
-          };
+            items: header.chs
+              ? header.chs
+              : [...this.project[header["from"]]].sort(
+                  (a, b) => a.name - b.name
+                )
+          }
         },
         number: header => {
           return {
             label: header.text,
             type: header.type,
             ["error-messages"]: this.Errors[header.value]()
-          };
+          }
         },
         text: header => {
           return {
             label: header.text,
             ["error-messages"]: this.Errors[header.value]()
-          };
+          }
         },
         image: header => {
-          return { src: require(`@/assets/images/${header.src}.png`), height: header.height };
+          return {
+            src: require(`@/assets/images/${header.src}.png`),
+            height: header.height
+          }
         }
-      };
+      }
     },
-    dlt() {0
-      return help.test(this.md, "text", "") + '"' + this.editedItem.name + '"';
+    dlt() {
+      0
+      return help.test(this.md, "text", "") + '"' + this.editedItem.name + '"'
     },
     Errors() {
-      return Errs[this.slg](this);
+      return Errs[this.slg](this)
     }
   },
   watch: {
     dialog(val) {
-      val || this.close();
+      val || this.close()
     },
     slg: {
-      handler(val) {
-        this.projectChange({ state: "dialog", value: false });
-        this.$v.$reset();
-        this.editedItem = Object.assign({}, this.inf.defaultItem);
+      handler() {
+        this.projectChange({ state: "dialog", value: false })
+        this.$v.$reset()
+        this.editedItem = Object.assign({}, this.inf.defaultItem)
       }
     },
     editedIndex: {
       handler(val) {
-        this.$v.$reset();
+        this.$v.$reset()
         if (val > 0) {
-          let item;
-          item = this.project[this.md.model].find(cv => cv.id == val);
-          let editedItem;
-          editedItem = this.inf.fe(item);
+          let item
+          item = this.project[this.md.model].find(cv => cv.id == val)
+          let editedItem
+          editedItem = this.inf.fe(item)
           for (const [key, value] of Object.entries(item)) {
             if (value.id) {
-              editedItem[key] = value.id;
+              editedItem[key] = value.id
             }
           }
-          this.editedItem = Object.assign({}, editedItem);
+          this.editedItem = Object.assign({}, editedItem)
         } else {
-          this.editedItem = Object.assign({}, this.inf.defaultItem);
+          this.editedItem = Object.assign({}, this.inf.defaultItem)
         }
       }
     }
   },
 
   methods: {
-    ...mapActions(['login']),
-    ...mapActions(mStore.getter('project',['projectChange','aProject'])),
+    ...mapActions(["login"]),
+    ...mapActions(mStore.getter("project", ["projectChange", "aProject"])),
     console(val) {
-      console.log(val);
+      console.log(val)
     },
     close() {
-      this.projectChange({ state: "dialog", value: false });
-      this.$v.$reset();
+      this.projectChange({ state: "dialog", value: false })
+      this.$v.$reset()
     },
     async save() {
-      let response = {};
-      let rtn = [];
-      this.$v.$touch();
+      this.$v.$touch()
       if (!this.$v.$invalid) {
         this.projectChange({ state: "results", value: "Solve" })
         this.projectChange({ state: "error", value: false })
         try {
           if (this.editedIndex > -1) {
             if (this.action === "delete") {
-              response = await this.$axios.$delete(
-              `/api/${ this.md.model }/${ this.editedIndex }/`
-              );
+              await this.$axios.$delete(
+                `/api/${this.md.model}/${this.editedIndex}/`
+              )
             } else {
-              response = await this.$axios.$put(
-              `/api/${ this.md.model }/${ this.editedIndex }/`,
-              { project:this.project.id,...this.inf.fm(this.editedItem) }
-              );
+              await this.$axios.$put(
+                `/api/${this.md.model}/${this.editedIndex}/`,
+                { project: this.project.id, ...this.inf.fm(this.editedItem) }
+              )
             }
           } else {
-            response = await this.$axios.$post(
-              `/api/${ this.md.model }/`,
-              { project:this.project.id,...this.inf.fm(this.editedItem) }
-              );
+            await this.$axios.$post(`/api/${this.md.model}/`, {
+              project: this.project.id,
+              ...this.inf.fm(this.editedItem)
+            })
           }
-        } catch(e) {
+        } catch (e) {
           console.log(e)
           this.login()
           this.projectChange({ state: "error", value: true })
-          this.close();
+          this.close()
         }
-        this.aProject({id:this.$route.params.id})
+        this.aProject({ id: this.$route.params.id })
         if (this.editedIndex > -1) {
-          this.close();
+          this.close()
         } else {
-          this.$v.$reset();
+          this.$v.$reset()
         }
       }
     },
     async apply(action) {
-      let response = {};
-      let rtn = [];
-      this.$v.$touch();
+      this.$v.$touch()
       if (!this.$v.$invalid) {
         this.projectChange({ state: "results", value: "Solve" })
         try {
-        response = await this.$axios.$post(
-              `/api/${ this.md.model }/${ this.editedItem.name }/apply/`,
-              { action: action,lst:this.editedItem[this.inf.Static.from],project:this.project.id },
-              );
-        } catch(e) {
+          await this.$axios.$post(
+            `/api/${this.md.model}/${this.editedItem.name}/apply/`,
+            {
+              action: action,
+              lst: this.editedItem[this.inf.Static.from],
+              project: this.project.id
+            }
+          )
+        } catch (e) {
           console.log(e)
           this.login()
           this.projectChange({ state: "error", value: true })
-          this.close();
+          this.close()
         }
-        this.aProject({id:this.$route.params.id})
-        this.$v.$reset();
+        this.aProject({ id: this.$route.params.id })
+        this.$v.$reset()
       }
     }
   }
-};
+}
 </script>
 <style lang="scss" scoped>
 .modal-backdrop {
