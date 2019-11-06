@@ -139,7 +139,6 @@ export default {
         this.sl3 = 0
         if (!this.pages) {
           this.tbs = Orders.tbsT(this.project)
-          console.log("this.tbs", this.tbs)
         } else if (val === "results") {
           this.tbs = Orders.tbsR(this.project)
         } else {

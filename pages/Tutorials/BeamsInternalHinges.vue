@@ -7,6 +7,7 @@
             Free Online Beams with Internal Hinges Calculator
           </h1>
           <iframe
+            title="Free Online Beams with Internal Hinges Calculator"
             width="100%"
             height="343"
             src="https://www.youtube.com/embed/videoseries?list=PLDFGldFvahMtwgBPyknkKHGuu0pB1VMD4&amp;index=4"
@@ -16,7 +17,7 @@
         </v-col>
       </v-row>
     </v-container>
-    <h2 class="green--text">
+    <h2 class="green--text text--darken-3">
       1.Introduction
     </h2>
     <p>
@@ -34,10 +35,12 @@
     </p>
     <p>
       You can check out the full project in this
-      <n-link to="/Full_Project/BeamsInternalHinges"> link </n-link>.So let's
-      start it
+      <v-btn to="/Full_Project/BeamsInternalHinges">
+        Link
+      </v-btn>
+      .So let's start it
     </p>
-    <h2 class="green--text">
+    <h2 class="green--text text--darken-3">
       2.Design Structure
     </h2>
     <h3>Nodes</h3>
@@ -65,7 +68,7 @@
     <v-img
       :src="require('@/assets/images/BeamsInternalHinges/Apply_Sections.png')"
     />
-    <h2 class="green--text">
+    <h2 class="green--text text--darken-3">
       3.Apply Loads
     </h2>
     <h3>Point Loads</h3>
@@ -105,7 +108,7 @@
       "
     />
 
-    <h2 class="green--text">
+    <h2 class="green--text text--darken-3">
       4.Calculate And Get Results
     </h2>
     <h3>Calculate</h3>
@@ -155,7 +158,7 @@
         require('@/assets/images/BeamsInternalHinges/Detailed_Analysis.png')
       "
     />
-    <h2 class="green--text">
+    <h2 class="green--text text--darken-3">
       5.Conclusion:
     </h2>
     <p>

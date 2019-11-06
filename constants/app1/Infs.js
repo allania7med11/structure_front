@@ -90,7 +90,6 @@ class cInfs {
           nr = nr.filter(cv => cv["Support"])
         }
         return nr.map(cv => {
-          console.log(cv)
           return {
             id: cv.id,
             name: cv.name,
@@ -139,10 +138,8 @@ class cInfs {
   }
   get fltR() {
     let name = this.name + "Apply"
-    console.log(name)
     if (Lists.applys.includes(name)) {
       let apply = Groups.applys[name].from
-      console.log(this.name, apply)
       return vl => {
         return vl.filter(cv => cv[apply].length > 0)
       }

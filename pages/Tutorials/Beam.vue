@@ -6,7 +6,9 @@
           <h1 class="text-center  font-weight-bold my-2">
             Free Online Beam Calculator
           </h1>
+          {{ iframe }}
           <iframe
+            title="Free Online Beam Calculator"
             width="100%"
             height="343"
             src="https://www.youtube.com/embed/videoseries?list=PLDFGldFvahMtwgBPyknkKHGuu0pB1VMD4&amp;index=1"
@@ -16,7 +18,7 @@
         </v-col>
       </v-row>
     </v-container>
-    <h2 class="green--text">
+    <h2 class="green--text text--darken-3">
       1.Introduction
     </h2>
     <p>Hello and welcome to your first structure analysis tutorial.</p>
@@ -29,9 +31,12 @@
     </p>
     <p>
       You can check out the full project in this
-      <n-link to="/Full_Project/Beam"> link </n-link>.So let's start it
+      <v-btn to="/Full_Project/Beam">
+        Link
+      </v-btn>
+      .So let's start it
     </p>
-    <h2 class="green--text">
+    <h2 class="green--text text--darken-3">
       2.Design Structure
     </h2>
     <h3>Nodes</h3>
@@ -54,7 +59,7 @@
     <v-img :src="require('@/assets/images/Beam/Define_Sections.png')" />
     <p>apply section s1 to bar 1</p>
     <v-img :src="require('@/assets/images/Beam/Apply_Sections.png')" />
-    <h2 class="green--text">
+    <h2 class="green--text text--darken-3">
       3.Apply Loads
     </h2>
     <h3>Distributed Loads</h3>
@@ -66,7 +71,7 @@
     <p>Apply Uniform Load q to bar 1</p>
     <v-img :src="require('@/assets/images/Beam/Apply_DistributedLoads.png')" />
 
-    <h2 class="green--text">
+    <h2 class="green--text text--darken-3">
       4.Calculate And Get Results
     </h2>
     <h3>Calculate</h3>
@@ -98,7 +103,7 @@
       equal to 2 metre
     </p>
     <v-img :src="require('@/assets/images/Beam/Detailed_Analysis2.png')" />
-    <h2 class="green--text">
+    <h2 class="green--text text--darken-3">
       5.Conclusion:
     </h2>
     <p>

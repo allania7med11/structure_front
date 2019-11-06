@@ -30,6 +30,11 @@ export default {
       }
     ]
   },
+  /* webfontloader: {
+    google: {
+      families: ["Roboto:300,400,500,700|Material+Icons"] //Loads Lato font with weights 400 and 700
+    }
+  }, */
   /*
    ** Customize the progress-bar color
    */
@@ -56,8 +61,10 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     "@nuxtjs/axios",
-    "nuxt-ssr-cache",
-    "@nuxtjs/pwa"
+    "@nuxtjs/pwa",
+    "@nuxtjs/style-resources",
+    "nuxt-fontawesome"
+    // "nuxt-webfontloader"
   ],
   /*
    ** Axios module configuration
@@ -85,12 +92,34 @@ export default {
       success: colors.green.accent3
     }
   },
+  fontawesome: {
+    imports: [
+      {
+        set: "@fortawesome/free-solid-svg-icons", // Solid icons
+        icons: [
+          "faCookieBite",
+          "faCommentDots",
+          "faEnvelope",
+          "faGrinWink",
+          "faHeart"
+        ]
+      },
+      {
+        set: "@fortawesome/free-brands-svg-icons", // Brand icons
+        icons: [
+          "faDev",
+          "faFacebook",
+          "faTwitter",
+          "faInstagram",
+          "faYoutube",
+          "faGithub"
+        ]
+      }
+    ]
+  },
   /*
    ** Build configuration
    */
-  cache: {
-    pages: [/^\/$/]
-  },
   pwa: {
     manifest: {
       name: "EffectiveWebApp",
@@ -103,9 +132,19 @@ export default {
       theme_color: "#0A0302"
     },
     workbox: {
-      /* workbox options */
+      importScripts: ["custom-sw.js"],
+      runtimeCaching: [
+        {
+          urlPattern: "/Tutorials/BeamsInternalHinges/",
+          handler: "cacheFirst",
+          method: "GET"
+        }
+      ]
     }
   },
+  /* optimizedImages: {
+    optimizeImages: true
+  }, */
   build: {
     /*
      ** You can extend webpack config here

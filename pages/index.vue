@@ -1,4 +1,3 @@
-/* eslint-disable vue/html-indent */ /* eslint-disable vue/html-indent */
 <template>
   <div class="grey darken-4 white--text pa-5 ma-0 text-center">
     <v-container fluid>
@@ -49,6 +48,7 @@
         </v-col>
         <v-col cols="12" md="7">
           <iframe
+            title="Effective Web App | Free Online Structure Analysis Software"
             width="100%"
             height="343"
             src="https://www.youtube.com/embed/videoseries?list=PLDFGldFvahMtwgBPyknkKHGuu0pB1VMD4&amp;index=0"
@@ -73,10 +73,12 @@
           <p>
             you can check out also our
             <strong>android application</strong>:
-            <a
+            <v-btn
               href="https://play.google.com/store/apps/details?id=com.effectivewebapp"
-              >Link</a
+              small
             >
+              Link
+            </v-btn>
           </p>
           <p>Enjoy!!!</p>
         </v-col>

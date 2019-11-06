@@ -10,7 +10,7 @@
         </v-alert>
         <v-card shaped>
           <v-card-title
-            class="justify-center white--text info font-italic font-weight-bold"
+            class="justify-center white--text info font-italic font-weight-bold display-1"
           >
             Contact Us
           </v-card-title>
@@ -44,7 +44,7 @@
           </v-card-text>
           <v-card-actions class="justify-center white--text">
             <v-btn
-              class="info font-italic font-weight-bold px-4"
+              class="info font-italic font-weight-bold px-4 title"
               large
               rounded
               @click="submit"

@@ -12,14 +12,18 @@
 <script>
 import us_table from "@/components/us_table.vue"
 import us_form from "@/components/us_form.vue"
-import { mapState } from "vuex"
+import { mapActions } from "vuex"
+import { mStore } from "@/constants/static"
 export default {
   components: {
     us_table,
     us_form
   },
-  computed: {
-    ...mapState(["projects", "error"])
+  mounted() {
+    this.aProjects()
+  },
+  methods: {
+    ...mapActions(mStore.getter("projects", ["aProjects"]))
   }
 }
 </script>

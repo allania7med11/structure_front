@@ -1,6 +1,25 @@
 <template>
   <div>
+    <v-navigation-drawer
+      v-if="!$vuetify.breakpoint.mdAndUp"
+      v-model="drawer"
+      :mini-variant="miniVariant"
+      :clipped="clipped"
+      fixed
+      app
+    >
+      <v-list>
+        <template v-for="item in itsM()">
+          <mini :key="item.id" :item="item" />
+        </template>
+      </v-list>
+    </v-navigation-drawer>
     <v-toolbar>
+      <v-app-bar-nav-icon
+        aria-label="Pages"
+        class="d-flex d-md-none  mx-1"
+        @click.stop="drawer = !drawer"
+      />
       <v-toolbar-items>
         <v-btn text to="/projects" exact>
           <v-avatar>
@@ -8,10 +27,10 @@
               class="my-1"
               src="~/assets/favicon.png"
               alt="EffectiveWebApp"
-            >
+            />
           </v-avatar>
-          <span class="ml-2 d-none d-sm-flex font-weight-black font-italic">
-            {{ title }}
+          <span class="ml-2 font-weight-black font-italic">
+            {{ titleDisplay }}
           </span>
         </v-btn>
       </v-toolbar-items>
@@ -27,25 +46,33 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex"
+import { mapState } from "vuex"
 import hdr from "@/components/cps/hdr"
+import mini from "@/components/cps/mini"
 export default {
   components: {
-    hdr
+    hdr,
+    mini
   },
   data() {
     return {
+      isMounted: false,
       clipped: false,
       drawer: false,
       fixed: false,
       miniVariant: false,
       right: true,
-      rightDrawer: false,
-      title: "EffectiveWebApp"
+      rightDrawer: false
     }
   },
   computed: {
-    ...mapState(["username", "projects"]),
+    ...mapState(["username"]),
+    titleDisplay() {
+      if (this.$vuetify.breakpoint.xsOnly) {
+        return "EWA"
+      }
+      return "EffectiveWebApp"
+    },
     usernameDisplay() {
       if (this.username.length > 20) {
         return this.username.slice(0, 19) + "..."
@@ -58,12 +85,14 @@ export default {
           icon: "fas fa-home",
           title: "Welcome",
           type: "btn",
+          mini: true,
           bind: { to: "/" }
         },
         {
           icon: "menu_book",
           title: "Tutorials",
           type: "list",
+          mini: true,
           its: [
             { title: "Beam Calculator", bind: { to: "/Tutorials/Beam" } },
             {
@@ -83,6 +112,7 @@ export default {
         {
           icon: "fas fa-envelope",
           title: "Contact",
+          mini: true,
           type: "btn",
           bind: { to: "/contact" }
         },
@@ -113,15 +143,25 @@ export default {
       ]
     }
   },
+  mounted() {
+    this.isMounted = true
+  },
   methods: {
     itsL() {
-      return this.items.filter(cv => !("right" in cv))
+      const test =
+        this.isMounted && this.$vuetify.breakpoint.mdAndUp
+          ? this.items.filter(cv => !("right" in cv))
+          : this.items.filter(cv => !("right" in cv) && !("mini" in cv))
+      return test
     },
     itsR() {
       const test = this.username
         ? this.items.filter(cv => "right" in cv && !("anonymous" in cv))
         : this.items.filter(cv => "right" in cv && !("username" in cv))
       return test
+    },
+    itsM() {
+      return this.items.filter(cv => "mini" in cv)
     }
   }
 }
