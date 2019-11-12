@@ -69,7 +69,7 @@
     </v-data-table>
     <img
       v-if="inf.image"
-      :src="require(`@/assets/images/${inf.image.src}.png`)"
+      :src="require(`@/static/images/${inf.image.src}.png`)"
       height="150"
     >
   </v-flex>
@@ -88,7 +88,7 @@ export default {
     ...mapState(["project", "page", "search"]),
     ...mapGetters(["ac", "md", "inf"]),
     path(name) {
-      return require(`@/assets/images/${name}.png`)
+      return require(`@/static/images/${name}.png`)
     },
     headers() {
       if (this.md.action == "define" && this.page == "define") {

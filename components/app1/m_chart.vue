@@ -25,11 +25,8 @@
           </v-flex>
           <v-flex mx-1>
             <v-btn small fab class="elevation-1" color="success" @click="save">
-              <v-icon color="white">
-                visibility
-              </v-icon>
+              <Fas i="eye" />
             </v-btn>
-            <!-- <v-icon class="m_show" color="white" @click="save" >visibility</v-icon> -->
           </v-flex>
         </v-layout>
       </v-container>

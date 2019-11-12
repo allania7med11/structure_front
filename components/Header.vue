@@ -23,6 +23,7 @@
       <v-toolbar-items>
         <v-btn text to="/projects" exact>
           <v-avatar>
+            <!-- eslint-disable-next-line vue/html-self-closing -->
             <img
               class="my-1"
               src="~/assets/favicon.png"
@@ -82,14 +83,14 @@ export default {
     items() {
       return [
         {
-          icon: "fas fa-home",
+          icon: "home",
           title: "Welcome",
           type: "btn",
           mini: true,
           bind: { to: "/" }
         },
         {
-          icon: "menu_book",
+          icon: "book",
           title: "Tutorials",
           type: "list",
           mini: true,
@@ -110,14 +111,14 @@ export default {
           ]
         },
         {
-          icon: "fas fa-envelope",
+          icon: "envelope",
           title: "Contact",
           mini: true,
           type: "btn",
           bind: { to: "/contact" }
         },
         {
-          icon: "fas fa-user",
+          icon: "user",
           title: "Sign Up",
           type: "btn",
           bind: { href: "/accounts/signup" },
@@ -125,7 +126,7 @@ export default {
           anonymous: true
         },
         {
-          icon: "fas fa-sign-in-alt",
+          icon: "sign-in-alt",
           title: "Log In",
           type: "btn",
           bind: { href: "/accounts/login" },
@@ -135,7 +136,7 @@ export default {
         {
           right: true,
           username: true,
-          icon: "fas fa-user",
+          icon: "user",
           title: this.usernameDisplay,
           type: "username",
           its: [{ title: "Log Out", bind: { href: "/accounts/logout" } }]

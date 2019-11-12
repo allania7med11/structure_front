@@ -13,7 +13,7 @@
       <template v-slot:activator="{ on }">
         <v-btn text exact v-on="on">
           {{ item.title }}
-          <v-icon>arrow_drop_down</v-icon>
+          <Fas i="caret-down" />
         </v-btn>
       </template>
       <v-list>
@@ -28,6 +28,7 @@
 <script>
 export default {
   name: "Hdr",
+  // eslint-disable-next-line vue/require-prop-types
   props: ["item"]
 }
 </script>

@@ -117,5 +117,17 @@
 </template>
 
 <script>
-export default {}
+export default {
+  head: {
+    titleTemplate: "Free Online Beam Calculator",
+    meta: [
+      {
+        hid: "description",
+        name: "description",
+        content:
+          "This  Beam Calculator give you diagrams , extremes , exact equations of efforts and displacements of your beam and a lot more"
+      }
+    ]
+  }
+}
 </script>

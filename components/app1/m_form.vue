@@ -1,4 +1,5 @@
 <template>
+  <!-- eslint-disable vue/html-self-closing  -->
   <v-flex xs12 md6>
     <v-card
       v-if="dialog"
@@ -14,31 +15,27 @@
             <v-layout>
               <template v-if="md.action == 'define'">
                 <v-flex ma-1>
-                  <v-icon small @click="close">
-                    close
-                  </v-icon>
+                  <v-btn x-small text @click="close">
+                    <Fas i="times" />
+                  </v-btn>
                   <br />
-                  <v-icon :class="ac.class" color="white" @click="save">
-                    {{ ac.name }}
-                  </v-icon>
+                  <v-btn x-small :color="ac.color" @click="save">
+                    <Fas :i="ac.name" />
+                  </v-btn>
                 </v-flex>
               </template>
               <template v-else-if="md.action == 'apply'">
                 <v-flex ma-1>
-                  <v-icon small @click="close">
-                    close
-                  </v-icon>
+                  <v-btn x-small text @click="close">
+                    <Fas i="times" />
+                  </v-btn>
                   <br />
-                  <v-icon
-                    class="m_delete"
-                    color="white"
-                    @click="apply('remove')"
-                  >
-                    save_alt
-                  </v-icon>
-                  <v-icon class="m_apply" color="white" @click="apply('apply')">
-                    save_alt
-                  </v-icon>
+                  <v-btn x-small color="error" @click="apply('remove')">
+                    <Fas i="minus-circle" />
+                  </v-btn>
+                  <v-btn x-small color="success" @click="apply('apply')">
+                    <Fas i="plus-circle" />
+                  </v-btn>
                 </v-flex>
               </template>
               <template v-if="action === 'delete'">

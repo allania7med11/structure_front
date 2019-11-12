@@ -137,7 +137,19 @@
 </template>
 
 <script>
-export default {}
+export default {
+  head: {
+    titleTemplate: "Free Online Roof and Truss Calculator",
+    meta: [
+      {
+        hid: "description",
+        name: "description",
+        content:
+          "This  Beam Calculator give you diagrams , extremes , exact equations of efforts and displacements of your beam and a lot more"
+      }
+    ]
+  }
+}
 </script>
 
 <style></style>

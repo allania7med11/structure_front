@@ -6,6 +6,7 @@ import { Orders } from "@/constants/app1/order"
 const initialState = () => {
   return {
     id: 1,
+    error: false,
     project: { nodes: [], bars: [] },
     editedIndex: -1,
     detailIndex: -1,

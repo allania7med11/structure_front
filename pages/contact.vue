@@ -65,6 +65,16 @@ import { validationMixin } from "vuelidate"
 import { required, email } from "vuelidate/lib/validators"
 
 export default {
+  head: {
+    titleTemplate: "Contact Us | EffectiveWebApp",
+    meta: [
+      {
+        hid: "description",
+        name: "description",
+        content: "If you have any  questions  please feel free to contact us."
+      }
+    ]
+  },
   mixins: [validationMixin],
 
   validations: {

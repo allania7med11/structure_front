@@ -16,11 +16,38 @@ export default {
   components: {
     Header
   },
-  mounted() {
+  /* fetch({ store }) {
+    console.log("fetch")
+    return store.dispatch("login")
+  }, */
+  /* created() {
+    console.log("created")
     this.login()
-  },
+  }, */
   methods: {
     ...mapActions(["login"])
   }
 }
 </script>
+<style>
+.primary {
+  background-color: #1976d2 !important;
+  border-color: #1976d2 !important;
+}
+.warning {
+  background-color: #fb8c00 !important;
+  border-color: #fb8c00 !important;
+}
+.error {
+  background-color: #ff5252 !important;
+  border-color: #ff5252 !important;
+}
+.success {
+  background-color: #4caf50 !important;
+  border-color: #4caf50 !important;
+}
+.info {
+  background-color: #2196f3 !important;
+  border-color: #2196f3 !important;
+}
+</style>

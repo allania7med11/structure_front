@@ -88,5 +88,22 @@
 </template>
 
 <script>
-export default {}
+export default {
+  /* fetch({ store }) {
+    console.log("fetch")
+    return store.dispatch("login")
+  }, */
+  head: {
+    titleTemplate:
+      "Free Online Structure Analysis Software (Beams,Truss,Frame..)",
+    meta: [
+      {
+        hid: "description",
+        name: "description",
+        content:
+          "Calculate any type of structure (Beams,Truss,Frame..) and get all the results you need for free with no limitation"
+      }
+    ]
+  }
+}
 </script>

@@ -1,3 +1,4 @@
+/* eslint-disable vue/html-self-closing */
 <template>
   <v-flex xs12 md6>
     <v-card v-if="dialog" flat class="fixed">
@@ -7,6 +8,7 @@
             <v-layout>
               <template v-if="action === 'delete'">
                 <v-flex class="mt-2">
+                  <!-- eslint-disable-next-line vue/html-self-closing -->
                   <br />
                   <p class="title text-md-center">
                     Are you sure you want to delete this project ?
@@ -29,7 +31,7 @@
                           v-if="action == 'copy'"
                           v-model="$v.editedItem.id.$model"
                           label="Project"
-                          :items="this.projects"
+                          :items="projects"
                           item-text="name"
                           item-value="id"
                           :error-messages="Errors.id()"
@@ -40,13 +42,14 @@
                 </v-flex>
               </template>
               <v-flex ma-1>
-                <v-icon small @click="close">
-                  close
-                </v-icon>
+                <v-btn x-small text @click="close">
+                  <Fas i="times" />
+                </v-btn>
+                <!-- eslint-disable-next-line vue/html-self-closing -->
                 <br />
-                <v-icon :class="ac.class" color="white" @click="save">
-                  {{ ac.name }}
-                </v-icon>
+                <v-btn x-small :color="ac.color" @click="save">
+                  <Fas :i="ac.name" />
+                </v-btn>
               </v-flex>
             </v-layout>
           </v-form>

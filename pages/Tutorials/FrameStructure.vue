@@ -150,7 +150,19 @@
 </template>
 
 <script>
-export default {}
+export default {
+  head: {
+    titleTemplate: "Free Online Frame Calculator",
+    meta: [
+      {
+        hid: "description",
+        name: "description",
+        content:
+          "This  Frame Calculator give you (diagrams , extremes , exact equations of efforts and displacements)for each beam of your structure and a lot more"
+      }
+    ]
+  }
+}
 </script>
 
 <style></style>

@@ -10,8 +10,8 @@ export default {
    ** Headers of the page
    */
   head: {
-    titleTemplate: "%s - " + process.env.npm_package_name,
-    title: process.env.npm_package_name || "",
+    titleTemplate: "EffectiveWebApp",
+    title: "EffectiveWebApp2",
     meta: [
       { charset: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
@@ -21,36 +21,17 @@ export default {
         content: process.env.npm_package_description || ""
       }
     ],
-    link: [
-      { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
-      {
-        rel: "stylesheet",
-        href:
-          "https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons"
-      }
-    ]
+    link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }]
   },
-  /* webfontloader: {
-    google: {
-      families: ["Roboto:300,400,500,700|Material+Icons"] //Loads Lato font with weights 400 and 700
-    }
-  }, */
-  /*
-   ** Customize the progress-bar color
-   */
   loading: { color: "#fff" },
   /*
    ** Global CSS
    */
-  css: [],
+  css: ["~/assets/variables.scss"],
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [
-    "@/plugins/Vuelidate",
-    "~/plugins/axios",
-    { src: "~/plugins/icons.js", ssr: false }
-  ],
+  plugins: ["@/plugins/global", "@/plugins/Vuelidate", "@/plugins/axios"],
   /*
    ** Nuxt.js dev-modules
    */
@@ -62,20 +43,21 @@ export default {
     // Doc: https://axios.nuxtjs.org/usage
     "@nuxtjs/axios",
     "@nuxtjs/pwa",
-    "@nuxtjs/style-resources",
-    "nuxt-fontawesome"
-    // "nuxt-webfontloader"
+    "nuxt-fontawesome",
+    "nuxt-webfontloader"
   ],
   /*
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
    */
   axios: {
-    proxy: true // Can be also an object with default options
+    // proxy: true // Can be also an object with default options
+    baseURL: "http://server:8000",
+    browserBaseURL: "http://localhost"
   },
-  proxy: {
+  /* proxy: {
     "/api/": "http://localhost/api/"
-  },
+  }, */
   /*
    ** vuetify module configuration
    ** https://github.com/nuxt-community/vuetify-module
@@ -97,22 +79,27 @@ export default {
       {
         set: "@fortawesome/free-solid-svg-icons", // Solid icons
         icons: [
-          "faCookieBite",
-          "faCommentDots",
+          "faHome",
           "faEnvelope",
-          "faGrinWink",
-          "faHeart"
-        ]
-      },
-      {
-        set: "@fortawesome/free-brands-svg-icons", // Brand icons
-        icons: [
-          "faDev",
-          "faFacebook",
-          "faTwitter",
-          "faInstagram",
-          "faYoutube",
-          "faGithub"
+          "faUser",
+          "faSignInAlt",
+          "faPaperPlane",
+          "faCheck",
+          "faTimes",
+          "faCaretDown",
+          "faCaretRight",
+          "faFolderOpen",
+          "faEdit",
+          "faTrashAlt",
+          "faPlus",
+          "faCopy",
+          "faSave",
+          "faBook",
+          "faList",
+          "faPlusCircle",
+          "faMinusCircle",
+          "faSearch",
+          "faEye"
         ]
       }
     ]
@@ -120,7 +107,7 @@ export default {
   /*
    ** Build configuration
    */
-  pwa: {
+  /* pwa: {
     manifest: {
       name: "EffectiveWebApp",
       short_name: "EWA",
@@ -132,19 +119,25 @@ export default {
       theme_color: "#0A0302"
     },
     workbox: {
-      importScripts: ["custom-sw.js"],
+      preCaching: ["/", "/contact", "/Tutorials/BeamsInternalHinges"],
+      config: {
+        debug: true
+      }
+      /* runtimeCaching: [
+        {
+          urlPattern: "/contact",
+          handler: "cacheFirst"
+        }
+      ] */
+  /* importScripts: ["custom-sw.js"]
       runtimeCaching: [
         {
           urlPattern: "/Tutorials/BeamsInternalHinges/",
           handler: "cacheFirst",
           method: "GET"
         }
-      ]
-    }
-  },
-  /* optimizedImages: {
-    optimizeImages: true
-  }, */
+      ] */
+
   build: {
     /*
      ** You can extend webpack config here

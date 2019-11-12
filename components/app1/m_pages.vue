@@ -14,7 +14,7 @@
             v-if="progress"
             :size="25"
             indeterminate
-            color="primary"
+            color="blue darken-2"
           />
         </v-btn>
       </v-btn-toggle>
@@ -22,7 +22,7 @@
         style="background-color: white"
         :value="error"
         color="error"
-        icon="warning"
+        icon="colors.amber.base white--text"
         outlined
       >
         {{ errorM }}

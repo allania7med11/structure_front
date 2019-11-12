@@ -17,7 +17,7 @@ class cInfs {
     return this.Static.flds
   }
   get fldsGroup() {
-    if (Object.prototype.isPrototypeOf.call(this.Static, "features")) {
+    if ("features" in this.Static) {
       return this.flds.filter(cv => !this.Static.features.includes(cv))
     }
     return []
@@ -28,9 +28,7 @@ class cInfs {
         ? ["name", "type", this.Static.from]
         : ["name", this.Static.from]
     }
-    return !Object.prototype.isPrototypeOf.call(this.Static, "fldsT")
-      ? this.flds
-      : this.Static.fldsT
+    return !("fldsT" in this.Static) ? this.flds : this.Static.fldsT
   }
   get tbhs() {
     return this.fldsT.map(cv => this.Fld[cv])
@@ -47,10 +45,7 @@ class cInfs {
   }
   get flt() {
     if (["sections", "dls"].includes(this.Static.group)) {
-      let fltFeatures = !Object.prototype.isPrototypeOf.call(
-        this.Static,
-        "fltp"
-      )
+      let fltFeatures = !("fltp" in this.Static)
         ? features =>
             this.Static.features.reduce((ac, fld) => {
               ac[fld] = this.Unitetr(features[fld], fld)
@@ -134,7 +129,7 @@ class cInfs {
           }
         })
     }
-    return false
+    return !("flt" in this.Static) ? false : this.Static.flt
   }
   get fltR() {
     let name = this.name + "Apply"
@@ -167,7 +162,8 @@ class cInfs {
     return false
   }
   get ds() {
-    let rtn = {}
+    let rtn = !("ds" in this.Static) ? {} : this.Static.ds
+    console.log(this.name, rtn, this.Static, "ds" in this.Static)
     if (this.Static.group == "applys") {
       rtn[this.Static.from] = [
         {
@@ -190,12 +186,10 @@ class cInfs {
       }
       return rtn
     }
-    return !Object.prototype.isPrototypeOf.call(this.Static, "ds")
-      ? {}
-      : this.Static.ds
+    return rtn
   }
   get fmhs() {
-    return !Object.prototype.isPrototypeOf.call(this.Static, "fmhs")
+    return !("fmhs" in this.Static)
       ? [this.flds.map(x => [this.Fld[x]])]
       : this.Static.fmhs.map(cv => cv.map(cv2 => cv2.map(cv3 => this.Fld[cv3])))
   }
@@ -207,7 +201,7 @@ class cInfs {
     if (["sections", "dls"].includes(this.Static.group)) {
       di["type"] = this.name
     }
-    if (!Object.prototype.isPrototypeOf.call(this.Static, "defaultItem")) {
+    if (!("defaultItem" in this.Static)) {
       return di
     } else {
       return Object.assign({}, di, this.Static["defaultItem"])
@@ -234,7 +228,7 @@ class cInfs {
         }
       }
     }
-    return Object.prototype.isPrototypeOf.call(this.Static, "fe")
+    return "fe" in this.Static
       ? this.Static.fe
       : item =>
           this.flds.reduce((ac, vl) => {
@@ -260,9 +254,7 @@ class cInfs {
         }
       }
     }
-    return !Object.prototype.isPrototypeOf.call(this.Static, "fm")
-      ? x => x
-      : this.Static.fm
+    return !("fm" in this.Static) ? x => x : this.Static.fm
   }
 }
 

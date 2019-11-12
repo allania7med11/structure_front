@@ -1,10 +1,10 @@
 class cHelps {
   testArray = (x, id) => (Array.isArray(x) ? x[id] : x)
   Acs = {
-    create: { class: "m_add", name: "save" },
-    copy: { class: "m_add", name: "save" },
-    update: { class: "m_edit", name: "save" },
-    delete: { class: "m_delete", name: "delete" }
+    create: { class: "m_add", name: "save", color: "primary" },
+    copy: { class: "m_add", name: "save", color: "success" },
+    update: { class: "m_edit", name: "save", color: "warning" },
+    delete: { class: "m_delete", name: "trash-alt", color: "error" }
   }
   labels = {
     define: ["Model", "Action", "Type"],
@@ -21,7 +21,10 @@ class cHelps {
   get Dsvalue() {
     return {
       bl: (x, id) => (this.testArray(x, id) ? "check" : "times"),
-      name: (x, id) => this.testArray(x, id).name,
+      name: (x, id) => {
+        console.log(x, id)
+        return this.testArray(x, id).name
+      },
       unite: value => (x, id) => this.testArray(x, id) * value,
       idt: (x, id) => x[id],
       axes: (x, id) => (this.testArray(x, id) === "G" ? "Global" : "Local")

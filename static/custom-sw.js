@@ -4,8 +4,8 @@ if (workbox) {
 } else {
   console.log(`Boo! Workbox didn't load 😬`)
 }
-
-workbox.routing.registerRoute(
-  new RegExp("/.*"),
-  new workbox.strategies.NetworkFirst()
-)
+self.addEventListener("install", event => {
+  const urls = ["/Tutorials/Beam"]
+  const cacheName = workbox.core.cacheNames.runtime
+  event.waitUntil(caches.open(cacheName).then(cache => cache.addAll(urls)))
+})

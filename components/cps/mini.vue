@@ -7,7 +7,7 @@
     exact
   >
     <v-list-item-action>
-      <v-icon>{{ item.icon }}</v-icon>
+      <Fas :i="item.icon" />
     </v-list-item-action>
     <v-list-item-content>
       <v-list-item-title v-text="item.title" />
@@ -17,11 +17,14 @@
     <template v-slot:activator="{ on }">
       <v-list-item text exact v-on="on">
         <v-list-item-action>
-          <v-icon>{{ item.icon }}</v-icon>
+          <Fas :i="item.icon" />
         </v-list-item-action>
         <v-list-item-content>
           <v-list-item-title>
-            <span>{{ item.title }}<v-icon>arrow_right</v-icon></span>
+            <span>
+              {{ item.title }}
+              <Fas i="caret-right" />
+            </span>
           </v-list-item-title>
         </v-list-item-content>
       </v-list-item>
@@ -37,6 +40,7 @@
 <script>
 export default {
   name: "Hdr",
+  // eslint-disable-next-line vue/require-prop-types
   props: ["item"]
 }
 </script>

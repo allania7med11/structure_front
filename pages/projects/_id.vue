@@ -1,8 +1,9 @@
 <template>
   <div>
-    <client-only placeholder="Loading...">
-      <app1 v-if="show" />
-    </client-only>
+    <v-alert v-if="error" dismissible type="error">
+      An error occurred
+    </v-alert>
+    <app1 />
   </div>
 </template>
 <script>
@@ -14,16 +15,31 @@ export default {
   components: {
     app1
   },
-  data: () => ({
-    show: true
-  }),
   computed: {
-    ...mapState(mStore.state("project", ["project"]))
+    ...mapState(["username"]),
+    ...mapState(mStore.state("project", ["project", "error"]))
   },
-  mounted() {
+  fetch({ store, route }) {
+    store.dispatch("project/reset")
+    return store.dispatch("project/aProject", { id: route.params.id })
+  },
+  head() {
+    return {
+      titleTemplate: this.project.name + "(" + this.username + ")",
+      meta: [
+        {
+          hid: "description",
+          name: "description",
+          content:
+            "This  Beam Calculator give you diagrams , extremes , exact equations of efforts and displacements of your beam and a lot more"
+        }
+      ]
+    }
+  },
+  /* mounted() {
     this.reset()
     this.aProject({ id: this.$route.params.id })
-  },
+  }, */
   methods: {
     ...mapActions(mStore.getter("project", ["reset", "aProject"]))
   }

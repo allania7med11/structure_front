@@ -1,5 +1,5 @@
 <template>
-  <client-only placeholder="Loading...">
+  <div>
     <div>
       <v-alert v-if="error" dismissible type="error">
         An error occurred
@@ -7,20 +7,37 @@
       <us_table />
       <us_form />
     </div>
-  </client-only>
+  </div>
 </template>
 <script>
 import us_table from "@/components/us_table.vue"
 import us_form from "@/components/us_form.vue"
-import { mapActions } from "vuex"
+import { mapState, mapActions } from "vuex"
 import { mStore } from "@/constants/static"
 export default {
   components: {
     us_table,
     us_form
   },
-  mounted() {
-    this.aProjects()
+  computed: {
+    ...mapState(["username"]),
+    ...mapState(mStore.state("projects", ["error"]))
+  },
+  fetch({ store }) {
+    return store.dispatch("projects/aProjects")
+  },
+  head() {
+    return {
+      titleTemplate: "List of projects(" + this.username + ")",
+      meta: [
+        {
+          hid: "description",
+          name: "description",
+          content:
+            "This  Beam Calculator give you diagrams , extremes , exact equations of efforts and displacements of your beam and a lot more"
+        }
+      ]
+    }
   },
   methods: {
     ...mapActions(mStore.getter("projects", ["aProjects"]))

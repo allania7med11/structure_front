@@ -3,20 +3,25 @@
     <v-layout row wrap justify-space-between>
       <v-flex xs5 md5>
         <v-btn block color="info" @click="sc = !sc">
-          <v-icon>list</v-icon>
+          <Fas i="list" />
           {{ fslg.text }}
         </v-btn>
       </v-flex>
       <v-flex xs4 md3>
-        <v-text-field
-          v-if="!testDetail"
-          v-model="search"
-          append-icon="search"
-          label="Search"
-          single-line
-          hide-details
-          @change="searchChange"
-        />
+        <span>
+          <v-text-field
+            v-if="!testDetail"
+            v-model="search"
+            label="Search"
+            single-line
+            hide-details
+            @change="searchChange"
+          >
+            <template v-slot:append>
+              <Fas i="search" />
+            </template>
+          </v-text-field>
+        </span>
       </v-flex>
     </v-layout>
     <v-layout row>

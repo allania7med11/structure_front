@@ -3,6 +3,7 @@ import { sortDate } from "@/constants/static"
 
 const initialState = () => {
   return {
+    error: false,
     projects: [],
     editedIndex: -1,
     dialog: false,

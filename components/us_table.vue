@@ -3,24 +3,24 @@
     <v-row justify="center">
       <v-col md="10" lg="8">
         <v-btn color="primary" @click="newItem">
-          <v-icon>add</v-icon>New Project
+          <Fas i="plus" />New Project
         </v-btn>
-        <v-btn color="success" @click="copyItem">
-          <v-icon>save_alt</v-icon>Copy Project
+        <v-btn class="success" @click="copyItem">
+          <Fas i="copy" />Copy Project
         </v-btn>
 
         <v-data-table :headers="headers" :items="items" class="elevation-1">
           <template v-slot:item.action="{ item }">
             <nuxt-link :to="`/projects/${item.id}`">
               <v-btn class="mx-2" color="primary">
-                <v-icon>folder_open</v-icon>
+                <Fas i="folder-open" />
               </v-btn>
             </nuxt-link>
             <v-btn class="mx-2" color="warning" @click="editItem(item)">
-              <v-icon>edit</v-icon>
+              <Fas i="edit" />
             </v-btn>
             <v-btn class="mx-2" color="error" @click="deleteItem(item)">
-              <v-icon>delete</v-icon>
+              <Fas i="trash-alt" />
             </v-btn>
           </template>
         </v-data-table>
@@ -31,7 +31,6 @@
 <script>
 import { mapState, mapActions } from "vuex"
 import { mStore } from "@/constants/static"
-
 export default {
   data: () => ({
     headers: [

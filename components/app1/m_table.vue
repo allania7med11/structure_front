@@ -14,9 +14,9 @@
         v-if="md.action == 'define' && page == 'define'"
         v-slot:header.action="{ header }"
       >
-        <v-icon class="m_add" color="white" @click="newItem">
-          add
-        </v-icon>
+        <v-btn x-small class="primary" @click="newItem">
+          <Fas i="plus" />
+        </v-btn>
       </template>
       <template
         v-if="md.action == 'apply' && page == 'define'"
@@ -38,12 +38,12 @@
         v-slot:item.action="{ item }"
       >
         <span v-if="item.project.id !== '1'">
-          <v-icon class="m_delete" color="white" @click="deleteItem(item)"
-            >delete</v-icon
-          >
-          <v-icon class="m_edit" color="white" @click="editItem(item)"
-            >edit</v-icon
-          >
+          <v-btn x-small color="warning" @click="editItem(item)">
+            <Fas i="edit" />
+          </v-btn>
+          <v-btn x-small color="error" @click="deleteItem(item)">
+            <Fas i="trash-alt" />
+          </v-btn>
         </span>
       </template>
       <template
@@ -51,14 +51,12 @@
         v-slot:[hd(header)]="{ item }"
       >
         <ul :key="header.id" style="list-style-type:none;padding-left: 0;">
-          <li v-for="(hd, index) in inf.ds[header]" :key="hd.id">
-            <v-icon v-if="hd.type === 'bl'" small>
-              fas fa-{{ hd.value(item[header], index) }}
-            </v-icon>
-            <span v-else-if="hd.type === 'list'">{{
-              hd.value(item[header])
+          <li v-for="(hdi, index) in inf.ds[header]" :key="hdi.id">
+            <Fas v-if="hdi.type === 'bl'" :i="hdi.value(item[header], index)" />
+            <span v-else-if="hdi.type === 'list'">{{
+              hdi.value(item[header])
             }}</span>
-            <span v-else>{{ hd.value(item[header], index) }}</span>
+            <span v-else>{{ hdi.value(item[header], index) }}</span>
           </li>
         </ul>
       </template>
