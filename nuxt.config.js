@@ -1,5 +1,5 @@
 import colors from "vuetify/es5/util/colors"
-
+// eslint-disable-next-line no-unused-vars
 export default {
   server: {
     // port: 3000, // default: 3000
@@ -9,6 +9,7 @@ export default {
   /*
    ** Headers of the page
    */
+  serverMiddleware: ["~/apiCl/index.js"],
   head: {
     titleTemplate: "EffectiveWebApp",
     title: "EffectiveWebApp2",
@@ -27,7 +28,7 @@ export default {
   /*
    ** Global CSS
    */
-  css: ["~/assets/variables.scss"],
+  css: [],
   /*
    ** Plugins to load before mounting the App
    */
@@ -107,7 +108,7 @@ export default {
   /*
    ** Build configuration
    */
-  /* pwa: {
+  pwa: {
     manifest: {
       name: "EffectiveWebApp",
       short_name: "EWA",
@@ -119,25 +120,28 @@ export default {
       theme_color: "#0A0302"
     },
     workbox: {
-      preCaching: ["/", "/contact", "/Tutorials/BeamsInternalHinges"],
+      // globDirectory: "dist",
+      // globPatterns: ["**/img/*"],
+      // offlinePage: "/404.html",
+      importScripts: ["custom-sw.js"],
+      preCaching: [
+        "/",
+        "/contact",
+        ...[
+          "Beam",
+          "BeamsInternalHinges",
+          "FrameStructure",
+          "TrussStructure"
+        ].map(cv => "Tutorials/" + cv)
+      ],
       config: {
         debug: true
       }
-      /* runtimeCaching: [
-        {
-          urlPattern: "/contact",
-          handler: "cacheFirst"
-        }
-      ] */
-  /* importScripts: ["custom-sw.js"]
-      runtimeCaching: [
-        {
-          urlPattern: "/Tutorials/BeamsInternalHinges/",
-          handler: "cacheFirst",
-          method: "GET"
-        }
-      ] */
-
+    } /* ,
+    generate: {
+      fallback: true
+    } */
+  },
   build: {
     /*
      ** You can extend webpack config here
