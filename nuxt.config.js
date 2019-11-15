@@ -42,7 +42,7 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     "@nuxtjs/axios",
-    // "@nuxtjs/pwa",
+    "@nuxtjs/pwa",
     "nuxt-fontawesome",
     "nuxt-webfontloader"
   ],
@@ -113,8 +113,8 @@ export default {
       display: "standalone",
       background_color: "#fff",
       theme_color: "#0A0302"
-    }
-    /*  workbox: {
+    },
+    workbox: {
       importScripts: ["custom-sw.js"],
       preCaching: [
         "/",
@@ -129,7 +129,7 @@ export default {
       config: {
         debug: true
       }
-    } */
+    }
   },
   build: {
     /*
