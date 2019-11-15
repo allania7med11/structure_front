@@ -16,14 +16,6 @@ export default {
   components: {
     Header
   },
-  /* fetch({ store }) {
-    console.log("fetch")
-    return store.dispatch("login")
-  }, */
-  /* created() {
-    console.log("created")
-    this.login()
-  }, */
   methods: {
     ...mapActions(["login"])
   }

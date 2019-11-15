@@ -1,5 +1,4 @@
 import colors from "vuetify/es5/util/colors"
-// eslint-disable-next-line no-unused-vars
 export default {
   server: {
     // port: 3000, // default: 3000
@@ -43,7 +42,7 @@ export default {
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
     "@nuxtjs/axios",
-    "@nuxtjs/pwa",
+    // "@nuxtjs/pwa",
     "nuxt-fontawesome",
     "nuxt-webfontloader"
   ],
@@ -52,27 +51,23 @@ export default {
    ** See https://axios.nuxtjs.org/options
    */
   axios: {
-    // proxy: true // Can be also an object with default options
     baseURL: "http://server:8000",
     browserBaseURL: "http://localhost"
   },
-  /* proxy: {
-    "/api/": "http://localhost/api/"
-  }, */
-  /*
-   ** vuetify module configuration
-   ** https://github.com/nuxt-community/vuetify-module
-   */
   vuetify: {
+    defaultAssets: false,
+    treeShake: false,
     customVariables: ["~/assets/variables.scss"],
     theme: {
-      primary: colors.blue.darken2,
-      accent: colors.grey.darken3,
-      secondary: colors.amber.darken3,
-      info: colors.teal.lighten1,
-      warning: colors.amber.base,
-      error: colors.deepOrange.accent4,
-      success: colors.green.accent3
+      light: {
+        primary: colors.blue.darken2,
+        accent: colors.grey.darken3,
+        secondary: colors.amber.darken3,
+        info: colors.teal.lighten1,
+        warning: colors.amber.base,
+        error: colors.deepOrange.accent4,
+        success: colors.green.accent3
+      }
     }
   },
   fontawesome: {
@@ -118,11 +113,8 @@ export default {
       display: "standalone",
       background_color: "#fff",
       theme_color: "#0A0302"
-    },
-    workbox: {
-      // globDirectory: "dist",
-      // globPatterns: ["**/img/*"],
-      // offlinePage: "/404.html",
+    }
+    /*  workbox: {
       importScripts: ["custom-sw.js"],
       preCaching: [
         "/",
@@ -137,15 +129,13 @@ export default {
       config: {
         debug: true
       }
-    } /* ,
-    generate: {
-      fallback: true
     } */
   },
   build: {
     /*
      ** You can extend webpack config here
      */
+    vendor: ["axios", "vuetify"],
     extend(config, ctx) {
       if (ctx.isDev && ctx.isClient) {
         config.module.rules.push({
