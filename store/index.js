@@ -1,10 +1,8 @@
-import Cookies from "js-cookie/src/js.cookie.js"
 export const strict = false
 
 export const state = () => ({
   username: false,
   error: false,
-  csrf: false,
   tutorials: {},
   listTutorials: [
     "Beam",
@@ -38,16 +36,7 @@ export const actions = {
   async login({ commit }) {
     try {
       let US
-      if (process.server) {
-        console.log("/api/users/current/")
-        US = await this.$axios.$get("http://server:8000/api/users/current/")
-        console.log("/api/users/current/", US)
-      } else {
-        US = await this.$axios.$get("/api/users/current/")
-      }
-      console.log("/api/users/current/", US.username)
-      var csrftoken = await Cookies.get("csrftoken")
-      commit("stateChange", { state: "csrf", value: csrftoken })
+      US = await this.$axios.$get("/api/users/current/")
       if (US.id) {
         commit("stateChange", { state: "username", value: US.username })
       } else {

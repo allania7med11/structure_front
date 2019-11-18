@@ -15,11 +15,21 @@
       </v-list>
     </v-navigation-drawer>
     <v-toolbar>
-      <v-app-bar-nav-icon
+      <v-btn
+        small
+        fab
+        text
         aria-label="Pages"
         class="d-flex d-md-none  mx-1"
         @click.stop="drawer = !drawer"
-      />
+      >
+        <Fas i="bars" />
+      </v-btn>
+      <!-- <v-app-bar-nav-icon
+        aria-label="Pages"
+        class="d-flex d-md-none  mx-1"
+        @click.stop="drawer = !drawer"
+      /> -->
       <v-toolbar-items>
         <v-btn text to="/projects" exact>
           <v-avatar>
@@ -139,7 +149,13 @@ export default {
           icon: "user",
           title: this.usernameDisplay,
           type: "username",
-          its: [{ title: "Log Out", bind: { href: "/accounts/logout" } }]
+          its: [
+            {
+              title: "Change password",
+              bind: { href: "/accounts/password/change" }
+            },
+            { title: "Log Out", bind: { href: "/accounts/logout" } }
+          ]
         }
       ]
     }

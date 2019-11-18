@@ -44,7 +44,8 @@ export default {
     "@nuxtjs/axios",
     "@nuxtjs/pwa",
     "nuxt-fontawesome",
-    "nuxt-webfontloader"
+    "nuxt-webfontloader",
+    "cookie-universal-nuxt"
   ],
   /*
    ** Axios module configuration
@@ -95,7 +96,8 @@ export default {
           "faPlusCircle",
           "faMinusCircle",
           "faSearch",
-          "faEye"
+          "faEye",
+          "faBars"
         ]
       }
     ]
@@ -119,6 +121,7 @@ export default {
       preCaching: [
         "/",
         "/contact",
+        "/favicon.ico",
         ...[
           "Beam",
           "BeamsInternalHinges",

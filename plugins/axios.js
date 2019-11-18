@@ -1,7 +1,8 @@
-export default function({ $axios, store }) {
+export default function({ $axios, app }) {
   $axios.onRequest(config => {
-    if (store.state.csrf) {
-      config.headers.common["X-CSRFToken"] = store.state.csrf
+    const token = app.$cookies.get("csrftoken")
+    if (token) {
+      config.headers.common["X-CSRFToken"] = token
     }
   })
 }

@@ -1,72 +1,77 @@
 <template>
-  <v-flex xs12 md12>
-    <v-data-table
-      :headers="headers"
-      :hide-default-header="false"
-      :items="items"
-      class="elevation-1 pre-formatted"
-      item-key="name"
-      :search="search"
-      :sort-by="sort.by"
-      :sort-desc="sort.desc"
-    >
-      <template
-        v-if="md.action == 'define' && page == 'define'"
-        v-slot:header.action="{ header }"
+  <div>
+    <v-flex xs12 md12>
+      <v-data-table
+        :headers="headers"
+        :hide-default-header="false"
+        :items="items"
+        class="elevation-1 pre-formatted"
+        item-key="name"
+        :search="search"
+        :sort-by="sort.by"
+        :sort-desc="sort.desc"
       >
-        <v-btn x-small class="primary" @click="newItem">
-          <Fas i="plus" />
-        </v-btn>
-      </template>
-      <template
-        v-if="md.action == 'apply' && page == 'define'"
-        v-slot:header.name="{ header }"
-      >
-        <v-btn
-          x-small
-          fab
-          class="elevation-1"
-          color="info"
-          @click.stop.prevent="applyItem"
+        <template
+          v-if="md.action == 'define' && page == 'define'"
+          v-slot:header.action="{ header }"
         >
-          <span class="headline">+</span>
-        </v-btn>
-        <span>name</span>
-      </template>
-      <template
-        v-if="md.action == 'define' && page == 'define'"
-        v-slot:item.action="{ item }"
-      >
-        <span v-if="item.project.id !== '1'">
-          <v-btn x-small color="warning" @click="editItem(item)">
-            <Fas i="edit" />
+          <v-btn x-small class="primary" @click="newItem">
+            <Fas i="plus" />
           </v-btn>
-          <v-btn x-small color="error" @click="deleteItem(item)">
-            <Fas i="trash-alt" />
+        </template>
+        <template
+          v-if="md.action == 'apply' && page == 'define'"
+          v-slot:header.name="{ header }"
+        >
+          <v-btn
+            x-small
+            fab
+            class="elevation-1"
+            color="info"
+            @click.stop.prevent="applyItem"
+          >
+            <span class="headline">+</span>
           </v-btn>
-        </span>
-      </template>
-      <template
-        v-for="header in Object.keys(inf.ds)"
-        v-slot:[hd(header)]="{ item }"
-      >
-        <ul :key="header.id" style="list-style-type:none;padding-left: 0;">
-          <li v-for="(hdi, index) in inf.ds[header]" :key="hdi.id">
-            <Fas v-if="hdi.type === 'bl'" :i="hdi.value(item[header], index)" />
-            <span v-else-if="hdi.type === 'list'">{{
-              hdi.value(item[header])
-            }}</span>
-            <span v-else>{{ hdi.value(item[header], index) }}</span>
-          </li>
-        </ul>
-      </template>
-    </v-data-table>
+          <span>name</span>
+        </template>
+        <template
+          v-if="md.action == 'define' && page == 'define'"
+          v-slot:item.action="{ item }"
+        >
+          <span v-if="item.project.id !== '1'">
+            <v-btn x-small color="warning" @click="editItem(item)">
+              <Fas i="edit" />
+            </v-btn>
+            <v-btn x-small color="error" @click="deleteItem(item)">
+              <Fas i="trash-alt" />
+            </v-btn>
+          </span>
+        </template>
+        <template
+          v-for="header in Object.keys(inf.ds)"
+          v-slot:[hd(header)]="{ item }"
+        >
+          <ul :key="header.id" style="list-style-type:none;padding-left: 0;">
+            <li v-for="(hdi, index) in inf.ds[header]" :key="hdi.id">
+              <Fas
+                v-if="hdi.type === 'bl'"
+                :i="hdi.value(item[header], index)"
+              />
+              <span v-else-if="hdi.type === 'list'">{{
+                hdi.value(item[header])
+              }}</span>
+              <span v-else>{{ hdi.value(item[header], index) }}</span>
+            </li>
+          </ul>
+        </template>
+      </v-data-table>
+    </v-flex>
     <v-img
-      v-if="inf.image"
-      :src="require(`@/assets/images/${inf.image.src}.png`)"
+      v-if="inf.Static.image"
+      :src="require(`@/assets/images/${inf.Static.image.src}.png`)"
       height="150"
     />
-  </v-flex>
+  </div>
 </template>
 <script>
 import { mapState, mapGetters, mapActions } from "vuex"
