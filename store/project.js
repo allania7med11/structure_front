@@ -61,10 +61,12 @@ export const actions = {
   },
   async aProject({ commit }, input) {
     try {
-      var project = await this.$axios.$get(`/api/projects/${input.id}/`)
+      const project = await this.$axios.$get(`/api/projects/${input.id}/`)
       commit("projectChange", { state: "project", value: project })
+      return true
     } catch (error) {
       console.error(error)
+      return false
     }
   }
 }

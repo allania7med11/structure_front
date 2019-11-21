@@ -117,6 +117,7 @@ export default {
       theme_color: "#0A0302"
     },
     workbox: {
+      runtimeCaching: [],
       importScripts: ["custom-sw.js"],
       preCaching: [
         "/",
@@ -130,7 +131,13 @@ export default {
         ].map(cv => "Tutorials/" + cv)
       ],
       config: {
-        debug: true
+        debug: false
+      },
+      cacheNames: {
+        prefix: "app",
+        suffix: "v1",
+        precache: "precache",
+        runtime: "runtime"
       }
     }
   },
@@ -138,7 +145,6 @@ export default {
     /*
      ** You can extend webpack config here
      */
-    vendor: ["axios", "vuetify"],
     extend(config, ctx) {
       if (ctx.isDev && ctx.isClient) {
         config.module.rules.push({

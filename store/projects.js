@@ -11,7 +11,6 @@ const initialState = () => {
   }
 }
 export const state = () => initialState()
-
 export const mutations = {
   projectsChange(state, input) {
     state[input.state] = input.value
@@ -31,9 +30,10 @@ export const actions = {
   async aProjects({ commit }) {
     try {
       var projects = await this.$axios.$get("/api/projects/")
+      let items = [...projects]
       commit("projectsChange", {
         state: "projects",
-        value: projects.sort(sortDate(false)).map(cv =>
+        value: items.sort(sortDate(false)).map(cv =>
           Object.assign({}, cv, {
             modified_date: moment(String(cv.modified_date)).format(
               "MM/DD/YYYY hh:mm"
