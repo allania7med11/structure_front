@@ -22,7 +22,6 @@ class cHelps {
     return {
       bl: (x, id) => (this.testArray(x, id) ? "check" : "times"),
       name: (x, id) => {
-        console.log(x, id)
         return this.testArray(x, id).name
       },
       unite: value => (x, id) => this.testArray(x, id) * value,

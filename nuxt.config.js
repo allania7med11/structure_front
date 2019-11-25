@@ -117,8 +117,7 @@ export default {
       theme_color: "#0A0302"
     },
     workbox: {
-      runtimeCaching: [],
-      importScripts: ["custom-sw.js"],
+      workboxExtensions: "@/plugins/custom-sw.js",
       preCaching: [
         "/",
         "/contact",
@@ -130,9 +129,6 @@ export default {
           "TrussStructure"
         ].map(cv => "Tutorials/" + cv)
       ],
-      config: {
-        debug: false
-      },
       cacheNames: {
         prefix: "app",
         suffix: "v1",

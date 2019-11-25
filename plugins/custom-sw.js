@@ -19,19 +19,9 @@ self.addEventListener("install", event => {
   event.waitUntil(preCache())
 })
 self.addEventListener("fetch", event => {
-  const cacheName = workbox.core.cacheNames.runtime
-  console.log(cacheName)
-  const preCache = async () => {
-    const cache = await caches.open(cacheName)
-    console.log(event.request)
-    const request = new Request("http://localhost/api/projects/21/")
-    console.log(request)
-    cache.match(request).then(rp => {
-      console.log(rp)
-      return rp
-    })
-  }
-  if (event.request.url.includes("http://localhost/api/projects/")) {
-    event.waitUntil(preCache())
+  if (event.request.url.includes("/api/") && !navigator.onLine) {
+    event.respondWith(
+      caches.match(event.request) || caches.match("/Default/api")
+    )
   }
 })

@@ -1,9 +1,11 @@
 <template>
   <div>
-    <v-alert v-if="error" dismissible type="error">
-      An error occurred
-    </v-alert>
-    <app1 />
+    <client-only>
+      <v-alert v-if="error" dismissible type="error">
+        An error occurred
+      </v-alert>
+      <app1 />
+    </client-only>
   </div>
 </template>
 <script>

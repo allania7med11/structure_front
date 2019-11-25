@@ -147,7 +147,6 @@ class cInfs {
         const materials = pr["sections"]
           .filter(cv => cv["bars"].length > 0)
           .map(cv2 => cv2.material.name)
-        console.log("materials", materials)
         return md.filter(cv => materials.includes(cv.name))
       }
     }
@@ -163,7 +162,6 @@ class cInfs {
   }
   get ds() {
     let rtn = !("ds" in this.Static) ? {} : this.Static.ds
-    console.log(this.name, rtn, this.Static, "ds" in this.Static)
     if (this.Static.group == "applys") {
       rtn[this.Static.from] = [
         {
@@ -210,7 +208,6 @@ class cInfs {
   get fe() {
     if (["sections", "dls"].includes(this.Static.group)) {
       return item => {
-        console.log(item)
         const features = JSON.parse(item.features)
         return {
           type: item.type,

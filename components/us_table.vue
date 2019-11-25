@@ -12,7 +12,11 @@
         <v-data-table :headers="headers" :items="items" class="elevation-1">
           <template v-slot:item.action="{ item }">
             <nuxt-link
-              v-if="offlineProjects.includes(item.name)"
+              v-if="
+                offlineProjects.find(cv =>
+                  cv.includes(`/api/projects/${item.id}/`)
+                )
+              "
               :to="`/projects/${item.id}`"
             >
               <v-btn class="mx-2" color="primary">
@@ -63,10 +67,6 @@ export default {
       return this.projects
     },
     offline() {
-      console.log("$nuxt.isOffline")
-      // eslint-disable-next-line no-undef
-      console.log(this.$nuxt.isOffline)
-      // eslint-disable-next-line no-undef
       return this.$nuxt.isOffline
     }
   },
@@ -74,34 +74,30 @@ export default {
     offline: {
       immediate: true,
       handler: async function(val) {
-        console.log("offline", val)
         if (val) {
           let list = []
-          this.projects.forEach(async vl => {
-            let project = await this.$axios.$get(`/api/projects/${vl.id}/`, {
-              cache: "only-if-cached"
+          console.log("offline", val)
+          caches.open("app-runtime-v1").then(cache => {
+            cache.keys().then(keys => {
+              Promise.all(
+                keys
+                  .filter(k => k.url.includes("/api/projects/"))
+                  .map(cv => {
+                    list.push(cv.url)
+                    return cv.url
+                  })
+              ).then(() => {
+                console.log("I am here")
+                console.log(list)
+                console.log(list.filter(k => k.includes("/api/")))
+                this.offlineProjects = list.filter(k => k.includes("/api/"))
+              })
             })
-            if (project) {
-              list.push(project.name)
-            }
           })
-          this.offlineProjects = list
-          /* this.offlineProjects = this.projects
-            .filter(async cv => {
-              try {
-                const project = await this.$axios.$get(
-                  `/api/projects/${cv.id}/`
-                )
-                console.log("s", project)
-                return true
-              } catch (e) {
-                console.log("e", e)
-                return false
-              }
-            })
-            .map(cv2 => cv2.name) */
         } else {
-          this.offlineProjects = this.projects.map(cv => cv.name)
+          this.offlineProjects = this.projects.map(
+            cv => `/api/projects/${cv.id}/`
+          )
         }
       }
     }

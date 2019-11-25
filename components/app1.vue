@@ -2,9 +2,7 @@
   <v-container class="pa-0" fluid>
     <m_pages v-if="pages" />
     <v-layout align-start justify-space-around wrap>
-      <client-only>
-        <m_chart />
-      </client-only>
+      <m_chart />
       <v-flex xs12 md5>
         <v-layout column>
           <m_select />
