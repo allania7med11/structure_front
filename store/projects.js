@@ -7,7 +7,8 @@ const initialState = () => {
     projects: [],
     editedIndex: -1,
     dialog: false,
-    action: "create"
+    action: "create",
+    offlineProjects: []
   }
 }
 export const state = () => initialState()
@@ -44,5 +45,33 @@ export const actions = {
     } catch (error) {
       console.error(error)
     }
+  },
+  async aOfflineProjects({ commit }) {
+    let runtime = ""
+    let list = []
+    await caches.keys().then(keys => {
+      runtime = keys.find(cv => cv.includes("runtime"))
+      console.log(runtime)
+    })
+    caches.open(runtime).then(cache => {
+      cache.keys().then(keys => {
+        Promise.all(
+          keys
+            .filter(k => k.url.includes("/api/projects/"))
+            .map(cv => {
+              list.push(cv.url)
+              return cv.url
+            })
+        ).then(() => {
+          console.log("I am here")
+          console.log(list)
+          console.log(list.filter(k => k.includes("/api/")))
+          commit("projectsChange", {
+            state: "offlineProjects",
+            value: list.filter(k => k.includes("/api/"))
+          })
+        })
+      })
+    })
   }
 }

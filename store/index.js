@@ -33,7 +33,7 @@ export const actions = {
   stateChange({ commit }, input) {
     commit("stateChange", input)
   },
-  async login({ commit, dispatch }) {
+  async login({ commit }) {
     try {
       let US
       US = await this.$axios.$get("/api/users/current/")
@@ -41,9 +41,6 @@ export const actions = {
         commit("stateChange", { state: "username", value: US.username })
       } else {
         commit("stateChange", { state: "username", value: false })
-      }
-      if (process.client) {
-        dispatch("runtimeCache")
       }
     } catch (error) {
       console.error(error)

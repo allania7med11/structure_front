@@ -12,11 +12,7 @@
         <v-data-table :headers="headers" :items="items" class="elevation-1">
           <template v-slot:item.action="{ item }">
             <nuxt-link
-              v-if="
-                offlineProjects.find(cv =>
-                  cv.includes(`/api/projects/${item.id}/`)
-                )
-              "
+              v-if="testOfflineProjects(item)"
               :to="`/projects/${item.id}`"
             >
               <v-btn class="mx-2" color="primary">
@@ -46,7 +42,7 @@
   </v-container>
 </template>
 <script>
-import { mapState, mapActions, mapGetters } from "vuex"
+import { mapState, mapActions } from "vuex"
 import { mStore } from "@/constants/static"
 export default {
   data: () => ({
@@ -54,12 +50,12 @@ export default {
       { text: "Name", value: "name" },
       { text: "Modified Date", value: "modified_date" },
       { text: "", value: "action", sortable: false, align: "right" }
-    ],
-    offlineProjects: []
+    ]
   }),
   computed: {
-    ...mapState(mStore.state("projects", ["projects", "search"])),
-    ...mapGetters(mStore.getter("projects", ["projectsOffline"])),
+    ...mapState(
+      mStore.state("projects", ["projects", "search", "offlineProjects"])
+    ),
     formTitle() {
       return this.editedIndex === -1 ? "New Item" : "Edit Item"
     },
@@ -75,35 +71,15 @@ export default {
       immediate: true,
       handler: async function(val) {
         if (val) {
-          let list = []
-          console.log("offline", val)
-          caches.open("app-runtime-v1").then(cache => {
-            cache.keys().then(keys => {
-              Promise.all(
-                keys
-                  .filter(k => k.url.includes("/api/projects/"))
-                  .map(cv => {
-                    list.push(cv.url)
-                    return cv.url
-                  })
-              ).then(() => {
-                console.log("I am here")
-                console.log(list)
-                console.log(list.filter(k => k.includes("/api/")))
-                this.offlineProjects = list.filter(k => k.includes("/api/"))
-              })
-            })
-          })
-        } else {
-          this.offlineProjects = this.projects.map(
-            cv => `/api/projects/${cv.id}/`
-          )
+          this.aOfflineProjects()
         }
       }
     }
   },
   methods: {
-    ...mapActions(mStore.getter("projects", ["projectsChange"])),
+    ...mapActions(
+      mStore.getter("projects", ["projectsChange", "aOfflineProjects"])
+    ),
     ...mapActions(["runtimeCache"]),
     console(val) {
       console.log(val)
@@ -130,6 +106,14 @@ export default {
       this.projectsChange({ state: "action", value: "delete" })
       this.projectsChange({ state: "editedIndex", value: item.id })
       this.open()
+    },
+    testOfflineProjects(item) {
+      if (this.offline) {
+        return this.offlineProjects.find(cv =>
+          cv.includes(`/api/projects/${item.id}/`)
+        )
+      }
+      return true
     }
   }
 }
