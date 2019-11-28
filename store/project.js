@@ -15,12 +15,17 @@ const initialState = () => {
     search: "",
     slg: "nodes",
     action: "create",
-    results: "Solve",
     pages: true
   }
 }
 export const state = () => initialState()
 export const getters = {
+  results: state => {
+    console.log('state.project["results"]')
+    console.log(state.project["results"])
+    console.log(state.project["results"] ? "Results" : "Solve")
+    return state.project["results"] ? "Results" : "Solve"
+  },
   ac: state => {
     return help.Acs[state.action]
   },

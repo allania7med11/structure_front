@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex"
+import { mapState, mapActions, mapGetters } from "vuex"
 import { mStore } from "@/constants/static"
 export default {
   data() {
@@ -45,11 +45,15 @@ export default {
     }
   },
   computed: {
-    ...mapState(mStore.state("project", ["project", "page", "results"]))
+    ...mapState(mStore.state("project", ["project", "page"])),
+    ...mapGetters(mStore.getter("project", ["results"]))
   },
   watch: {
-    results() {
-      this.componentKey += 1
+    results: {
+      immediate: true,
+      handler() {
+        this.componentKey += 1
+      }
     }
   },
   methods: {
@@ -91,7 +95,6 @@ export default {
         )
         if (results) {
           this.aProject({ id: this.$route.params.id })
-          this.projectChange({ state: "results", value: "Results" })
           this.projectChange({ state: "page", value: this.choice })
         } else {
           this.errorM = "Unstable structure"

@@ -37,7 +37,7 @@ export const actions = {
         value: items.sort(sortDate(false)).map(cv =>
           Object.assign({}, cv, {
             modified_date: moment(String(cv.modified_date)).format(
-              "MM/DD/YYYY hh:mm"
+              "DD/MM/YYYY HH:mm"
             )
           })
         )

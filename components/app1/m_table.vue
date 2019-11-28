@@ -12,7 +12,7 @@
         :sort-desc="sort.desc"
       >
         <template
-          v-if="md.action == 'define' && page == 'define'"
+          v-if="$nuxt.isOnline && md.action == 'define' && page == 'define'"
           v-slot:header.action="{ header }"
         >
           <v-btn x-small class="primary" @click="newItem">
@@ -20,7 +20,7 @@
           </v-btn>
         </template>
         <template
-          v-if="md.action == 'apply' && page == 'define'"
+          v-if="$nuxt.isOnline && md.action == 'apply' && page == 'define'"
           v-slot:header.name="{ header }"
         >
           <v-btn
@@ -35,7 +35,7 @@
           <span>name</span>
         </template>
         <template
-          v-if="md.action == 'define' && page == 'define'"
+          v-if="$nuxt.isOnline && md.action == 'define' && page == 'define'"
           v-slot:item.action="{ item }"
         >
           <span v-if="item.project.id !== '1'">

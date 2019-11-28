@@ -224,7 +224,6 @@ export default {
     async save() {
       this.$v.$touch()
       if (!this.$v.$invalid) {
-        this.projectChange({ state: "results", value: "Solve" })
         this.projectChange({ state: "error", value: false })
         try {
           if (this.editedIndex > -1) {
@@ -261,7 +260,6 @@ export default {
     async apply(action) {
       this.$v.$touch()
       if (!this.$v.$invalid) {
-        this.projectChange({ state: "results", value: "Solve" })
         try {
           await this.$axios.$post(
             `/api/${this.md.model}/${this.editedItem.name}/apply/`,

@@ -56,7 +56,13 @@ export default {
     browserBaseURL: "http://localhost"
   },
   vuetify: {
-    defaultAssets: false,
+    defaultAssets: {
+      font: true,
+      icons: "md"
+    },
+    icons: {
+      iconfont: "md"
+    },
     treeShake: false,
     customVariables: ["~/assets/variables.scss"],
     theme: {

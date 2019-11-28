@@ -8,8 +8,14 @@
         <v-btn class="success" @click="copyItem">
           <Fas i="copy" />Copy Project
         </v-btn>
-        {{ offlineProjects }}
-        <v-data-table :headers="headers" :items="items" class="elevation-1">
+        {{ sort }}
+        <v-data-table
+          :headers="headers"
+          :items="items"
+          class="elevation-1"
+          :sort-by="sort.by"
+          :sort-desc="sort.desc"
+        >
           <template v-slot:item.action="{ item }">
             <nuxt-link
               v-if="testOfflineProjects(item)"
@@ -56,6 +62,9 @@ export default {
     ...mapState(
       mStore.state("projects", ["projects", "search", "offlineProjects"])
     ),
+    sort() {
+      return { by: ["modified_date"], desc: [true] }
+    },
     formTitle() {
       return this.editedIndex === -1 ? "New Item" : "Edit Item"
     },
