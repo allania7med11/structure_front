@@ -77,7 +77,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(["username"]),
+    ...mapState(["username", "urls"]),
     titleDisplay() {
       if (this.$vuetify.breakpoint.xsOnly) {
         return "EWA"
@@ -131,7 +131,7 @@ export default {
           icon: "user",
           title: "Sign Up",
           type: "btn",
-          bind: { href: "/accounts/signup" },
+          bind: { href: this.urls.browserBaseURL + "/accounts/signup" },
           right: true,
           anonymous: true
         },
@@ -139,7 +139,7 @@ export default {
           icon: "sign-in-alt",
           title: "Log In",
           type: "btn",
-          bind: { href: "/accounts/login" },
+          bind: { href: this.urls.browserBaseURL + "/accounts/login" },
           right: true,
           anonymous: true
         },
@@ -154,7 +154,10 @@ export default {
               title: "Change password",
               bind: { href: "/accounts/password/change" }
             },
-            { title: "Log Out", bind: { href: "/accounts/logout" } }
+            {
+              title: "Log Out",
+              bind: { href: this.urls.browserBaseURL + "/accounts/logout" }
+            }
           ]
         }
       ]

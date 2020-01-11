@@ -1,8 +1,9 @@
 import colors from "vuetify/es5/util/colors"
+import { host, urls } from "./constants/env"
 export default {
   server: {
     // port: 3000, // default: 3000
-    host: "0.0.0.0" // default: localhost
+    host: host // default: localhost
   },
   mode: "universal",
   /*
@@ -52,8 +53,8 @@ export default {
    ** See https://axios.nuxtjs.org/options
    */
   axios: {
-    baseURL: "http://server:8000",
-    browserBaseURL: "http://localhost"
+    baseURL: urls.baseURL,
+    browserBaseURL: urls.browserBaseURL
   },
   vuetify: {
     defaultAssets: {
@@ -155,6 +156,9 @@ export default {
           loader: "eslint-loader",
           exclude: /(node_modules)/
         })
+      }
+      if (ctx.isDev) {
+        config.devtool = ctx.isClient ? "source-map" : "inline-source-map"
       }
     }
   }

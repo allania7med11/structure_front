@@ -1,6 +1,7 @@
 export const strict = false
-
+import { urls } from "@/constants/env"
 export const state = () => ({
+  urls: urls,
   username: false,
   error: false,
   tutorials: {},
@@ -28,12 +29,16 @@ export const mutations = {
 }
 export const actions = {
   async nuxtServerInit({ dispatch }) {
+    const test = "eee"
+    console.log(test)
     await dispatch("login")
   },
   stateChange({ commit }, input) {
     commit("stateChange", input)
   },
   async login({ commit }) {
+    const test = "eee"
+    console.log(test)
     try {
       let US
       US = await this.$axios.$get("/api/users/current/")
