@@ -90,7 +90,10 @@ const Groups = {
         return ac
       }, {}),
       flds: ["name", "material", "b", "h"],
-      fmhs: [[["name"], ["material"]], [["b", "h"], ["image"]]]
+      fmhs: [
+        [["name"], ["material"]],
+        [["b", "h"], ["image"]]
+      ]
     },
     Rectangular_Hollow: {
       group: "sections",
@@ -116,7 +119,10 @@ const Groups = {
         }
       ],
       fldsT: ["name", "material", "b_h", "t"],
-      fmhs: [[["name"], ["material"]], [["b", "h", "t"], ["image"]]]
+      fmhs: [
+        [["name"], ["material"]],
+        [["b", "h", "t"], ["image"]]
+      ]
     },
     Circular: {
       group: "sections",
@@ -125,7 +131,10 @@ const Groups = {
       features: ["d"],
       unites: { d: Units["cm"] },
       flds: ["name", "material", "d"],
-      fmhs: [[["name"], ["material"]], [["d"], ["image"]]]
+      fmhs: [
+        [["name"], ["material"]],
+        [["d"], ["image"]]
+      ]
     },
     Circular_Hollow: {
       group: "sections",
@@ -137,7 +146,10 @@ const Groups = {
         return ac
       }, {}),
       flds: ["name", "material", "d", "t"],
-      fmhs: [[["name"], ["material"]], [["d", "t"], ["image"]]]
+      fmhs: [
+        [["name"], ["material"]],
+        [["d", "t"], ["image"]]
+      ]
     },
     T_Section: {
       group: "sections",
@@ -159,7 +171,10 @@ const Groups = {
         }
       ],
       fldsT: ["name", "material", "b_tw", "tf_hw"],
-      fmhs: [[["name"], ["material"]], [["b", "tw"], ["tf", "hw"], ["image"]]]
+      fmhs: [
+        [["name"], ["material"]],
+        [["b", "tw"], ["tf", "hw"], ["image"]]
+      ]
     },
     I_Section: {
       group: "sections",
@@ -217,7 +232,13 @@ const Groups = {
         }
       ],
       fldsT: ["name", "material", "Ax_Iy", "Cy_H"],
-      fmhs: [[["name", "material"], ["Ax", "Iy"], ["Cy", "H"]]]
+      fmhs: [
+        [
+          ["name", "material"],
+          ["Ax", "Iy"],
+          ["Cy", "H"]
+        ]
+      ]
     }
   },
   dls: {
@@ -240,9 +261,15 @@ const Groups = {
         text: "Axes",
         value: "Axes",
         type: "select",
-        chs: [{ name: "Global", id: "G" }, { name: "Local", id: "L" }]
+        chs: [
+          { name: "Global", id: "G" },
+          { name: "Local", id: "L" }
+        ]
       },
-      fmhs: [[["name"], ["Axes"]], [["PX"], ["PZ"], ["MY"]]]
+      fmhs: [
+        [["name"], ["Axes"]],
+        [["PX"], ["PZ"], ["MY"]]
+      ]
     },
     Trapezoidal_Load: {
       group: "dls",
@@ -291,7 +318,10 @@ const Groups = {
         text: "Axes",
         value: "Axes",
         type: "select",
-        chs: [{ name: "Global", id: "G" }, { name: "Local", id: "L" }]
+        chs: [
+          { name: "Global", id: "G" },
+          { name: "Local", id: "L" }
+        ]
       },
       fmhs: [
         [["name"], ["Axes"]],

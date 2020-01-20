@@ -59,7 +59,10 @@ export const groupF = {
             text: "Axes",
             value: "Axes",
             type: "select",
-            chs: [{ name: "Global", id: "G" }, { name: "Local", id: "L" }]
+            chs: [
+              { name: "Global", id: "G" },
+              { name: "Local", id: "L" }
+            ]
           }
         : undefined,
       ...dl.features.reduce((ac, cv) => {

@@ -292,7 +292,10 @@ export function cht(pr, dt) {
     labels: []
   }
   pr.bars.forEach(br => {
-    dtj.br.data.push([{ x: br.N1.X, y: br.N1.Z }, { x: br.N2.X, y: br.N2.Z }])
+    dtj.br.data.push([
+      { x: br.N1.X, y: br.N1.Z },
+      { x: br.N2.X, y: br.N2.Z }
+    ])
     dtj.br.dtm.push({
       x: 0.5 * (br.N1.X + br.N2.X),
       y: 0.5 * (br.N1.Z + br.N2.Z)
@@ -355,7 +358,10 @@ export function DChfn(pr, dt) {
 
 export function chdt(br, fld, fct, xm) {
   const chbr = {
-    data: [{ x: 0, y: 0 }, { x: br.L, y: 0 }],
+    data: [
+      { x: 0, y: 0 },
+      { x: br.L, y: 0 }
+    ],
     label: "Bar " + String(br.name),
     labels: [["0"], [String(br.L)]]
   }
