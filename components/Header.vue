@@ -131,7 +131,10 @@ export default {
           icon: "user",
           title: "Sign Up",
           type: "btn",
-          bind: { href: this.urls.browserBaseURL + "/accounts/signup" },
+          bind: {
+            href: this.urls.browserBaseURL + "/accounts/signup",
+            ["data-cy"]: "signup"
+          },
           right: true,
           anonymous: true
         },
@@ -139,7 +142,10 @@ export default {
           icon: "sign-in-alt",
           title: "Log In",
           type: "btn",
-          bind: { href: this.urls.browserBaseURL + "/accounts/login" },
+          bind: {
+            href: this.urls.browserBaseURL + "/accounts/login",
+            ["data-cy"]: "login"
+          },
           right: true,
           anonymous: true
         },

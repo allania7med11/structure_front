@@ -24,6 +24,7 @@
                           v-model="$v.editedItem.name.$model"
                           label="Name"
                           :error-messages="Errors.name()"
+                          data-cy="name"
                         />
                       </v-flex>
                       <v-flex class="pa-1">
@@ -35,6 +36,7 @@
                           item-text="name"
                           item-value="id"
                           :error-messages="Errors.id()"
+                          data-cy="id"
                         />
                       </v-flex>
                     </v-layout>
@@ -47,7 +49,7 @@
                 </v-btn>
                 <!-- eslint-disable-next-line vue/html-self-closing -->
                 <br />
-                <v-btn x-small :color="ac.color" @click="save">
+                <v-btn x-small :color="ac.color" data-cy="save" @click="save">
                   <Fas :i="ac.name" />
                 </v-btn>
               </v-flex>

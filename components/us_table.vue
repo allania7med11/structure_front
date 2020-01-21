@@ -2,10 +2,10 @@
   <v-container fluid>
     <v-row justify="center">
       <v-col md="10" lg="8">
-        <v-btn color="primary" @click="newItem">
+        <v-btn color="primary" data-cy="newItem" @click="newItem">
           <Fas i="plus" />New Project
         </v-btn>
-        <v-btn class="success" @click="copyItem">
+        <v-btn class="success" data-cy="copyItem" @click="copyItem">
           <Fas i="copy" />Copy Project
         </v-btn>
         {{ sort }}
