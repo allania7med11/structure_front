@@ -89,10 +89,6 @@
 
 <script>
 export default {
-  /* fetch({ store }) {
-    console.log("fetch")
-    return store.dispatch("login")
-  }, */
   head: {
     titleTemplate:
       "Free Online Structure Analysis Software (Beams,Truss,Frame..)",

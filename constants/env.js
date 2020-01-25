@@ -6,4 +6,6 @@ const urls = Docker
       baseURL: "http://localhost",
       browserBaseURL: "http://localhost"
     }
-export { host, urls }
+const Test = true
+const TestInfo = { user: "user1" }
+export { host, urls, Test, TestInfo }

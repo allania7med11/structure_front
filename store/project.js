@@ -21,9 +21,6 @@ const initialState = () => {
 export const state = () => initialState()
 export const getters = {
   results: state => {
-    console.log('state.project["results"]')
-    console.log(state.project["results"])
-    console.log(state.project["results"] ? "Results" : "Solve")
     return state.project["results"] ? "Results" : "Solve"
   },
   ac: state => {

@@ -5,7 +5,6 @@
         <v-alert v-if="error" dismissible type="error">
           An error occurred
         </v-alert>
-        {{ offline }}
         <us_table />
         <us_form />
       </div>

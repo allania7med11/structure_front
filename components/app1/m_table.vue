@@ -10,12 +10,13 @@
         :search="search"
         :sort-by="sort.by"
         :sort-desc="sort.desc"
+        data-cy="tab"
       >
         <template
           v-if="$nuxt.isOnline && md.action == 'define' && page == 'define'"
           v-slot:header.action="{ header }"
         >
-          <v-btn x-small class="primary" @click="newItem">
+          <v-btn x-small class="primary" data-cy="newItem" @click="newItem">
             <Fas i="plus" />
           </v-btn>
         </template>

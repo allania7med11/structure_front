@@ -19,7 +19,7 @@
                     <Fas i="times" />
                   </v-btn>
                   <br />
-                  <v-btn x-small :color="ac.color" @click="save">
+                  <v-btn x-small :color="ac.color" data-cy="save" @click="save">
                     <Fas :i="ac.name" />
                   </v-btn>
                 </v-flex>
@@ -30,10 +30,20 @@
                     <Fas i="times" />
                   </v-btn>
                   <br />
-                  <v-btn x-small color="error" @click="apply('remove')">
+                  <v-btn
+                    x-small
+                    color="error"
+                    data-cy="remove"
+                    @click="apply('remove')"
+                  >
                     <Fas i="minus-circle" />
                   </v-btn>
-                  <v-btn x-small color="success" @click="apply('apply')">
+                  <v-btn
+                    x-small
+                    color="success"
+                    data-cy="apply"
+                    @click="apply('apply')"
+                  >
                     <Fas i="plus-circle" />
                   </v-btn>
                 </v-flex>
@@ -65,11 +75,13 @@
                               v-if="header.type == 'checkbox'"
                               v-model="$v.editedItem[header.value].$model"
                               v-bind="bd[header.type](header)"
+                              :data-cy="header.value"
                             />
                             <v-select
                               v-else-if="header.type == 'select'"
                               v-model="$v.editedItem[header.value].$model"
                               v-bind="bd[header.type](header)"
+                              :data-cy="header.value"
                             />
                             <v-text-field
                               v-else-if="header.type == 'number'"
@@ -77,11 +89,13 @@
                                 $v.editedItem[header.value].$model
                               "
                               v-bind="bd[header.type](header)"
+                              :data-cy="header.value"
                             />
                             <v-text-field
                               v-else-if="header.type == 'text'"
                               v-model.trim="$v.editedItem[header.value].$model"
                               v-bind="bd[header.type](header)"
+                              :data-cy="header.value"
                             />
                             <img
                               v-else-if="header.type == 'image'"

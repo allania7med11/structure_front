@@ -51,7 +51,6 @@ export const actions = {
     let list = []
     await caches.keys().then(keys => {
       runtime = keys.find(cv => cv.includes("runtime"))
-      console.log(runtime)
     })
     caches.open(runtime).then(cache => {
       cache.keys().then(keys => {
@@ -63,9 +62,6 @@ export const actions = {
               return cv.url
             })
         ).then(() => {
-          console.log("I am here")
-          console.log(list)
-          console.log(list.filter(k => k.includes("/api/")))
           commit("projectsChange", {
             state: "offlineProjects",
             value: list.filter(k => k.includes("/api/"))
