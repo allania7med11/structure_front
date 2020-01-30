@@ -84,7 +84,13 @@
                               v-model="$v.editedItem[header.value].$model"
                               v-bind="bd[header.type](header)"
                               :data-cy="header.value"
-                            />
+                            >
+                              <template slot="item" slot-scope="data">
+                                <span :data-cy="rplc(data.item.name)">{{
+                                  data.item.name
+                                }}</span>
+                              </template>
+                            </v-select>
                             <v-text-field
                               v-else-if="header.type == 'number'"
                               v-model.number="
@@ -228,6 +234,9 @@ export default {
   },
 
   methods: {
+    rplc(vl) {
+      return typeof vl === "string" ? vl.replace(/\s/g, "") : vl
+    },
     ...mapActions(["login"]),
     ...mapActions(mStore.getter("project", ["projectChange", "aProject"])),
     close() {

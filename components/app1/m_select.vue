@@ -38,7 +38,13 @@
                     item-text="label"
                     item-value="id"
                     data-cy="sl1"
-                  />
+                  >
+                    <template slot="item" slot-scope="data">
+                      <span :data-cy="data.item.label">{{
+                        data.item.label
+                      }}</span>
+                    </template>
+                  </v-select>
                 </v-flex>
                 <v-flex mx-1 :xs2="its3" :xs4="!its3">
                   <v-select
@@ -49,7 +55,13 @@
                     item-text="label"
                     item-value="id"
                     data-cy="sl2"
-                  />
+                  >
+                    <template slot="item" slot-scope="data">
+                      <span :data-cy="data.item.label">{{
+                        data.item.label
+                      }}</span>
+                    </template>
+                  </v-select>
                 </v-flex>
                 <v-flex mx-1 xs5>
                   <v-select
@@ -59,7 +71,14 @@
                     :items="its3"
                     item-text="label"
                     item-value="id"
-                  />
+                    data-cy="sl3"
+                  >
+                    <template slot="item" slot-scope="data">
+                      <span :data-cy="data.item.label">{{
+                        data.item.label
+                      }}</span>
+                    </template>
+                  </v-select>
                 </v-flex>
               </v-layout>
             </v-flex>
