@@ -54,7 +54,6 @@ Cypress.Commands.add("bars", () => {
   select("sl1",name)
   cy.scrollTo('top')
   cy.get("[data-cy=sc]").should("contain", name)
-  cy.pause()
   const lst = project[model]
   const flds = ["name", "N1", "N2"]
   const selects = ["N1", "N2"]
@@ -105,6 +104,39 @@ Cypress.Commands.add("applySupport", () => {
       search =search + `:has(td:eq(1):contains(${nodes}))`
       cy.get("[data-cy=apply]").click()
       cy.get(`tbody>tr${search}>td`).should("have.length", flds.length)
+    })
+    cy.log(`create ${model} successful`)
+  }
+})
+
+Cypress.Commands.add("materials", () => {
+  const model = "materials"
+  const name = "Materials"
+  cy.log(`create ${model}`)
+  select("sl1",name)
+  cy.scrollTo('top')
+  cy.get("[data-cy=sc]").should("contain", name)
+  const lst = project[model].filter(cv => cv.project.id !== "1")
+  const flds = ["name", "YM", "Density"]
+  const nbrs = ["YM", "Density"]
+  if (lst.length > 0) {
+    cy.get("[data-cy=newItem]").click()
+    lst.forEach(elm => {
+      let search = ""
+      cy.get(`[data-cy=name]`)
+        .clear()
+        .type(elm["name"])
+        .should("have.value", String(elm["name"]))
+      search = search + `:has(td:eq(1):contains(${elm["name"]}))`
+      nbrs.forEach((fld, id) => {
+        cy.get(`[data-cy=${fld}]`)
+          .clear()
+          .type(elm[fld])
+          .should("have.value", String(elm[fld]))
+        search = search + `:has(td:eq(${id + 2}):contains(${String(elm[fld])}))`
+      })
+      cy.get("[data-cy=save]").click()
+      cy.get(`tbody>tr${search}>td`).should("have.length", flds.length + 1)
     })
     cy.log(`create ${model} successful`)
   }

@@ -17,5 +17,7 @@ describe("Project", function() {
     cy.project()
     cy.nodes()
     cy.bars()
+    cy.applySupport()
+    cy.materials()
   })
 })
