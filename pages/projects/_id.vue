@@ -1,12 +1,12 @@
 <template>
-  <div>
+  <v-container fluid>
     <client-only>
       <v-alert v-if="error" dismissible type="error">
         An error occurred
       </v-alert>
       <app1 />
     </client-only>
-  </div>
+  </v-container>
 </template>
 <script>
 import { mapState, mapActions } from "vuex"

@@ -13,8 +13,11 @@ class cHelps {
     details: ["Results", "Bar", "Display"]
   }
   test = function(obj, key, df) {
-    if (Object.prototype.isPrototypeOf.call(obj, key)) {
-      return obj[key]
+    if (typeof obj === "object" && obj !== null) {
+      // eslint-disable-next-line no-prototype-builtins
+      if (obj.hasOwnProperty(key)) {
+        return obj[key]
+      }
     }
     return df
   }

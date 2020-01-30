@@ -2,7 +2,7 @@
   <v-flex xs12 md12>
     <v-layout row wrap justify-space-between>
       <v-flex xs5 md5>
-        <v-btn block color="info" @click="sc = !sc">
+        <v-btn block color="info" data-cy="sc" @click="sc = !sc">
           <Fas i="list" />
           {{ fslg.text }}
         </v-btn>
@@ -37,6 +37,7 @@
                     :items="tbs"
                     item-text="label"
                     item-value="id"
+                    data-cy="sl1"
                   />
                 </v-flex>
                 <v-flex mx-1 :xs2="its3" :xs4="!its3">
@@ -47,6 +48,7 @@
                     :items="its2"
                     item-text="label"
                     item-value="id"
+                    data-cy="sl2"
                   />
                 </v-flex>
                 <v-flex mx-1 xs5>
@@ -150,11 +152,6 @@ export default {
           this.tbs = Orders.tbs
         }
         this.componentKey += 1
-      }
-    },
-    search: {
-      handler(val) {
-        console.log(val)
       }
     }
   },

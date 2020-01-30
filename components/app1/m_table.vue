@@ -1,3 +1,4 @@
+/* eslint-disable vue/html-self-closing */
 <template>
   <div>
     <v-flex xs12 md12>
@@ -29,6 +30,7 @@
             fab
             class="elevation-1"
             color="info"
+            data-cy="applyItem"
             @click.stop.prevent="applyItem"
           >
             <span class="headline">+</span>
@@ -67,7 +69,7 @@
         </template>
       </v-data-table>
     </v-flex>
-    <v-img
+    <img
       v-if="inf.Static.image"
       :src="require(`@/assets/images/${inf.Static.image.src}.png`)"
       height="150"
@@ -95,10 +97,13 @@ export default {
     },
     headers() {
       if (this.md.action == "define" && this.page == "define") {
-        return [
+        const rtn = [
           { text: "", value: "action", sortable: false, align: "center" },
           ...this.inf.tbhs
         ]
+        // eslint-disable-next-line no-debugger
+        debugger
+        return rtn
       }
       return this.inf.tbhs
     },
@@ -128,9 +133,6 @@ export default {
     ...mapActions(mStore.getter("project", ["projectChange"])),
     hd(header) {
       return "item." + header
-    },
-    console(val) {
-      console.log(val)
     },
     changeSort(column) {
       if (this.pagination.sortBy === column) {

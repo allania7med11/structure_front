@@ -15,7 +15,7 @@ let derr = (self, name, cv) => {
       }
 }
 var fErr = function(self, name, obj) {
-  let err = Infs[name].flds.reduce((ac, cv) => {
+  let err = Infs(name).flds.reduce((ac, cv) => {
     ac[cv] = help.test(obj, cv, derr(self, name, cv))
     return ac
   }, {})

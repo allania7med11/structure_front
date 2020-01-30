@@ -30,22 +30,24 @@
                     <Fas i="times" />
                   </v-btn>
                   <br />
-                  <v-btn
-                    x-small
-                    color="error"
-                    data-cy="remove"
-                    @click="apply('remove')"
-                  >
-                    <Fas i="minus-circle" />
-                  </v-btn>
-                  <v-btn
-                    x-small
-                    color="success"
-                    data-cy="apply"
-                    @click="apply('apply')"
-                  >
-                    <Fas i="plus-circle" />
-                  </v-btn>
+                  <span style="white-space: nowrap;">
+                    <v-btn
+                      x-small
+                      color="error"
+                      data-cy="remove"
+                      @click="apply('remove')"
+                    >
+                      <Fas i="minus-circle" />
+                    </v-btn>
+                    <v-btn
+                      x-small
+                      color="success"
+                      data-cy="apply"
+                      @click="apply('apply')"
+                    >
+                      <Fas i="plus-circle" />
+                    </v-btn>
+                  </span>
                 </v-flex>
               </template>
               <template v-if="action === 'delete'">
@@ -228,9 +230,6 @@ export default {
   methods: {
     ...mapActions(["login"]),
     ...mapActions(mStore.getter("project", ["projectChange", "aProject"])),
-    console(val) {
-      console.log(val)
-    },
     close() {
       this.projectChange({ state: "dialog", value: false })
       this.$v.$reset()

@@ -13,6 +13,12 @@
 // the project's config changing)
 
 module.exports = (on, config) => {
-  // `on` is used to hook into various events Cypress emits
-  // `config` is the resolved Cypress config
+  on("before:browser:launch", (browser = {}, args) => {
+    if (browser.name === "chrome") {
+      args.push("--remote-debugging-port=9222")
+
+      // whatever you return here becomes the new args
+      return args
+    }
+  })
 }

@@ -5,7 +5,7 @@
         <v-btn text class="text-none" value="projects">
           projects
         </v-btn>
-        <v-btn text class="text-none" value="define">
+        <v-btn text class="text-none" value="define" data-cy="project">
           {{ project["name"] }}
         </v-btn>
         <v-btn text class="text-none" value="results">
@@ -58,9 +58,6 @@ export default {
   },
   methods: {
     ...mapActions(mStore.getter("project", ["projectChange", "aProject"])),
-    console(val) {
-      console.log(val)
-    },
     fpage() {
       if (this.choice == "projects") {
         // eslint-disable-next-line no-undef

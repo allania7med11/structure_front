@@ -109,9 +109,6 @@ export default {
     }
   },
   methods: {
-    console(val) {
-      console.log(val)
-    },
     fct(t) {
       return math.evaluate(this.exp, { x: t })
     },

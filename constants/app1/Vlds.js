@@ -37,7 +37,7 @@ let dvld = (name, cv) => {
   return Flds[name][cv].type === "checkbox" ? {} : { required }
 }
 var fVld = function(name, obj) {
-  let err = Infs[name].flds.reduce((ac, cv) => {
+  let err = Infs(name).flds.reduce((ac, cv) => {
     ac[cv] = help.test(obj, cv, dvld(name, cv))
     return ac
   }, {})

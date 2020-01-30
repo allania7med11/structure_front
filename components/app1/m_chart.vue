@@ -69,9 +69,6 @@ export default {
     }
   },
   methods: {
-    console(val) {
-      console.log(val)
-    },
     save() {
       this.dt = { cdn: this.cdn, cdb: this.cdb }
     }

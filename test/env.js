@@ -6,4 +6,8 @@ const user = {
 }
 import * as data from "./json/Beam.json"
 const project = data["Beam"]
-export { user, project }
+const mds = {
+  nodes: { flds: ["name", "X", "Z"] },
+  bars: { flds: ["name", "N1", "N2"] }
+}
+export { user, project, mds }

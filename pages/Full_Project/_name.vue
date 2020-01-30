@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="pt-3">
     <client-only placeholder="Loading...">
       <app1 v-if="show" />
     </client-only>

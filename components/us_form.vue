@@ -168,9 +168,6 @@ export default {
   methods: {
     ...mapActions(["login"]),
     ...mapActions(mStore.getter("projects", ["projectsChange", "aProjects"])),
-    console(val) {
-      console.log(val)
-    },
     close() {
       this.projectsChange({ state: "dialog", value: false })
       this.editedItem = Object.assign({}, this.defaultItem["create"])

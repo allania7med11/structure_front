@@ -255,9 +255,9 @@ class cInfs {
   }
 }
 
-var Infs = {}
+/* var Infs = {}
 Lists.all.forEach(function(cv) {
   Infs[cv] = new cInfs(Statics[cv], Flds[cv])
-})
-
+}) */
+const Infs = cv => new cInfs(Statics[cv], Flds[cv])
 export { Infs }

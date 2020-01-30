@@ -1,0 +1,810 @@
+{
+  "nodes": {
+    "Static": {
+      "group": "unique",
+      "name": "nodes",
+      "flds": ["name", "X", "Z"]
+    },
+    "Fld": {
+      "name": { "text": "Name", "value": "name", "type": "number" },
+      "X": { "text": "X[m]", "value": "X", "type": "number" },
+      "Z": { "text": "Z[m]", "value": "Z", "type": "number" }
+    }
+  },
+  "bars": {
+    "Static": {
+      "group": "unique",
+      "name": "bars",
+      "flds": ["name", "N1", "N2"],
+      "ds": { "N1": [{ "type": "name" }], "N2": [{ "type": "name" }] }
+    },
+    "Fld": {
+      "name": { "text": "Name", "value": "name", "type": "number" },
+      "N1": { "text": "N1", "value": "N1", "type": "select", "from": "nodes" },
+      "N2": { "text": "N2", "value": "N2", "type": "select", "from": "nodes" }
+    }
+  },
+  "supports": {
+    "Static": {
+      "group": "unique",
+      "name": "supports",
+      "flds": ["name", "UX", "UZ", "RY"],
+      "ds": {
+        "UX": [{ "type": "bl" }],
+        "UZ": [{ "type": "bl" }],
+        "RY": [{ "type": "bl" }]
+      }
+    },
+    "Fld": {
+      "name": { "text": "Name", "value": "name", "type": "text" },
+      "UX": { "text": "UX", "value": "UX", "type": "checkbox" },
+      "UZ": { "text": "UZ", "value": "UZ", "type": "checkbox" },
+      "RY": { "text": "RY", "value": "RY", "type": "checkbox" }
+    }
+  },
+  "releases": {
+    "Static": {
+      "group": "unique",
+      "name": "releases",
+      "flds": ["name", "UX1", "UZ1", "RY1", "UX2", "UZ2", "RY2"],
+      "fldsT": ["name", "UX", "UZ", "RY"],
+      "fmhs": [[["name"], ["UX1", "UX2"], ["UZ1", "UZ2"], ["RY1", "RY2"]]],
+      "ds": {
+        "UX": [{ "type": "bl" }, { "type": "bl" }],
+        "UZ": [{ "type": "bl" }, { "type": "bl" }],
+        "RY": [{ "type": "bl" }, { "type": "bl" }]
+      }
+    },
+    "Fld": {
+      "name": { "text": "Name", "value": "name", "type": "text" },
+      "UX": { "text": "UX", "value": "UX", "type": "checkbox" },
+      "UZ": { "text": "UZ", "value": "UZ", "type": "checkbox" },
+      "RY": { "text": "RY", "value": "RY", "type": "checkbox" },
+      "UX1": { "text": "UX1", "value": "UX1", "type": "checkbox" },
+      "UZ1": { "text": "UZ1", "value": "UZ1", "type": "checkbox" },
+      "RY1": { "text": "RY1", "value": "RY1", "type": "checkbox" },
+      "UX2": { "text": "UX2", "value": "UX2", "type": "checkbox" },
+      "UZ2": { "text": "UZ2", "value": "UZ2", "type": "checkbox" },
+      "RY2": { "text": "RY2", "value": "RY2", "type": "checkbox" }
+    }
+  },
+  "materials": {
+    "Static": {
+      "group": "unique",
+      "name": "materials",
+      "flds": ["name", "YM", "Density"],
+      "defaultItem": { "Density": 0 },
+      "ds": { "Density": [{ "type": "unite" }] }
+    },
+    "Fld": {
+      "name": { "text": "Name", "value": "name", "type": "text" },
+      "YM": { "text": "E[MPa]", "value": "YM", "type": "number" },
+      "Density": {
+        "text": "Density[KN/m3]",
+        "value": "Density",
+        "type": "number"
+      }
+    }
+  },
+  "Rectangular": {
+    "Static": {
+      "group": "sections",
+      "image": { "src": "Rectangular", "height": "150", "type": "image" },
+      "name": "Rectangular",
+      "features": ["b", "h"],
+      "unites": {
+        "b": { "lb": "[cm]", "vl": 100, "rd": 5 },
+        "h": { "lb": "[cm]", "vl": 100, "rd": 5 }
+      },
+      "flds": ["name", "material", "b", "h"],
+      "fmhs": [
+        [["name"], ["material"]],
+        [["b", "h"], ["image"]]
+      ]
+    },
+    "Fld": {
+      "name": { "text": "Name", "value": "name", "type": "text" },
+      "material": {
+        "text": "material",
+        "value": "material",
+        "type": "select",
+        "from": "materials"
+      },
+      "image": { "src": "Rectangular", "height": "150", "type": "image" },
+      "b": { "text": "b[cm]", "value": "b", "type": "number" },
+      "h": { "text": "h[cm]", "value": "h", "type": "number" }
+    }
+  },
+  "Rectangular_Hollow": {
+    "Static": {
+      "group": "sections",
+      "image": {
+        "src": "Rectangular_Hollow",
+        "height": "150",
+        "type": "image"
+      },
+      "name": "Rectangular_Hollow",
+      "features": ["b", "h", "t"],
+      "unites": {
+        "b": { "lb": "[cm]", "vl": 100, "rd": 5 },
+        "h": { "lb": "[cm]", "vl": 100, "rd": 5 },
+        "t": { "lb": "[cm]", "vl": 100, "rd": 5 }
+      },
+      "flds": ["name", "material", "b", "h", "t"],
+      "fltp": [
+        {
+          "name": "b_h",
+          "gp": ["b", "h"],
+          "text": "b[cm]\nh[cm]",
+          "value": "b_h"
+        },
+        { "name": "t", "gp": ["t"], "text": "t[cm]", "value": "t" }
+      ],
+      "fldsT": ["name", "material", "b_h", "t"],
+      "fmhs": [
+        [["name"], ["material"]],
+        [["b", "h", "t"], ["image"]]
+      ]
+    },
+    "Fld": {
+      "name": { "text": "Name", "value": "name", "type": "text" },
+      "material": {
+        "text": "material",
+        "value": "material",
+        "type": "select",
+        "from": "materials"
+      },
+      "image": {
+        "src": "Rectangular_Hollow",
+        "height": "150",
+        "type": "image"
+      },
+      "b": { "text": "b[cm]", "value": "b", "type": "number" },
+      "h": { "text": "h[cm]", "value": "h", "type": "number" },
+      "t": { "text": "t[cm]", "value": "t", "type": "number" }
+    }
+  },
+  "Circular": {
+    "Static": {
+      "group": "sections",
+      "image": { "src": "Circular", "height": "100", "type": "image" },
+      "name": "Circular",
+      "features": ["d"],
+      "unites": { "d": { "lb": "[cm]", "vl": 100, "rd": 5 } },
+      "flds": ["name", "material", "d"],
+      "fmhs": [
+        [["name"], ["material"]],
+        [["d"], ["image"]]
+      ]
+    },
+    "Fld": {
+      "name": { "text": "Name", "value": "name", "type": "text" },
+      "material": {
+        "text": "material",
+        "value": "material",
+        "type": "select",
+        "from": "materials"
+      },
+      "image": { "src": "Circular", "height": "100", "type": "image" },
+      "d": { "text": "d[cm]", "value": "d", "type": "number" }
+    }
+  },
+  "Circular_Hollow": {
+    "Static": {
+      "group": "sections",
+      "image": { "src": "Circular_Hollow", "height": "150", "type": "image" },
+      "name": "Circular_Hollow",
+      "features": ["d", "t"],
+      "unites": {
+        "d": { "lb": "[cm]", "vl": 100, "rd": 5 },
+        "t": { "lb": "[cm]", "vl": 100, "rd": 5 }
+      },
+      "flds": ["name", "material", "d", "t"],
+      "fmhs": [
+        [["name"], ["material"]],
+        [["d", "t"], ["image"]]
+      ]
+    },
+    "Fld": {
+      "name": { "text": "Name", "value": "name", "type": "text" },
+      "material": {
+        "text": "material",
+        "value": "material",
+        "type": "select",
+        "from": "materials"
+      },
+      "image": { "src": "Circular_Hollow", "height": "150", "type": "image" },
+      "d": { "text": "d[cm]", "value": "d", "type": "number" },
+      "t": { "text": "t[cm]", "value": "t", "type": "number" }
+    }
+  },
+  "T_Section": {
+    "Static": {
+      "group": "sections",
+      "image": { "src": "T_Section", "height": "150", "type": "image" },
+      "name": "T_Section",
+      "features": ["b", "tf", "tw", "hw"],
+      "unites": {
+        "b": { "lb": "[cm]", "vl": 100, "rd": 5 },
+        "tf": { "lb": "[cm]", "vl": 100, "rd": 5 },
+        "tw": { "lb": "[cm]", "vl": 100, "rd": 5 },
+        "hw": { "lb": "[cm]", "vl": 100, "rd": 5 }
+      },
+      "flds": ["name", "material", "b", "tf", "tw", "hw"],
+      "fltp": [
+        {
+          "name": "b_tw",
+          "gp": ["b", "tw"],
+          "text": "b[cm]\ntw[cm]",
+          "value": "b_tw"
+        },
+        {
+          "name": "tf_hw",
+          "gp": ["tf", "hw"],
+          "text": "tf[cm]\nhw[cm]",
+          "value": "tf_hw"
+        }
+      ],
+      "fldsT": ["name", "material", "b_tw", "tf_hw"],
+      "fmhs": [
+        [["name"], ["material"]],
+        [["b", "tw"], ["tf", "hw"], ["image"]]
+      ]
+    },
+    "Fld": {
+      "name": { "text": "Name", "value": "name", "type": "text" },
+      "material": {
+        "text": "material",
+        "value": "material",
+        "type": "select",
+        "from": "materials"
+      },
+      "image": { "src": "T_Section", "height": "150", "type": "image" },
+      "b": { "text": "b[cm]", "value": "b", "type": "number" },
+      "tf": { "text": "tf[cm]", "value": "tf", "type": "number" },
+      "tw": { "text": "tw[cm]", "value": "tw", "type": "number" },
+      "hw": { "text": "hw[cm]", "value": "hw", "type": "number" }
+    }
+  },
+  "I_Section": {
+    "Static": {
+      "group": "sections",
+      "image": { "src": "I_Section", "height": "150", "type": "image" },
+      "name": "I_Section",
+      "features": ["b1", "tf1", "tw", "hw", "b2", "tf2"],
+      "unites": {
+        "b1": { "lb": "[cm]", "vl": 100, "rd": 5 },
+        "tf1": { "lb": "[cm]", "vl": 100, "rd": 5 },
+        "tw": { "lb": "[cm]", "vl": 100, "rd": 5 },
+        "hw": { "lb": "[cm]", "vl": 100, "rd": 5 },
+        "b2": { "lb": "[cm]", "vl": 100, "rd": 5 },
+        "tf2": { "lb": "[cm]", "vl": 100, "rd": 5 }
+      },
+      "flds": ["name", "material", "b1", "tf1", "tw", "hw", "b2", "tf2"],
+      "fltp": [
+        {
+          "name": "b1_tw_b2",
+          "gp": ["b1", "tw", "b2"],
+          "text": "b1[cm]\ntw[cm]\nb2[cm]",
+          "value": "b1_tw_b2"
+        },
+        {
+          "name": "tf1_hw_tf2",
+          "gp": ["tf1", "hw", "tf2"],
+          "text": "tf1[cm]\nhw[cm]\ntf2[cm]",
+          "value": "tf1_hw_tf2"
+        }
+      ],
+      "fldsT": ["name", "material", "b1_tw_b2", "tf1_hw_tf2"],
+      "fmhs": [
+        [["name"], ["material"]],
+        [["b1", "tw", "b2"], ["tf1", "hw", "tf2"], ["image"]]
+      ]
+    },
+    "Fld": {
+      "name": { "text": "Name", "value": "name", "type": "text" },
+      "material": {
+        "text": "material",
+        "value": "material",
+        "type": "select",
+        "from": "materials"
+      },
+      "image": { "src": "I_Section", "height": "150", "type": "image" },
+      "b1": { "text": "b1[cm]", "value": "b1", "type": "number" },
+      "tf1": { "text": "tf1[cm]", "value": "tf1", "type": "number" },
+      "tw": { "text": "tw[cm]", "value": "tw", "type": "number" },
+      "hw": { "text": "hw[cm]", "value": "hw", "type": "number" },
+      "b2": { "text": "b2[cm]", "value": "b2", "type": "number" },
+      "tf2": { "text": "tf2[cm]", "value": "tf2", "type": "number" }
+    }
+  },
+  "Custom": {
+    "Static": {
+      "group": "sections",
+      "name": "Custom",
+      "features": ["Ax", "Cy", "Iy", "H"],
+      "unites": {
+        "Ax": { "lb": "[cm2]", "vl": 10000, "rd": 5 },
+        "Cy": { "lb": "[cm]", "vl": 100, "rd": 5 },
+        "Iy": { "lb": "[cm4]", "vl": 100000000, "rd": 5 },
+        "H": { "lb": "[cm]", "vl": 100, "rd": 5 }
+      },
+      "flds": ["name", "material", "Ax", "Cy", "Iy", "H"],
+      "fltp": [
+        {
+          "name": "Ax_Iy",
+          "gp": ["Ax", "Iy"],
+          "text": "Ax[cm4]\nIy[cm8]",
+          "value": "Ax_Iy"
+        },
+        {
+          "name": "Cy_H",
+          "gp": ["Cy", "H"],
+          "text": "Cy[cm]\nH[cm]",
+          "value": "Cy_H"
+        }
+      ],
+      "fldsT": ["name", "material", "Ax_Iy", "Cy_H"],
+      "fmhs": [
+        [
+          ["name", "material"],
+          ["Ax", "Iy"],
+          ["Cy", "H"]
+        ]
+      ]
+    },
+    "Fld": {
+      "name": { "text": "Name", "value": "name", "type": "text" },
+      "material": {
+        "text": "material",
+        "value": "material",
+        "type": "select",
+        "from": "materials"
+      },
+      "Ax": { "text": "Ax[cm2]", "value": "Ax", "type": "number" },
+      "Cy": { "text": "Cy[cm]", "value": "Cy", "type": "number" },
+      "Iy": { "text": "Iy[cm4]", "value": "Iy", "type": "number" },
+      "H": { "text": "H[cm]", "value": "H", "type": "number" }
+    }
+  },
+  "pls": {
+    "Static": {
+      "group": "unique",
+      "name": "pls",
+      "flds": ["name", "FX", "FZ", "CY"],
+      "defaultItem": { "FX": 0, "FZ": 0, "CY": 0 },
+      "ds": {
+        "FX": [{ "type": "unite" }],
+        "FZ": [{ "type": "unite" }],
+        "CY": [{ "type": "unite" }]
+      }
+    },
+    "Fld": {
+      "name": { "text": "Name", "value": "name", "type": "text" },
+      "FX": { "text": "FX[KN]", "value": "FX", "type": "number" },
+      "FZ": { "text": "FZ[KN]", "value": "FZ", "type": "number" },
+      "CY": { "text": "CY[KN*m]", "value": "CY", "type": "number" }
+    }
+  },
+  "Uniform_Load": {
+    "Static": {
+      "group": "dls",
+      "name": "Uniform_Load",
+      "features": ["PX", "PZ", "MY"],
+      "unites": {
+        "PX": { "lb": "[KN/m]", "vl": 1000, "rd": 5 },
+        "PZ": { "lb": "[KN/m]", "vl": 1000, "rd": 5 },
+        "MY": { "lb": "[KN*m/m]", "vl": 1000, "rd": 5 }
+      },
+      "flds": ["name", "Axes", "PX", "PZ", "MY"],
+      "ds": { "Axes": [{ "type": "Axes" }] },
+      "defaultItem": { "Axes": "G", "PX": 0, "PZ": 0, "MY": 0 },
+      "Axes": {
+        "name": "Axes",
+        "text": "Axes",
+        "value": "Axes",
+        "type": "select",
+        "chs": [
+          { "name": "Global", "id": "G" },
+          { "name": "Local", "id": "L" }
+        ]
+      },
+      "fmhs": [
+        [["name"], ["Axes"]],
+        [["PX"], ["PZ"], ["MY"]]
+      ]
+    },
+    "Fld": {
+      "name": { "text": "Name", "value": "name", "type": "text" },
+      "Axes": {
+        "name": "Axes",
+        "text": "Axes",
+        "value": "Axes",
+        "type": "select",
+        "chs": [
+          { "name": "Global", "id": "G" },
+          { "name": "Local", "id": "L" }
+        ]
+      },
+      "PX": { "text": "PX[KN/m]", "value": "PX", "type": "number" },
+      "PZ": { "text": "PZ[KN/m]", "value": "PZ", "type": "number" },
+      "MY": { "text": "MY[KN*m/m]", "value": "MY", "type": "number" }
+    }
+  },
+  "Trapezoidal_Load": {
+    "Static": {
+      "group": "dls",
+      "name": "Trapezoidal_Load",
+      "features": ["PX1", "PZ1", "MY1", "PX2", "PZ2", "MY2"],
+      "unites": {
+        "PX1": { "lb": "[KN/m]", "vl": 1000, "rd": 5 },
+        "PZ1": { "lb": "[KN/m]", "vl": 1000, "rd": 5 },
+        "PX2": { "lb": "[KN/m]", "vl": 1000, "rd": 5 },
+        "PZ2": { "lb": "[KN/m]", "vl": 1000, "rd": 5 },
+        "MY1": { "lb": "[KN*m/m]", "vl": 1000, "rd": 5 },
+        "MY2": { "lb": "[KN*m/m]", "vl": 1000, "rd": 5 }
+      },
+      "flds": ["name", "Axes", "PX1", "PZ1", "MY1", "PX2", "PZ2", "MY2"],
+      "fltp": [
+        {
+          "name": "PX",
+          "gp": ["PX1", "PX2"],
+          "text": "PX[KN/m]",
+          "value": "PX"
+        },
+        {
+          "name": "PZ",
+          "gp": ["PZ1", "PZ2"],
+          "text": "PZ[KN/m]",
+          "value": "PZ"
+        },
+        {
+          "name": "MY",
+          "gp": ["MY1", "MY2"],
+          "text": "MY[KN*m/m]",
+          "value": "MY"
+        }
+      ],
+      "fldsT": ["name", "Axes", "PX", "PZ", "MY"],
+      "ds": { "Axes": [{ "type": "Axes" }] },
+      "defaultItem": {
+        "Axes": "G",
+        "PX1": 0,
+        "PZ1": 0,
+        "MY1": 0,
+        "PX2": 0,
+        "PZ2": 0,
+        "MY2": 0
+      },
+      "Axes": {
+        "name": "Axes",
+        "text": "Axes",
+        "value": "Axes",
+        "type": "select",
+        "chs": [
+          { "name": "Global", "id": "G" },
+          { "name": "Local", "id": "L" }
+        ]
+      },
+      "fmhs": [
+        [["name"], ["Axes"]],
+        [["PX1"], ["PZ1"], ["MY1"]],
+        [["PX2"], ["PZ2"], ["MY2"]]
+      ]
+    },
+    "Fld": {
+      "name": { "text": "Name", "value": "name", "type": "text" },
+      "Axes": {
+        "name": "Axes",
+        "text": "Axes",
+        "value": "Axes",
+        "type": "select",
+        "chs": [
+          { "name": "Global", "id": "G" },
+          { "name": "Local", "id": "L" }
+        ]
+      },
+      "PX1": { "text": "PX1[KN/m]", "value": "PX1", "type": "number" },
+      "PZ1": { "text": "PZ1[KN/m]", "value": "PZ1", "type": "number" },
+      "MY1": { "text": "MY1[KN*m/m]", "value": "MY1", "type": "number" },
+      "PX2": { "text": "PX2[KN/m]", "value": "PX2", "type": "number" },
+      "PZ2": { "text": "PZ2[KN/m]", "value": "PZ2", "type": "number" },
+      "MY2": { "text": "MY2[KN*m/m]", "value": "MY2", "type": "number" }
+    }
+  },
+  "Self_Weight": {
+    "Static": {
+      "group": "dls",
+      "name": "Self_Weight",
+      "features": ["Factor"],
+      "unites": { "Factor": { "lb": "", "vl": 1, "rd": 5 } },
+      "flds": ["name", "Factor"],
+      "defaultItem": { "Factor": 1 }
+    },
+    "Fld": {
+      "name": { "text": "Name", "value": "name", "type": "text" },
+      "Factor": { "text": "Factor", "value": "Factor", "type": "number" }
+    }
+  },
+  "supportsApply": {
+    "Static": {
+      "group": "applys",
+      "name": "supportsApply",
+      "model": "supports",
+      "action": "apply",
+      "from": "nodes"
+    },
+    "Fld": {
+      "name": {
+        "text": "Name",
+        "value": "name",
+        "type": "select",
+        "from": "supports"
+      },
+      "nodes": { "text": "List of nodes", "value": "nodes", "type": "text" }
+    }
+  },
+  "releasesApply": {
+    "Static": {
+      "group": "applys",
+      "name": "releasesApply",
+      "model": "releases",
+      "action": "apply",
+      "from": "bars"
+    },
+    "Fld": {
+      "name": {
+        "text": "Name",
+        "value": "name",
+        "type": "select",
+        "from": "releases"
+      },
+      "bars": { "text": "List of bars", "value": "bars", "type": "text" }
+    }
+  },
+  "sectionsApply": {
+    "Static": {
+      "group": "applys",
+      "name": "sectionsApply",
+      "model": "sections",
+      "action": "apply",
+      "from": "bars",
+      "type": true
+    },
+    "Fld": {
+      "name": {
+        "text": "Name",
+        "value": "name",
+        "type": "select",
+        "from": "sections"
+      },
+      "bars": { "text": "List of bars", "value": "bars", "type": "text" },
+      "type": { "text": "type", "value": "type", "type": "text" }
+    }
+  },
+  "plsApply": {
+    "Static": {
+      "group": "applys",
+      "name": "plsApply",
+      "model": "pls",
+      "action": "apply",
+      "from": "nodes"
+    },
+    "Fld": {
+      "name": {
+        "text": "Name",
+        "value": "name",
+        "type": "select",
+        "from": "pls"
+      },
+      "nodes": { "text": "List of nodes", "value": "nodes", "type": "text" }
+    }
+  },
+  "dlsApply": {
+    "Static": {
+      "group": "applys",
+      "name": "dlsApply",
+      "model": "dls",
+      "action": "apply",
+      "from": "bars",
+      "type": true
+    },
+    "Fld": {
+      "name": {
+        "text": "Name",
+        "value": "name",
+        "type": "select",
+        "from": "dls"
+      },
+      "bars": { "text": "List of bars", "value": "bars", "type": "text" },
+      "type": { "text": "type", "value": "type", "type": "text" }
+    }
+  },
+  "Rc": {
+    "Static": {
+      "group": "nrs",
+      "name": "Rc",
+      "features": ["FX", "FZ", "CY"],
+      "unites": {
+        "FX": { "lb": "[KN]", "vl": 1000, "rd": 5 },
+        "FZ": { "lb": "[KN]", "vl": 1000, "rd": 5 },
+        "CY": { "lb": "[KN*m]", "vl": 1000, "rd": 5 }
+      },
+      "flds": ["name", "FX", "FZ", "CY"]
+    },
+    "Fld": {
+      "name": { "text": "Name", "value": "name", "type": "text" },
+      "FX": { "text": "FX[KN]", "value": "FX", "type": "number" },
+      "FZ": { "text": "FZ[KN]", "value": "FZ", "type": "number" },
+      "CY": { "text": "CY[KN*m]", "value": "CY", "type": "number" }
+    }
+  },
+  "Dp": {
+    "Static": {
+      "group": "nrs",
+      "name": "Dp",
+      "features": ["UX", "UZ", "RY"],
+      "unites": {
+        "UX": { "lb": "[mm]", "vl": 1000, "rd": 5 },
+        "UZ": { "lb": "[mm]", "vl": 1000, "rd": 5 },
+        "RY": { "lb": "[Deg]", "vl": 57.29577951308232, "rd": 5 }
+      },
+      "flds": ["name", "UX", "UZ", "RY"]
+    },
+    "Fld": {
+      "name": { "text": "Name", "value": "name", "type": "text" },
+      "UX": { "text": "UX[mm]", "value": "UX", "type": "number" },
+      "UZ": { "text": "UZ[mm]", "value": "UZ", "type": "number" },
+      "RY": { "text": "RY[Deg]", "value": "RY", "type": "number" }
+    }
+  },
+  "srs": {
+    "Static": {
+      "group": "unique",
+      "name": "srs",
+      "features": ["Ax", "Cy", "Iy", "H"],
+      "unites": {
+        "Ax": { "lb": "[cm2]", "vl": 10000, "rd": 5 },
+        "Cy": { "lb": "[cm]", "vl": 100, "rd": 5 },
+        "Iy": { "lb": "[cm4]", "vl": 100000000, "rd": 5 },
+        "H": { "lb": "[cm]", "vl": 100, "rd": 5 }
+      },
+      "flds": ["name", "type", "Ax", "Cy", "Iy", "H"],
+      "fltp": [
+        {
+          "name": "Ax_Iy",
+          "gp": ["Ax", "Iy"],
+          "text": "Ax[cm4]\nIy[cm8]",
+          "value": "Ax_Iy"
+        },
+        {
+          "name": "Cy_H",
+          "gp": ["Cy", "H"],
+          "text": "Cy[cm]\nH[cm]",
+          "value": "Cy_H"
+        }
+      ],
+      "fldsT": ["name", "type", "Ax_Iy", "Cy_H"]
+    },
+    "Fld": {
+      "name": { "text": "Name", "value": "name", "type": "text" },
+      "type": { "text": "Type", "value": "type", "type": "text" },
+      "Ax_Iy": {
+        "name": "Ax_Iy",
+        "gp": ["Ax", "Iy"],
+        "text": "Ax[cm4]\nIy[cm8]",
+        "value": "Ax_Iy"
+      },
+      "Cy_H": {
+        "name": "Cy_H",
+        "gp": ["Cy", "H"],
+        "text": "Cy[cm]\nH[cm]",
+        "value": "Cy_H"
+      }
+    }
+  },
+  "Rl": {
+    "Static": {
+      "group": "brs",
+      "name": "Rl",
+      "features": ["nodes", "FX", "FZ", "CY"],
+      "unites": {
+        "nodes": { "lb": "", "vl": 1, "rd": 5 },
+        "FX": { "lb": "[KN]", "vl": 1000, "rd": 5 },
+        "FZ": { "lb": "[KN]", "vl": 1000, "rd": 5 },
+        "CY": { "lb": "[KN*m]", "vl": 1000, "rd": 5 }
+      },
+      "flds": ["name", "nodes", "FX", "FZ", "CY"],
+      "fltp": [
+        { "name": "FX", "gp": [0, 3], "text": "FX[KN]", "value": "FX" },
+        { "name": "FZ", "gp": [1, 4], "text": "FZ[KN]", "value": "FZ" },
+        { "name": "CY", "gp": [2, 5], "text": "CY[KN*m]", "value": "CY" }
+      ]
+    },
+    "Fld": {
+      "name": { "text": "Name", "value": "name", "type": "text" },
+      "nodes": { "text": "nodes", "value": "nodes", "type": "number" },
+      "FX": { "text": "FX[KN]", "value": "FX", "type": "number" },
+      "FZ": { "text": "FZ[KN]", "value": "FZ", "type": "number" },
+      "CY": { "text": "CY[KN*m]", "value": "CY", "type": "number" }
+    }
+  },
+  "Rg": {
+    "Static": {
+      "group": "brs",
+      "name": "Rg",
+      "features": ["nodes", "FX", "FZ", "CY"],
+      "unites": {
+        "nodes": { "lb": "", "vl": 1, "rd": 5 },
+        "FX": { "lb": "[KN]", "vl": 1000, "rd": 5 },
+        "FZ": { "lb": "[KN]", "vl": 1000, "rd": 5 },
+        "CY": { "lb": "[KN*m]", "vl": 1000, "rd": 5 }
+      },
+      "flds": ["name", "nodes", "FX", "FZ", "CY"],
+      "fltp": [
+        { "name": "FX", "gp": [0, 3], "text": "FX[KN]", "value": "FX" },
+        { "name": "FZ", "gp": [1, 4], "text": "FZ[KN]", "value": "FZ" },
+        { "name": "CY", "gp": [2, 5], "text": "CY[KN*m]", "value": "CY" }
+      ]
+    },
+    "Fld": {
+      "name": { "text": "Name", "value": "name", "type": "text" },
+      "nodes": { "text": "nodes", "value": "nodes", "type": "number" },
+      "FX": { "text": "FX[KN]", "value": "FX", "type": "number" },
+      "FZ": { "text": "FZ[KN]", "value": "FZ", "type": "number" },
+      "CY": { "text": "CY[KN*m]", "value": "CY", "type": "number" }
+    }
+  },
+  "Ql": {
+    "Static": {
+      "group": "brs",
+      "name": "Ql",
+      "features": ["nodes", "UX", "UZ", "RY"],
+      "unites": {
+        "nodes": { "lb": "", "vl": 1, "rd": 5 },
+        "UX": { "lb": "[mm]", "vl": 1000, "rd": 5 },
+        "UZ": { "lb": "[mm]", "vl": 1000, "rd": 5 },
+        "RY": { "lb": "[Deg]", "vl": 57.29577951308232, "rd": 5 }
+      },
+      "flds": ["name", "nodes", "UX", "UZ", "RY"],
+      "fltp": [
+        { "name": "UX", "gp": [0, 3], "text": "UX[mm]", "value": "UX" },
+        { "name": "UZ", "gp": [1, 4], "text": "UZ[mm]", "value": "UZ" },
+        { "name": "RY", "gp": [2, 5], "text": "RY[deg]", "value": "RY" }
+      ]
+    },
+    "Fld": {
+      "name": { "text": "Name", "value": "name", "type": "text" },
+      "nodes": { "text": "nodes", "value": "nodes", "type": "number" },
+      "UX": { "text": "UX[mm]", "value": "UX", "type": "number" },
+      "UZ": { "text": "UZ[mm]", "value": "UZ", "type": "number" },
+      "RY": { "text": "RY[Deg]", "value": "RY", "type": "number" }
+    }
+  },
+  "Qg": {
+    "Static": {
+      "group": "brs",
+      "name": "Qg",
+      "features": ["nodes", "UX", "UZ", "RY"],
+      "unites": {
+        "nodes": { "lb": "", "vl": 1, "rd": 5 },
+        "UX": { "lb": "[mm]", "vl": 1000, "rd": 5 },
+        "UZ": { "lb": "[mm]", "vl": 1000, "rd": 5 },
+        "RY": { "lb": "[Deg]", "vl": 57.29577951308232, "rd": 5 }
+      },
+      "flds": ["name", "nodes", "UX", "UZ", "RY"],
+      "fltp": [
+        { "name": "UX", "gp": [0, 3], "text": "UX[mm]", "value": "UX" },
+        { "name": "UZ", "gp": [1, 4], "text": "UZ[mm]", "value": "UZ" },
+        { "name": "RY", "gp": [2, 5], "text": "RY[deg]", "value": "RY" }
+      ]
+    },
+    "Fld": {
+      "name": { "text": "Name", "value": "name", "type": "text" },
+      "nodes": { "text": "nodes", "value": "nodes", "type": "number" },
+      "UX": { "text": "UX[mm]", "value": "UX", "type": "number" },
+      "UZ": { "text": "UZ[mm]", "value": "UZ", "type": "number" },
+      "RY": { "text": "RY[Deg]", "value": "RY", "type": "number" }
+    }
+  }
+}

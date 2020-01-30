@@ -8,7 +8,6 @@
         <v-btn class="success" data-cy="copyItem" @click="copyItem">
           <Fas i="copy" />Copy Project
         </v-btn>
-        {{ sort }}
         <v-data-table
           :headers="headers"
           :items="items"
@@ -91,9 +90,6 @@ export default {
       mStore.getter("projects", ["projectsChange", "aOfflineProjects"])
     ),
     ...mapActions(["runtimeCache"]),
-    console(val) {
-      console.log(val)
-    },
     open() {
       this.projectsChange({ state: "dialog", value: true })
     },

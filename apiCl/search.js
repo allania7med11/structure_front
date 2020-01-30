@@ -7,5 +7,4 @@ const search = async function() {
   ])
   return rtn.map(cv2 => cv2.replace(".nuxt/dist/client", "_nuxt"))
 }
-//search().then(cv => console.log(cv))
 export { search }

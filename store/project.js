@@ -30,7 +30,10 @@ export const getters = {
     return mds[state.slg]
   },
   inf: state => {
-    return Infs[state.slg]
+    const rtn = Infs(state.slg)
+    // eslint-disable-next-line no-debugger
+    debugger
+    return rtn
   },
   model: (state, getters) => {
     var field = getters.md.model

@@ -32,7 +32,12 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ["@/plugins/global", "@/plugins/Vuelidate", "@/plugins/axios"],
+  plugins: [
+    "@/plugins/global",
+    "@/plugins/Vuelidate",
+    "@/plugins/axios",
+    { src: "@/plugins/cypress", mode: "client" }
+  ],
   /*
    ** Nuxt.js dev-modules
    */
