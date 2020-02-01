@@ -235,7 +235,7 @@ export default {
 
   methods: {
     rplc(vl) {
-      return typeof vl === "string" ? vl.replace(/\s/g, "") : vl
+      return typeof vl === "string" ? vl.replace(/\s/g, "_") : vl
     },
     ...mapActions(["login"]),
     ...mapActions(mStore.getter("project", ["projectChange", "aProject"])),
@@ -245,8 +245,6 @@ export default {
     },
     async save() {
       this.$v.$touch()
-      // eslint-disable-next-line semi,prettier/prettier,no-debugger
-      debugger;
       if (!this.$v.$invalid) {
         this.projectChange({ state: "error", value: false })
         try {

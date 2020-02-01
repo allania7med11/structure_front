@@ -20,5 +20,6 @@ describe("Project", function() {
     cy.applySupport()
     cy.materials()
     cy.Rectangular()
+    cy.applySection()
   })
 })

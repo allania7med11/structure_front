@@ -1,4 +1,3 @@
-/* eslint-disable vue/html-self-closing */
 <template>
   <div>
     <v-flex xs12 md12>
@@ -101,8 +100,6 @@ export default {
           { text: "", value: "action", sortable: false, align: "center" },
           ...this.inf.tbhs
         ]
-        // eslint-disable-next-line no-debugger
-        debugger
         return rtn
       }
       return this.inf.tbhs

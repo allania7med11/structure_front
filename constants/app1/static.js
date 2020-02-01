@@ -20,7 +20,29 @@ class cLists {
   dls = ["Uniform_Load", "Trapezoidal_Load", "Self_Weight"]
   nrs = ["Rc", "Dp"]
   brs = ["Rl", "Rg", "Ql", "Qg"]
-  dts = ["FX", "FZ", "MY", "Ssup", "Sinf", "UX", "UZ", "RY"]
+  dts = ["FX", "FZ", "MY", "UX", "UZ", "RY", "Ssup", "Sinf"]
+  get dtsChildren() {
+    const fn = (lst, st) =>
+      lst.map((cv2, i2) => {
+        return {
+          label: cv2,
+          id: st + i2,
+          name: cv2,
+          text: "Detailed Analysis"
+        }
+      })
+    const rtn = [{ header: "NTM" }, { divider: true }]
+    Array.prototype.push.apply(rtn, fn(["FX", "FZ", "MY"], 0))
+    Array.prototype.push.apply(rtn, [
+      { header: "Deformations" },
+      { divider: true }
+    ])
+    Array.prototype.push.apply(rtn, fn(["UX", "UZ", "RY"], 3))
+    Array.prototype.push.apply(rtn, [{ header: "Stresses" }, { divider: true }])
+    Array.prototype.push.apply(rtn, fn(["Ssup", "Sinf"], 6))
+    console.log(rtn)
+    return rtn
+  }
   get all() {
     return [
       "nodes",

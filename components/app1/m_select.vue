@@ -40,9 +40,16 @@
                     data-cy="sl1"
                   >
                     <template slot="item" slot-scope="data">
-                      <span :data-cy="data.item.label">{{
-                        data.item.label
-                      }}</span>
+                      <template v-if="typeof data.item !== 'object'">
+                        <v-list-tile-content>
+                          {{ data.item }}
+                        </v-list-tile-content>
+                      </template>
+                      <template v-else>
+                        <span :data-cy="rplc(data.item.label)">
+                          {{ data.item.label }}
+                        </span>
+                      </template>
                     </template>
                   </v-select>
                 </v-flex>
@@ -57,7 +64,7 @@
                     data-cy="sl2"
                   >
                     <template slot="item" slot-scope="data">
-                      <span :data-cy="data.item.label">{{
+                      <span :data-cy="rplc(data.item.label)">{{
                         data.item.label
                       }}</span>
                     </template>
@@ -74,7 +81,7 @@
                     data-cy="sl3"
                   >
                     <template slot="item" slot-scope="data">
-                      <span :data-cy="data.item.label">{{
+                      <span :data-cy="rplc(data.item.label)">{{
                         data.item.label
                       }}</span>
                     </template>
@@ -119,13 +126,13 @@ export default {
       return this.its3 ? "xs12" : this.its2 ? "xs10" : "xs6"
     },
     its2: function() {
-      return this.tbs[this.sl1].children ? this.tbs[this.sl1].children : null
+      const slc = this.tbs.find(elm => elm.id == this.sl1)
+      return slc.children ? slc.children : null
     },
     its3: function() {
       if (this.its2) {
-        return this.its2[this.sl2].children
-          ? this.its2[this.sl2].children
-          : null
+        const slc = this.its2.find(elm => elm.id == this.sl2)
+        return slc.children ? slc.children : null
       } else {
         return null
       }
@@ -133,10 +140,10 @@ export default {
     fslg: function() {
       let rtn
       rtn = this.its3
-        ? this.its3[this.sl3]
+        ? this.its3.find(elm => elm.id == this.sl3)
         : this.its2
-        ? this.its2[this.sl2]
-        : this.tbs[this.sl1]
+        ? this.its2.find(elm => elm.id == this.sl2)
+        : this.tbs.find(elm => elm.id == this.sl1)
       this.projectChange({ state: "slg", value: rtn.name })
       if (!rtn.text) {
         rtn.text = rtn.label
@@ -144,9 +151,11 @@ export default {
       if (rtn.text == "Detailed Analysis") {
         this.projectChange({
           state: "detailIndex",
-          value: this.its2[this.sl2].name
+          value: this.its2.find(elm => elm.id == this.sl2).name
         })
       }
+      // eslint-disable-next-line no-debugger
+      debugger
       return rtn
     }
   },
@@ -175,6 +184,9 @@ export default {
     }
   },
   methods: {
+    rplc(vl) {
+      return typeof vl === "string" ? vl.replace(/\s/g, "_") : vl
+    },
     ...mapActions(mStore.getter("project", ["projectChange"])),
     searchChange() {
       this.projectChange({ state: "search", value: this.search })

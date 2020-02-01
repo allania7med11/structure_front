@@ -16,9 +16,9 @@ Cypress.Commands.add("project", () => {
 })
 const select=(fld,vl) => {
   const slc = ".v-select__selection"
-  const vlg = typeof vl === "string"? vl.replace(/\s/g, ''): vl
+  const vlg = typeof vl === "string"? vl.replace(/\s/g, '_'): vl
   cy.get(`${slc}s:has([data-cy=${fld}])`).click()
-  cy.get(`.v-list-item:has([data-cy=${vlg}]):visible`).click() 
+  cy.get(`.v-list-item:has([data-cy=${vlg}])`).click() 
   cy.get(`${slc}s:has([data-cy=${fld}])>${slc}`).should("contain", vl)
   cy.scrollTo('top')
 }
@@ -174,6 +174,75 @@ Cypress.Commands.add("Rectangular", () => {
           .type(vl)
           .should("have.value", String(vl))
         search = search + `:has(td:eq(${id + 3}):contains(${String(vl)}))`
+      })
+      cy.get("[data-cy=save]").click()
+      cy.get(`tbody>tr${search}>td`).should("have.length", flds.length + 1)
+    })
+    cy.log(`create ${name} successful`)
+  }
+})
+
+Cypress.Commands.add("applySection", () => {
+  const model = "sections"
+  const name = "Apply Section"
+  const mdl = "Sections"
+  const action = "Apply"
+  cy.log(`apply ${model}`)
+  select("sl1",mdl)
+  select("sl2",action)
+  cy.get("[data-cy=sc]").should("contain", name)
+  const lst = project[model].filter(cv => cv.bars.length > 0)
+  const flds = ["name","type","bars"]
+  if (lst.length > 0) {
+    cy.get("[data-cy=applyItem]").click()
+    lst.forEach(elm => {
+      let search = ""
+      select("name",elm["name"])
+      search =
+          search + `:has(td:eq(0):contains(${elm["name"]}))`
+      search =search + `:has(td:eq(1):contains(${elm.type}))`
+      const bars = elm.bars.map(cv => cv.name ).join()
+      cy.get(`[data-cy=bars]`)
+        .clear()
+        .type(bars)
+        .should("have.value", bars)
+      search =search + `:has(td:eq(2):contains(${bars}))`
+      cy.get("[data-cy=apply]").click()
+      cy.get(`tbody>tr${search}>td`).should("have.length", flds.length)
+    })
+    cy.log(`create ${model} successful`)
+  }
+})
+
+Cypress.Commands.add("Uniform_Load", () => {
+  const model = "dls"
+  const name = "Uniform_Load"
+  const mdl = "Distributed_Loads"
+  const typ = "Uniform_Load"
+  cy.log(`create ${name}`)
+  select("sl1",mdl)
+  select("sl3",typ)
+  cy.get("[data-cy=sc]").should("contain", name)
+  const lst = project[model].filter(cv => cv.type === typ)
+  const flds = ["name", "PX", "PZ","MY"]
+  const nbrs = ["PX", "PZ","MY"]
+  if (lst.length > 0) {
+    cy.get("[data-cy=newItem]").click()
+    lst.forEach(elm => {
+      let search = ""
+      cy.get(`[data-cy=name]`)
+        .clear()
+        .type(elm["name"])
+        .should("have.value", String(elm["name"]))
+      search = search + `:has(td:eq(1):contains(${elm["name"]}))`
+      const features = JSON.parse(elm.features)
+      nbrs.forEach((fld, id) => {
+        const vl = features[fld]*10**3
+        cy.get(`[data-cy=${fld}]`)
+          .clear()
+          .type(vl)
+          .should("have.value", String(vl))
+        search = search + `:has(td:eq(${id + 2}):contains(${String(vl)}))`
       })
       cy.get("[data-cy=save]").click()
       cy.get(`tbody>tr${search}>td`).should("have.length", flds.length + 1)

@@ -31,8 +31,6 @@ export const getters = {
   },
   inf: state => {
     const rtn = Infs(state.slg)
-    // eslint-disable-next-line no-debugger
-    debugger
     return rtn
   },
   model: (state, getters) => {

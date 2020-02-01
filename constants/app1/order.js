@@ -55,7 +55,7 @@ class cOrders {
       }
     },
     PLs: {
-      label: "Point Loads",
+      label: "Point",
       children: {
         Define: {
           label: "Define",
@@ -70,7 +70,7 @@ class cOrders {
       }
     },
     DLs: {
-      label: "Distributed Loads",
+      label: "Distributed",
       children: {
         Define: {
           label: "Define",
@@ -123,6 +123,7 @@ class cOrders {
     }
   }
   order = [
+    { header: "Structure" },
     "Nodes",
     "Bars",
     { name: "Supports", children: ["Define", "Apply"] },
@@ -132,6 +133,7 @@ class cOrders {
       name: "Sections",
       children: [{ name: "Define", children: Lists.sections }, "Apply"]
     },
+    { header: "Loads" },
     { name: "PLs", children: ["Define", "Apply"] },
     {
       name: "DLs",
@@ -144,6 +146,7 @@ class cOrders {
   dts = ["FX", "FZ", "MY", "Ssup", "Sinf", "UX", "UZ", "RY"]
   orderR(pr) {
     return [
+      { header: "Results" },
       { name: "Nrs", children: ["Rc", "Dp"] },
       "Srs",
       { name: "Brs", children: ["Rl", "Rg", "Ql", "Qg"] },
@@ -157,17 +160,11 @@ class cOrders {
               label: cv.name,
               name: cv.id,
               id: i,
-              children: Lists.dts.map((cv2, i2) => {
-                return {
-                  label: cv2,
-                  id: i2,
-                  name: cv2,
-                  text: "Detailed Analysis"
-                }
-              })
+              children: Lists.dtsChildren
             }
           })
       },
+      { header: "Structure" },
       "Nodes",
       "Bars",
       { name: "Supports", children: ["Apply", "Define"] },
@@ -186,6 +183,7 @@ class cOrders {
           }
         ]
       },
+      { header: "Loads" },
       {
         name: "PLs",
         children: pr.pls.find(cv => cv.nodes.length > 0)
@@ -210,6 +208,7 @@ class cOrders {
   }
   orderT(pr) {
     return [
+      { header: "Structure" },
       "Nodes",
       "Bars",
       { name: "Supports", children: ["Apply", "Define"] },
@@ -228,6 +227,7 @@ class cOrders {
           }
         ]
       },
+      { header: "Loads" },
       {
         name: "PLs",
         children: pr.pls.find(cv => cv.nodes.length > 0)
@@ -261,37 +261,40 @@ class cOrders {
               label: cv.name,
               name: cv.id,
               id: i,
-              children: Lists.dts.map((cv2, i2) => {
-                return {
-                  label: cv2,
-                  id: i2,
-                  name: cv2,
-                  text: "Detailed Analysis"
-                }
-              })
+              children: Lists.dtsChildren
             }
           })
       }
     ]
   }
   fchs(order) {
-    let rs = order.map((cv, i) =>
-      typeof cv === "string" || cv instanceof String
-        ? { ...this.chs[cv], id: i }
-        : cv.label
-        ? cv
-        : {
+    let chs = this.chs
+    let i = -1
+    let rtn = []
+    order.forEach(function(cv) {
+      // eslint-disable-next-line no-prototype-builtins
+      if (cv.hasOwnProperty("header")) {
+        Array.prototype.push.apply(rtn, [cv, { divider: true }])
+      } else {
+        i = i + 1
+        let add
+        if (typeof cv === "string" || cv instanceof String) {
+          add = { ...chs[cv], id: i }
+        } else if (cv.label) {
+          add = cv
+        } else {
+          add = {
             id: i,
-            label: this.chs[cv.name].label,
+            label: chs[cv.name].label,
             children: cv.children.map((cv2, i2) =>
               typeof cv2 === "string" || cv2 instanceof String
-                ? { ...this.chs[cv.name].children[cv2], id: i2 }
+                ? { ...chs[cv.name].children[cv2], id: i2 }
                 : {
                     id: i2,
-                    label: this.chs[cv.name].children[cv2.name].label,
+                    label: chs[cv.name].children[cv2.name].label,
                     children: cv.children[i2].children.map((cv3, i3) =>
                       Object.assign(
-                        this.chs[cv.name].children[cv2.name].children[cv3],
+                        chs[cv.name].children[cv2.name].children[cv3],
                         {
                           id: i3
                         }
@@ -300,8 +303,11 @@ class cOrders {
                   }
             )
           }
-    )
-    return rs
+        }
+        rtn.push(add)
+      }
+    })
+    return rtn
   }
   get tbs() {
     return this.fchs(this.order)
