@@ -159,7 +159,7 @@
                 "dls": [
                     {
                         "name": "UL20",
-                        "type": "Uniform_load"
+                        "type": "Uniform_Load"
                     }
                 ],
                 "L": 4.0,
@@ -337,7 +337,7 @@
                 },
                 "id": "1",
                 "name": "UL20",
-                "type": "Uniform_load",
+                "type": "Uniform_Load",
                 "Axes": "G",
                 "features": "{\"MY\": 0, \"PX\": 0, \"PZ\": -0.02}",
                 "bars": [

@@ -21,5 +21,7 @@ describe("Project", function() {
     cy.materials()
     cy.Rectangular()
     cy.applySection()
+    cy.Uniform_Load()
+    cy.applyDls()
   })
 })

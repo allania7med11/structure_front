@@ -46,7 +46,7 @@
                         </v-list-tile-content>
                       </template>
                       <template v-else>
-                        <span :data-cy="rplc(data.item.label)">
+                        <span data-test="sl1" :data-cy="rplc(data.item.label)">
                           {{ data.item.label }}
                         </span>
                       </template>
@@ -64,7 +64,7 @@
                     data-cy="sl2"
                   >
                     <template slot="item" slot-scope="data">
-                      <span :data-cy="rplc(data.item.label)">{{
+                      <span data-test="sl2" :data-cy="rplc(data.item.label)">{{
                         data.item.label
                       }}</span>
                     </template>
@@ -81,7 +81,7 @@
                     data-cy="sl3"
                   >
                     <template slot="item" slot-scope="data">
-                      <span :data-cy="rplc(data.item.label)">{{
+                      <span data-test="sl3" :data-cy="rplc(data.item.label)">{{
                         data.item.label
                       }}</span>
                     </template>
@@ -154,8 +154,6 @@ export default {
           value: this.its2.find(elm => elm.id == this.sl2).name
         })
       }
-      // eslint-disable-next-line no-debugger
-      debugger
       return rtn
     }
   },

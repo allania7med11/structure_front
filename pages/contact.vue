@@ -47,6 +47,7 @@
               class="info font-italic font-weight-bold px-4 title"
               large
               rounded
+              data-cy="submit"
               @click="submit"
             >
               Send Email

@@ -8,6 +8,6 @@ describe("Project", function() {
     cy.get("[data-cy=project]").should("contain", project["name"])
     cy.url().should("match", new RegExp(/projects\/\d+/g))
     cy.get("[data-cy=sc]").click()
-    cy.Uniform_Load()
+    cy.applyDls()
   })
 })

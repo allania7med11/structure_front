@@ -8,14 +8,14 @@
     />
 
     <v-flex xs12 ma-1>
-      <p class="font-weight-black" v-text="fonction" />
+      <p class="font-weight-black" v-text="fonction"></p>
     </v-flex>
     <v-layout>
       <v-flex ma-1>
         <v-text-field v-model.number="X" label="X[m]" @change="change" />
       </v-flex>
       <v-flex ma-1>
-        <span v-text="result" />
+        <span v-text="result"></span>
       </v-flex>
     </v-layout>
   </div>

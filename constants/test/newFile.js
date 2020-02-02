@@ -348,9 +348,6 @@ class cOrders {
     let i = -1
     let rtn = []
     order.forEach(function(cv) {
-      console.log("cv", cv)
-      // eslint-disable-next-line no-debugger
-      debugger
       // eslint-disable-next-line no-prototype-builtins
       if (cv.hasOwnProperty("header")) {
         Array.prototype.push.apply(rtn, [cv, { divider: true }])

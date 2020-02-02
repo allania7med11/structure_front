@@ -86,9 +86,12 @@
                               :data-cy="header.value"
                             >
                               <template slot="item" slot-scope="data">
-                                <span :data-cy="rplc(data.item.name)">{{
-                                  data.item.name
-                                }}</span>
+                                <span
+                                  :data-test="header.value"
+                                  :data-cy="rplc(data.item.name)"
+                                >
+                                  {{ data.item.name }}
+                                </span>
                               </template>
                             </v-select>
                             <v-text-field

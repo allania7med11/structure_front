@@ -13,7 +13,7 @@
             src="https://www.youtube.com/embed/videoseries?list=PLDFGldFvahMtwgBPyknkKHGuu0pB1VMD4&amp;index=2"
             frameborder="0"
             allowfullscreen
-          />
+          ></iframe>
         </v-col>
       </v-row>
     </v-container>
