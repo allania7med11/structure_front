@@ -8,6 +8,7 @@
           </h1>
           {{ iframe }}
           <iframe
+            v-if="!cypress"
             title="Free Online Beam Calculator"
             width="100%"
             height="343"
@@ -117,7 +118,9 @@
 </template>
 
 <script>
+import { test } from "@/mixins/test.js"
 export default {
+  mixins: [test],
   head: {
     titleTemplate: "Free Online Beam Calculator",
     meta: [

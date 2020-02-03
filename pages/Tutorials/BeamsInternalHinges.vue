@@ -7,6 +7,7 @@
             Free Online Beams with Internal Hinges Calculator
           </h1>
           <iframe
+            v-if="!cypress"
             title="Free Online Beams with Internal Hinges Calculator"
             width="100%"
             height="343"
@@ -171,7 +172,9 @@
 </template>
 
 <script>
+import { test } from "@/mixins/test.js"
 export default {
+  mixins: [test],
   head: {
     titleTemplate: "Free Online Beams with Internal Hinges Calculator",
     meta: [

@@ -1,5 +1,6 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable no-undef */
+const math = require("mathjs")
 import { project } from "../../env"
 Cypress.Commands.add("project", () => {
   cy.log("create Project")
@@ -284,5 +285,31 @@ Cypress.Commands.add("applyDls", () => {
       cy.get(`tbody>tr${search}>td`).should("have.length", flds.length)
     })
     cy.log(`apply ${model} successful`)
+  }
+})
+
+Cypress.Commands.add("Rc", () => {
+  const model = "nodes"
+  const name = "Nodes Results"
+  const action = "Reactions"
+  cy.log(`${name}-${action}`)
+  select("sl1",name)
+  select("sl2",action)
+  cy.get("[data-cy=sc]").should("contain", action)
+  const lst = project[model].filter(cv => cv["Support"].name != "None")
+  const nbrs= ["FX", "FZ", "CY"]
+  const flds = ["name", ...nbrs]
+  if (lst.length > 0) {
+    lst.forEach(elm => {
+      let search = ""
+      search = search + `:has(td:eq(0):contains(${elm["name"]}))`
+      const features = elm["Rc"]
+      nbrs.forEach((fld, id) => {
+        const vl = math.round(features[id]*10**3, 5)
+        search = search + `:has(td:eq(${id + 1}):contains(${String(vl)}))`
+      })
+      cy.get(`tbody>tr${search}>td`).should("have.length", flds.length)
+    })
+    cy.log(`${name}-${action}-verify`)
   }
 })

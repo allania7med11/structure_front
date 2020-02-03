@@ -48,6 +48,7 @@
         </v-col>
         <v-col cols="12" md="7">
           <iframe
+            v-if="!cypress"
             title="Effective Web App | Free Online Structure Analysis Software"
             width="100%"
             height="343"
@@ -88,7 +89,9 @@
 </template>
 
 <script>
+import { test } from "@/mixins/test.js"
 export default {
+  mixins: [test],
   head: {
     titleTemplate:
       "Free Online Structure Analysis Software (Beams,Truss,Frame..)",

@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-undef */
-import { user } from "../../env"
+const config = { capture: "fullPage" }
+import { user, project } from "../../env"
 describe("Project", function() {
   before(function() {
     cy.visit("/")
@@ -14,7 +15,10 @@ describe("Project", function() {
     cy.get("[data-cy=signup]").click()
     cy.url().should("include", "/accounts/signup")
     cy.signup(user)
+    cy.setResolution([1366, 768])
+    cy.matchImageSnapshot(`projects-${user.username}-init`, config)
     cy.project()
+    cy.matchImageSnapshot(`project-${project["name"]}-init`, config)
     cy.nodes()
     cy.bars()
     cy.applySupport()
@@ -23,5 +27,6 @@ describe("Project", function() {
     cy.applySection()
     cy.Uniform_Load()
     cy.applyDls()
+    cy.matchImageSnapshot(`project-${project["name"]}-end-modify`, config)
   })
 })

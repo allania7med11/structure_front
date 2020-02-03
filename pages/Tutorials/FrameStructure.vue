@@ -7,6 +7,7 @@
             Free Online Frame Calculator
           </h1>
           <iframe
+            v-if="!cypress"
             title="Free Online Frame Calculator"
             width="100%"
             height="343"
@@ -150,7 +151,9 @@
 </template>
 
 <script>
+import { test } from "@/mixins/test.js"
 export default {
+  mixins: [test],
   head: {
     titleTemplate: "Free Online Frame Calculator",
     meta: [

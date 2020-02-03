@@ -8,7 +8,7 @@
         <v-btn text class="text-none" value="define" data-cy="project">
           {{ project["name"] }}
         </v-btn>
-        <v-btn text class="text-none" value="results">
+        <v-btn text class="text-none" value="results" data-cy="results">
           {{ results }}&nbsp;&nbsp;&nbsp;
           <v-progress-circular
             v-if="progress"
