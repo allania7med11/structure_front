@@ -10,6 +10,6 @@ describe("Project", function() {
     cy.get("[data-cy=results]").click()
     cy.get("[data-cy=sc]", { timeout: 10000 }).should("contain", "Reactions")
     cy.get("[data-cy=sc]").click()
-    cy.Rc()
+    cy.Dtan()
   })
 })

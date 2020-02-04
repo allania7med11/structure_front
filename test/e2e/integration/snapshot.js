@@ -1,20 +1,23 @@
 /* eslint-disable no-undef */
-const config = {
-  capture: "fullPage",
-  failureThreshold: 0.03,
-  customDiffConfig: { threshold: 0.1 }
-}
+const config = { capture: "fullPage" }
 const sizes = [["iphone-6", "landscape"], "iphone-6", [1366, 768]]
 const pagesSizes = [{ name: "home", url: "/", config: config }]
+const Tutorials = [
+  "Beam",
+  "TrussStructure",
+  "FrameStructure",
+  "BeamsInternalHinges"
+]
 const pages = [
+  { name: "signup", url: "/accounts/signup/" },
+  { name: "login", url: "/accounts/login/" },
   { name: "contact", url: "/contact" },
-  { name: "Tutorials-Beam", url: "/Tutorials/Beam" },
-  { name: "Tutorials-TrussStructure", url: "/Tutorials/TrussStructure" },
-  { name: "Tutorials-FrameStructure", url: "/Tutorials/FrameStructure" },
-  {
-    name: "Tutorials-BeamsInternalHinges",
-    url: "/Tutorials/BeamsInternalHinges"
-  }
+  ...Tutorials.map(cv => {
+    return { name: `Tutorials-${cv}`, url: `/Tutorials/${cv}` }
+  }),
+  ...Tutorials.map(cv => {
+    return { name: `Full_Project-${cv}`, url: `/Full_Project/${cv}` }
+  })
 ]
 describe("Visual regression tests with sizes", () => {
   sizes.forEach(size => {

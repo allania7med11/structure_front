@@ -1,5 +1,6 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable no-undef */
+const config = { capture: "fullPage" }
 const math = require("mathjs")
 import { project } from "../../env"
 Cypress.Commands.add("project", () => {
@@ -292,6 +293,7 @@ Cypress.Commands.add("Rc", () => {
   const model = "nodes"
   const name = "Nodes Results"
   const action = "Reactions"
+  const fld = "Rc"
   cy.log(`${name}-${action}`)
   select("sl1",name)
   select("sl2",action)
@@ -303,7 +305,7 @@ Cypress.Commands.add("Rc", () => {
     lst.forEach(elm => {
       let search = ""
       search = search + `:has(td:eq(0):contains(${elm["name"]}))`
-      const features = elm["Rc"]
+      const features = elm[fld]
       nbrs.forEach((fld, id) => {
         const vl = math.round(features[id]*10**3, 5)
         search = search + `:has(td:eq(${id + 1}):contains(${String(vl)}))`
@@ -311,5 +313,54 @@ Cypress.Commands.add("Rc", () => {
       cy.get(`tbody>tr${search}>td`).should("have.length", flds.length)
     })
     cy.log(`${name}-${action}-verify`)
+  }
+})
+Cypress.Commands.add("Dp", () => {
+  const model = "nodes"
+  const name = "Nodes Results"
+  const action = "Displacements"
+  const fld = "Dp"
+  cy.log(`${name}-${action}`)
+  select("sl1",name)
+  select("sl2",action)
+  cy.get("[data-cy=sc]").should("contain", action)
+  const lst = project[model]
+  const nbrs= ["UX", "UZ", "RY"]
+  const unite = [10**3, 10**3, 180 / Math.PI]
+  const flds = ["name", ...nbrs]
+  if (lst.length > 0) {
+    lst.forEach(elm => {
+      let search = ""
+      search = search + `:has(td:eq(0):contains(${elm["name"]}))`
+      const features = elm[fld]
+      nbrs.forEach((fld, id) => {
+        const vl = math.round(features[id]*unite[id], 5)
+        search = search + `:has(td:eq(${id + 1}):contains(${String(vl)}))`
+      })
+      cy.get(`tbody>tr${search}>td`).should("have.length", flds.length)
+    })
+    cy.log(`${name}-${action}-verify`)
+  }
+})
+Cypress.Commands.add("Dtan", () => {
+  cy.setResolution([1366, 768])
+  const model = "bars"
+  const name = "Detailed Analysis"
+  cy.log(`${name}-init`)
+  select("sl1",name)
+  cy.get("[data-cy=sc]").should("contain", name)
+  const lst = project[model]
+  const types = ["FX", "FZ", "MY", "UX", "UZ", "RY", "Ssup", "Sinf"]
+  if (lst.length > 0) {
+    lst.forEach(elm => {
+      const action = elm.name
+      select("sl2",action)
+      types.forEach((fld) => {
+        const typ = fld
+        select("sl3",typ)
+        cy.matchImageSnapshot(`${project.name}-${name}-${action}-${typ}`, config)
+      })
+    })
+    cy.log(`${name}-verify`)
   }
 })
