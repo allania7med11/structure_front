@@ -90,4 +90,5 @@ sw.*
 # Vim swap files
 *.swp
 
-test/e2e/snapshots/**
+test/e2e/snapshots
+test/e2e/videos
