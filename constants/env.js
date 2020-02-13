@@ -2,7 +2,7 @@ const Production = true
 const host = Production ? "0.0.0.0" : "localhost"
 const urls = Production
   ? {
-      baseURL: "http://unix:/run/gunicorn.sock",
+      baseURL: "http://unix:/run/gunicornfull.sock",
       browserBaseURL: "https://legacy.effectivewebapp.com/"
     }
   : {

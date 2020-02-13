@@ -4,7 +4,7 @@
     "../server/index.spa.html",
     "../server/index.ssr.html",
     "112292c2f2a505c7abaa.js",
-    "174f44582454c61ce7cc.js",
+    "24f3d36d59a3723229ba.js",
     "28c632b8e47ae875c297.js",
     "2ea0a455a565bdc0dea2.js",
     "459c77104ce2b2f3ab46.js",
@@ -86,7 +86,7 @@
     "794a8cf67377580fff77.js",
     "baabeba2ed1013996ba3.js",
     "2ea0a455a565bdc0dea2.js",
-    "174f44582454c61ce7cc.js"
+    "24f3d36d59a3723229ba.js"
   ],
   "async": [
     "112292c2f2a505c7abaa.js",
@@ -8382,7 +8382,7 @@
   },
   "assetsMapping": {
     "112292c2f2a505c7abaa.js": "31db7ef7",
-    "174f44582454c61ce7cc.js": "1a3ae26b",
+    "24f3d36d59a3723229ba.js": "1a3ae26b",
     "28c632b8e47ae875c297.js": "069d404e",
     "2ea0a455a565bdc0dea2.js": "7ea1d828",
     "459c77104ce2b2f3ab46.js": "b6ff1f1a",
