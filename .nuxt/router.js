@@ -3,16 +3,16 @@ import Router from 'vue-router'
 import { interopDefault } from './utils'
 import scrollBehavior from './router.scrollBehavior.js'
 
-const _17bef6e9 = () => interopDefault(import('../pages/contact.vue' /* webpackChunkName: "pages/contact" */))
-const _ed36d478 = () => interopDefault(import('../pages/projects/index.vue' /* webpackChunkName: "pages/projects/index" */))
-const _74b88399 = () => interopDefault(import('../pages/test.vue' /* webpackChunkName: "pages/test" */))
-const _2e3a1db0 = () => interopDefault(import('../pages/Tutorials/Beam.vue' /* webpackChunkName: "pages/Tutorials/Beam" */))
-const _376d1598 = () => interopDefault(import('../pages/Tutorials/BeamsInternalHinges.vue' /* webpackChunkName: "pages/Tutorials/BeamsInternalHinges" */))
-const _143be5c7 = () => interopDefault(import('../pages/Tutorials/FrameStructure.vue' /* webpackChunkName: "pages/Tutorials/FrameStructure" */))
-const _2e3dc5c6 = () => interopDefault(import('../pages/Tutorials/TrussStructure.vue' /* webpackChunkName: "pages/Tutorials/TrussStructure" */))
-const _ea1921ea = () => interopDefault(import('../pages/Full_Project/_name.vue' /* webpackChunkName: "pages/Full_Project/_name" */))
-const _3de5392c = () => interopDefault(import('../pages/projects/_id.vue' /* webpackChunkName: "pages/projects/_id" */))
-const _3b2daadb = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
+const _249cb4d9 = () => interopDefault(import('../pages/contact.vue' /* webpackChunkName: "pages/contact" */))
+const _5b2249d4 = () => interopDefault(import('../pages/projects/index.vue' /* webpackChunkName: "pages/projects/index" */))
+const _b795e8ae = () => interopDefault(import('../pages/test.vue' /* webpackChunkName: "pages/test" */))
+const _00105c80 = () => interopDefault(import('../pages/Tutorials/Beam.vue' /* webpackChunkName: "pages/Tutorials/Beam" */))
+const _85a280f0 = () => interopDefault(import('../pages/Tutorials/BeamsInternalHinges.vue' /* webpackChunkName: "pages/Tutorials/BeamsInternalHinges" */))
+const _8c987452 = () => interopDefault(import('../pages/Tutorials/FrameStructure.vue' /* webpackChunkName: "pages/Tutorials/FrameStructure" */))
+const _e34e05a6 = () => interopDefault(import('../pages/Tutorials/TrussStructure.vue' /* webpackChunkName: "pages/Tutorials/TrussStructure" */))
+const _1f989b1b = () => interopDefault(import('../pages/Full_Project/_name.vue' /* webpackChunkName: "pages/Full_Project/_name" */))
+const _5ebe9d88 = () => interopDefault(import('../pages/projects/_id.vue' /* webpackChunkName: "pages/projects/_id" */))
+const _097bb66a = () => interopDefault(import('../pages/index.vue' /* webpackChunkName: "pages/index" */))
 
 // TODO: remove in Nuxt 3
 const emptyFn = () => {}
@@ -32,43 +32,43 @@ export const routerOptions = {
 
   routes: [{
     path: "/contact",
-    component: _17bef6e9,
+    component: _249cb4d9,
     name: "contact"
   }, {
     path: "/projects",
-    component: _ed36d478,
+    component: _5b2249d4,
     name: "projects"
   }, {
     path: "/test",
-    component: _74b88399,
+    component: _b795e8ae,
     name: "test"
   }, {
     path: "/Tutorials/Beam",
-    component: _2e3a1db0,
+    component: _00105c80,
     name: "Tutorials-Beam"
   }, {
     path: "/Tutorials/BeamsInternalHinges",
-    component: _376d1598,
+    component: _85a280f0,
     name: "Tutorials-BeamsInternalHinges"
   }, {
     path: "/Tutorials/FrameStructure",
-    component: _143be5c7,
+    component: _8c987452,
     name: "Tutorials-FrameStructure"
   }, {
     path: "/Tutorials/TrussStructure",
-    component: _2e3dc5c6,
+    component: _e34e05a6,
     name: "Tutorials-TrussStructure"
   }, {
     path: "/Full_Project/:name?",
-    component: _ea1921ea,
+    component: _1f989b1b,
     name: "Full_Project-name"
   }, {
     path: "/projects/:id",
-    component: _3de5392c,
+    component: _5ebe9d88,
     name: "projects-id"
   }, {
     path: "/",
-    component: _3b2daadb,
+    component: _097bb66a,
     name: "index"
   }],
 
