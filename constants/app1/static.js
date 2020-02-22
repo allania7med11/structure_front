@@ -40,7 +40,6 @@ class cLists {
     Array.prototype.push.apply(rtn, fn(["UX", "UZ", "RY"], 3))
     Array.prototype.push.apply(rtn, [{ header: "Stresses" }, { divider: true }])
     Array.prototype.push.apply(rtn, fn(["Ssup", "Sinf"], 6))
-    console.log(rtn)
     return rtn
   }
   get all() {

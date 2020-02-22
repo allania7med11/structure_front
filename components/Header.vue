@@ -132,7 +132,7 @@ export default {
           title: "Sign Up",
           type: "btn",
           bind: {
-            href: this.$nuxt.$route.path + "/accounts/signup",
+            href: "/accounts/signup",
             ["data-cy"]: "signup"
           },
           right: true,
@@ -143,7 +143,7 @@ export default {
           title: "Log In",
           type: "btn",
           bind: {
-            href: this.$nuxt + "/accounts/login",
+            href: "/accounts/login",
             ["data-cy"]: "login"
           },
           right: true,
@@ -162,7 +162,7 @@ export default {
             },
             {
               title: "Log Out",
-              bind: { href: this.$nuxt.$route.path + "/accounts/logout" }
+              bind: { href: "/accounts/logout" }
             }
           ]
         }

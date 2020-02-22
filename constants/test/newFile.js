@@ -39,7 +39,6 @@ class cLists {
     Array.prototype.push.apply(rtn, fn(["UX", "UZ", "RY"], 3))
     Array.prototype.push.apply(rtn, [{ header: "Stresses" }, { divider: true }])
     Array.prototype.push.apply(rtn, fn(["Ssup", "Sinf"], 6))
-    console.log(rtn)
     return rtn
   }
   get all() {
@@ -343,7 +342,6 @@ class cOrders {
     ]
   }
   fchs(order) {
-    console.log("this.chs", this.chs)
     let chs = this.chs
     let i = -1
     let rtn = []
@@ -383,7 +381,6 @@ class cOrders {
         rtn.push(add)
       }
     })
-    console.log("rtn", rtn)
     return rtn
   }
   get tbs() {
@@ -391,7 +388,6 @@ class cOrders {
   }
   tbsR(pr) {
     let rs = this.fchs(this.orderR(pr))
-    console.log(rs)
     return rs
   }
   tbsT(pr) {
@@ -401,4 +397,3 @@ class cOrders {
 }
 
 const Orders = new cOrders()
-console.log("Orders.tbs", Orders.tbs)
