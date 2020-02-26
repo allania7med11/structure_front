@@ -1,0 +1,1 @@
+rsync -avz -e 'ssh' /home/ah/website/structureFull/web/webclient/.nuxt ah@206.189.117.238:/home/ah/website/structureFull/web/webclient
