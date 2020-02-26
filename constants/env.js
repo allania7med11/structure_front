@@ -1,4 +1,4 @@
-const Production = true
+const Production = false
 const host = Production ? "0.0.0.0" : "localhost"
 const urls = Production
   ? {

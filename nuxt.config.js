@@ -35,7 +35,7 @@ export default {
   plugins: [
     "@/plugins/global",
     "@/plugins/Vuelidate",
-    "@/plugins/axios",
+    { src: "@/plugins/axios", mode: "client" },
     { src: "@/plugins/cypress", mode: "client" }
   ],
   /*
