@@ -20,7 +20,7 @@ import nuxt_plugin_templatesplugin1227d432_5104c592 from 'nuxt_plugin_templatesp
 import nuxt_plugin_axios_2c1a05dc from 'nuxt_plugin_axios_2c1a05dc' // Source: ./axios.js (mode: 'all')
 import nuxt_plugin_global_2c8b7297 from 'nuxt_plugin_global_2c8b7297' // Source: ../plugins/global (mode: 'all')
 import nuxt_plugin_Vuelidate_f2e83fc6 from 'nuxt_plugin_Vuelidate_f2e83fc6' // Source: ../plugins/Vuelidate (mode: 'all')
-import nuxt_plugin_axios_2228ef02 from 'nuxt_plugin_axios_2228ef02' // Source: ../plugins/axios (mode: 'client')
+import nuxt_plugin_axios_2228ef02 from 'nuxt_plugin_axios_2228ef02' // Source: ../plugins/axios (mode: 'all')
 import nuxt_plugin_cypress_b0e33dce from 'nuxt_plugin_cypress_b0e33dce' // Source: ../plugins/cypress (mode: 'client')
 
 // Component: <ClientOnly>
@@ -210,7 +210,7 @@ async function createApp (ssrContext) {
     await nuxt_plugin_Vuelidate_f2e83fc6(app.context, inject)
   }
 
-  if (process.client && typeof nuxt_plugin_axios_2228ef02 === 'function') {
+  if (typeof nuxt_plugin_axios_2228ef02 === 'function') {
     await nuxt_plugin_axios_2228ef02(app.context, inject)
   }
 
