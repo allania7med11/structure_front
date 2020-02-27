@@ -1,6 +1,7 @@
 import colors from "vuetify/es5/util/colors"
 import { host, urls } from "./constants/env"
 export default {
+  buildDir: "build/.nuxt",
   server: {
     // port: 3000, // default: 3000
     host: host // default: localhost
