@@ -25,8 +25,8 @@ export default {
     ...mapState(["username"]),
     ...mapState(mStore.state("projects", ["error"]))
   },
-  fetch({ store }) {
-    return store.dispatch("projects/aProjects")
+  mounted() {
+    this.aProjects()
   },
   head() {
     return {

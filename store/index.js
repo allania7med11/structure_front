@@ -29,23 +29,23 @@ export const mutations = {
   }
 }
 export const actions = {
-  async nuxtServerInit({ dispatch }) {
-    await dispatch("login")
-  },
   stateChange({ commit }, input) {
     commit("stateChange", input)
   },
   async login({ commit }) {
     try {
       let US
+      console.log("login")
       US = await this.$axios.$get("/api/users/current/")
       if (US.id) {
         commit("stateChange", { state: "username", value: US.username })
       } else {
         commit("stateChange", { state: "username", value: false })
       }
+      return true
     } catch (error) {
       console.error(error)
+      return false
     }
   },
   async aTutorial({ commit, state }, name) {

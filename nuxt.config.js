@@ -1,10 +1,12 @@
 import colors from "vuetify/es5/util/colors"
-import { host, urls } from "./constants/env"
 export default {
   buildDir: "build/.nuxt",
+  axios: {
+    baseURL: "http://localhost/"
+  },
   server: {
     // port: 3000, // default: 3000
-    host: host // default: localhost
+    host: "localhost" // default: localhost
   },
   mode: "universal",
   /*
@@ -58,10 +60,6 @@ export default {
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
    */
-  axios: {
-    baseURL: urls.baseURL,
-    browserBaseURL: urls.browserBaseURL
-  },
   vuetify: {
     defaultAssets: {
       font: true,
@@ -154,6 +152,7 @@ export default {
     /*
      ** You can extend webpack config here
      */
+    extractCSS: true,
     extend(config, ctx) {
       if (ctx.isDev && ctx.isClient) {
         config.module.rules.push({
