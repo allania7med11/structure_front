@@ -2,11 +2,11 @@ import colors from "vuetify/es5/util/colors"
 export default {
   buildDir: "build/.nuxt",
   axios: {
-    baseURL: "http://localhost/"
+    baseURL: "http://effectivewebapp/"
   },
   server: {
     // port: 3000, // default: 3000
-    host: "localhost" // default: localhost
+    host: "0.0.0.0" // default: localhost
   },
   mode: "universal",
   /*
