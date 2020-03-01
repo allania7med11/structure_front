@@ -49,12 +49,12 @@
 </template>
 <script>
 import { mapState, mapActions } from "vuex"
-import { mStore, sortDate } from "@/constants/static"
+import { mStore } from "@/constants/static"
 export default {
   data: () => ({
     headers: [
       { text: "Name", value: "name" },
-      { text: "Last Modified", value: "last_modified" },
+      { text: "Modified Date", value: "modified_date" },
       { text: "", value: "action", sortable: false, align: "right" }
     ]
   }),
@@ -63,7 +63,7 @@ export default {
       mStore.state("projects", ["projects", "search", "offlineProjects"])
     ),
     sort() {
-      return { by: ["last_modified"], desc: [true] }
+      return { by: ["modified_date"], desc: [true] }
     },
     formTitle() {
       return this.editedIndex === -1 ? "New Item" : "Edit Item"
@@ -86,21 +86,6 @@ export default {
     }
   },
   methods: {
-    customSort(items, index, isDesc) {
-      if (index === "last_modified") {
-        console.log(isDesc)
-        items.sort(sortDate(isDesc))
-      } else {
-        items.sort((a, b) => {
-          if (!isDesc) {
-            return a[index] < b[index] ? -1 : 1
-          } else {
-            return b[index] < a[index] ? -1 : 1
-          }
-        })
-      }
-      return items
-    },
     ...mapActions(
       mStore.getter("projects", ["projectsChange", "aOfflineProjects"])
     ),

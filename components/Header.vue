@@ -31,7 +31,7 @@
         @click.stop="drawer = !drawer"
       /> -->
       <v-toolbar-items>
-        <v-btn text to="/projects/" exact>
+        <v-btn text to="/projects" exact>
           <v-avatar>
             <!-- eslint-disable-next-line vue/html-self-closing -->
             <img
@@ -105,18 +105,18 @@ export default {
           type: "list",
           mini: true,
           its: [
-            { title: "Beam Calculator", bind: { to: "/Tutorials/Beam/" } },
+            { title: "Beam Calculator", bind: { to: "/Tutorials/Beam" } },
             {
               title: "Roof and Truss Calculator",
-              bind: { to: "/Tutorials/TrussStructure/" }
+              bind: { to: "/Tutorials/TrussStructure" }
             },
             {
               title: "Frame Calculator",
-              bind: { to: "/Tutorials/FrameStructure/" }
+              bind: { to: "/Tutorials/FrameStructure" }
             },
             {
               title: "Beams with Internal Hinges",
-              bind: { to: "/Tutorials/BeamsInternalHinges/" }
+              bind: { to: "/Tutorials/BeamsInternalHinges" }
             }
           ]
         },
@@ -125,14 +125,14 @@ export default {
           title: "Contact",
           mini: true,
           type: "btn",
-          bind: { to: "/contact/" }
+          bind: { to: "/contact" }
         },
         {
           icon: "user",
           title: "Sign Up",
           type: "btn",
           bind: {
-            href: "/accounts/signup/",
+            href: "/accounts/signup",
             ["data-cy"]: "signup"
           },
           right: true,
@@ -143,7 +143,7 @@ export default {
           title: "Log In",
           type: "btn",
           bind: {
-            href: "/accounts/login/",
+            href: "/accounts/login",
             ["data-cy"]: "login"
           },
           right: true,
@@ -158,11 +158,11 @@ export default {
           its: [
             {
               title: "Change password",
-              bind: { href: "/accounts/password/change/" }
+              bind: { href: "/accounts/password/change" }
             },
             {
               title: "Log Out",
-              bind: { href: "/accounts/logout/" }
+              bind: { href: "/accounts/logout" }
             }
           ]
         }

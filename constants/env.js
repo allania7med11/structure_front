@@ -6,7 +6,8 @@ const urls = Production
       browserBaseURL: "https://effectivewebapp.com/"
     }
   : {
-      baseURL: "http://localhost:8000"
+      baseURL: "http://localhost",
+      browserBaseURL: "http://localhost"
     }
 const Test = false
 const TestInfo = { user: "user1" }

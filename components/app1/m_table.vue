@@ -14,7 +14,7 @@
       >
         <template
           v-if="$nuxt.isOnline && md.action == 'define' && page == 'define'"
-          v-slot:header.action
+          v-slot:header.action="{ header }"
         >
           <v-btn x-small class="primary" data-cy="newItem" @click="newItem">
             <Fas i="plus" />
@@ -22,7 +22,7 @@
         </template>
         <template
           v-if="$nuxt.isOnline && md.action == 'apply' && page == 'define'"
-          v-slot:header.name
+          v-slot:header.name="{ header }"
         >
           <v-btn
             x-small

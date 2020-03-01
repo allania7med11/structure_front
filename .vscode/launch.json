@@ -28,15 +28,9 @@
         "type": "chrome",
         "request": "attach",
         "name": "Attach to Chrome",
-        "port": 9229,
+        "port": 9222,
         "urlFilter": "http://localhost:4200/*",
         "webRoot": "${workspaceFolder}"
-      },
-      {
-        "type": "node",
-        "request": "attach",
-        "name": "Attach to Nuxt",
-        "port": 9229
       }
     ],
     "compounds": [
