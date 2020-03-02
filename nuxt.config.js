@@ -2,7 +2,8 @@ import colors from "vuetify/es5/util/colors"
 export default {
   buildDir: "build/.nuxt",
   axios: {
-    baseURL: "http://effectivewebapp.com/"
+    baseURL: "http://effectivewebapp.com/",
+    https: true
   },
   server: {
     // port: 3000, // default: 3000
