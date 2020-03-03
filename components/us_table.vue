@@ -42,6 +42,9 @@
               <Fas i="trash-alt" />
             </v-btn>
           </template>
+          <template v-slot:item.date="{ item }">
+            {{ item["last_modified"] }}
+          </template>
         </v-data-table>
       </v-col>
     </v-row>
@@ -54,7 +57,7 @@ export default {
   data: () => ({
     headers: [
       { text: "Name", value: "name" },
-      { text: "Last Modified", value: "last_modified" },
+      { text: "Last Modified", value: "date" },
       { text: "", value: "action", sortable: false, align: "right" }
     ]
   }),
@@ -63,7 +66,7 @@ export default {
       mStore.state("projects", ["projects", "search", "offlineProjects"])
     ),
     sort() {
-      return { by: ["last_modified"], desc: [true] }
+      return { by: ["date"], desc: [true] }
     },
     formTitle() {
       return this.editedIndex === -1 ? "New Item" : "Edit Item"

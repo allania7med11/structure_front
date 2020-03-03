@@ -15,14 +15,14 @@ const mStore = {
   }
 }
 const sortDateDown = function(a, b) {
-  a = new Date(a.modified_date)
-  b = new Date(b.modified_date)
+  a = new Date(String(a.modified_date)).getTime()
+  b = new Date(String(b.modified_date)).getTime()
   return a < b ? -1 : a > b ? 1 : 0
 }
 
 const sortDateUp = function(a, b) {
-  a = new Date(a.modified_date)
-  b = new Date(b.modified_date)
+  a = new Date(String(a.modified_date)).getTime()
+  b = new Date(String(b.modified_date)).getTime()
   return a > b ? -1 : a < b ? 1 : 0
 }
 
