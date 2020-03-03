@@ -54,7 +54,7 @@ export default {
   data: () => ({
     headers: [
       { text: "Name", value: "name" },
-      { text: "Modified Date", value: "modified_date" },
+      { text: "Last Modified", value: "last_modified" },
       { text: "", value: "action", sortable: false, align: "right" }
     ]
   }),
@@ -63,7 +63,7 @@ export default {
       mStore.state("projects", ["projects", "search", "offlineProjects"])
     ),
     sort() {
-      return { by: ["modified_date"], desc: [true] }
+      return { by: ["last_modified"], desc: [true] }
     },
     formTitle() {
       return this.editedIndex === -1 ? "New Item" : "Edit Item"
