@@ -11,6 +11,7 @@
 import Header from "~/components/Header.vue"
 import { mapActions } from "vuex"
 export default {
+  middleware: "login",
   components: {
     Header
   },

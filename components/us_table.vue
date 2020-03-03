@@ -18,7 +18,7 @@
           <template v-slot:item.action="{ item }">
             <nuxt-link
               v-if="testOfflineProjects(item)"
-              :to="`/projects/${item.id}`"
+              :to="`/project?id=${item.id}`"
               data-cy="open"
             >
               <v-btn class="mx-2" color="primary">

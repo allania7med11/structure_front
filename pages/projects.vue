@@ -17,6 +17,7 @@ import us_form from "@/components/us_form.vue"
 import { mapState, mapActions } from "vuex"
 import { mStore } from "@/constants/static"
 export default {
+  middleware: "authenticated",
   components: {
     us_table,
     us_form

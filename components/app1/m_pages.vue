@@ -91,7 +91,7 @@ export default {
           `/api/projects/${this.project.id}/run/`
         )
         if (results) {
-          this.aProject({ id: this.$route.params.id })
+          this.aProject({ id: this.$route.query.id })
           this.projectChange({ state: "page", value: this.choice })
         } else {
           this.errorM = "Unstable structure"

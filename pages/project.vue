@@ -9,21 +9,18 @@
   </v-container>
 </template>
 <script>
-import { mapState, mapActions } from "vuex"
+import { mapState } from "vuex"
 import app1 from "@/components/app1"
 import { mStore } from "@/constants/static"
 
 export default {
+  middleware: ["authenticated", "project"],
   components: {
     app1
   },
   computed: {
     ...mapState(["username"]),
     ...mapState(mStore.state("project", ["project", "error"]))
-  },
-  fetch({ store, route }) {
-    store.dispatch("project/reset")
-    return store.dispatch("project/aProject", { id: route.params.id })
   },
   head() {
     return {
@@ -37,13 +34,6 @@ export default {
         }
       ]
     }
-  },
-  /* mounted() {
-    this.reset()
-    this.aProject({ id: this.$route.params.id })
-  }, */
-  methods: {
-    ...mapActions(mStore.getter("project", ["reset", "aProject"]))
   }
 }
 </script>

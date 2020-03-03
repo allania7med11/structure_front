@@ -274,7 +274,7 @@ export default {
           this.projectChange({ state: "error", value: true })
           this.close()
         }
-        this.aProject({ id: this.$route.params.id })
+        this.aProject({ id: this.$route.query.id })
         if (this.editedIndex > -1) {
           this.close()
         } else {
@@ -300,7 +300,7 @@ export default {
           this.projectChange({ state: "error", value: true })
           this.close()
         }
-        this.aProject({ id: this.$route.params.id })
+        this.aProject({ id: this.$route.query.id })
         this.$v.$reset()
       }
     }
