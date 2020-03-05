@@ -12,7 +12,7 @@ Cypress.Commands.add("project", () => {
   cy.get("[data-cy=save]").click()
   cy.get("[data-cy=open]").click()
   cy.get("[data-cy=project]").should("contain", project["name"])
-  cy.url().should("match", new RegExp(/projects\/\d+/g))
+  cy.url().should("match", new RegExp(/project\?id=\d+/g))
   cy.get("[data-cy=sc]").click()
   cy.log("create Project successful")
 })

@@ -35,6 +35,7 @@
         :height="250"
         :chartdata="rcht.data"
         :options="rcht.options"
+        data-cy="chart"
       />
     </div>
   </v-flex>

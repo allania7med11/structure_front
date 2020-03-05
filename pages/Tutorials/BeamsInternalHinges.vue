@@ -36,7 +36,7 @@
     </p>
     <p>
       You can check out the full project in this
-      <v-btn to="/Full_Project/BeamsInternalHinges">
+      <v-btn to="/Full_Project?name=BeamsInternalHinges">
         Link
       </v-btn>
       .So let's start it

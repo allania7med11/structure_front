@@ -6,7 +6,6 @@
           <h1 class="text-center  font-weight-bold my-2">
             Free Online Beam Calculator
           </h1>
-          {{ iframe }}
           <iframe
             v-if="!cypress"
             title="Free Online Beam Calculator"
@@ -32,7 +31,7 @@
     </p>
     <p>
       You can check out the full project in this
-      <v-btn to="/Full_Project/Beam">
+      <v-btn to="/Full_Project?name=Beam">
         Link
       </v-btn>
       .So let's start it

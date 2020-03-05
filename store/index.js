@@ -35,7 +35,6 @@ export const actions = {
   async login({ commit }) {
     try {
       let US
-      console.log("login")
       US = await this.$axios.$get("/api/users/current/")
       if (US.id) {
         commit("stateChange", { state: "username", value: US.username })
@@ -48,7 +47,9 @@ export const actions = {
       return false
     }
   },
-  async aTutorial({ commit, state }, name) {
+  async aTutorial(ctx, name) {
+    let { commit, state } = ctx
+    console.log(ctx, name)
     try {
       if (state.listTutorials.includes(name)) {
         if (Object.prototype.hasOwnProperty.call(state.tutorials, name)) {

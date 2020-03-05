@@ -4,10 +4,12 @@ describe("Auth", function() {
   before(function() {
     cy.visit("/")
     cy.delete()
+    cy.clearCookies()
   })
   after(function() {
     cy.visit("/")
     cy.delete()
+    cy.clearCookies()
   })
   it("Sign up", function() {
     cy.visit("/")

@@ -7,6 +7,6 @@ const urls = Production
   : {
       baseURL: "http://localhost/"
     }
-const Test = false
+const Test = true
 const TestInfo = { user: "user1" }
 export { host, urls, Test, TestInfo }

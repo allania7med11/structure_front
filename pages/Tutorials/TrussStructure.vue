@@ -33,7 +33,7 @@
     </p>
     <p>
       You can check out the full project in this
-      <v-btn to="/Full_Project/TrussStructure">
+      <v-btn to="/Full_Project?name=TrussStructure">
         link
       </v-btn>
       .So let's start it

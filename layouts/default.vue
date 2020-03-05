@@ -15,10 +15,6 @@ export default {
   components: {
     Header
   },
-  mounted() {
-    const log = this.login()
-    console.log(log)
-  },
   methods: {
     ...mapActions(["login"])
   }
