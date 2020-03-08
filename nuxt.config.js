@@ -45,7 +45,10 @@ export default {
   /*
    ** Nuxt.js dev-modules
    */
-  buildModules: ["@nuxtjs/vuetify"],
+  buildModules: ["@nuxtjs/vuetify", "@nuxtjs/gtm"],
+  gtm: {
+    id: "GTM-M9MPNV3"
+  },
   /*
    ** Nuxt.js modules
    */
