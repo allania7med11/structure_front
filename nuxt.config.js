@@ -47,7 +47,8 @@ export default {
    */
   buildModules: ["@nuxtjs/vuetify", "@nuxtjs/gtm"],
   gtm: {
-    id: "GTM-M9MPNV3"
+    id: "GTM-M9MPNV3",
+    pageTracking: true
   },
   /*
    ** Nuxt.js modules
