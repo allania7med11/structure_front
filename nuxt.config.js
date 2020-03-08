@@ -40,16 +40,13 @@ export default {
     "@/plugins/global",
     "@/plugins/Vuelidate",
     "@/plugins/axios",
-    { src: "@/plugins/cypress", mode: "client" }
+    { src: "@/plugins/cypress", mode: "client" },
+    { src: "~plugins/ga.js", mode: "client" }
   ],
   /*
    ** Nuxt.js dev-modules
    */
-  buildModules: ["@nuxtjs/vuetify", "@nuxtjs/gtm"],
-  gtm: {
-    id: "GTM-M9MPNV3",
-    pageTracking: true
-  },
+  buildModules: ["@nuxtjs/vuetify"],
   /*
    ** Nuxt.js modules
    */
