@@ -83,7 +83,7 @@ build
 .editorconfig
 
 # Service worker
-sw.*
+# sw.*
 
 # Mac OSX
 .DS_Store
