@@ -45,19 +45,6 @@ self.addEventListener("fetch", event => {
 
 // Precache assets
 
-workbox.precaching.precacheAndRoute([
-  "/",
-  "/contact",
-  "/favicon.ico",
-  "Tutorials/Beam",
-  "Tutorials/BeamsInternalHinges",
-  "Tutorials/FrameStructure",
-  "Tutorials/TrussStructure"
-], {
-  "cacheId": "client-prod",
-  "directoryIndex": "/"
-})
-
 // --------------------------------------------------
 // Runtime Caching
 // --------------------------------------------------

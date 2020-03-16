@@ -9,4 +9,4 @@ const urls = Production
     }
 const Test = true
 const TestInfo = { user: "user1" }
-export { host, urls, Test, TestInfo }
+export { Production, host, urls, Test, TestInfo }

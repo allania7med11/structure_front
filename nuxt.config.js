@@ -1,5 +1,5 @@
 import colors from "vuetify/es5/util/colors"
-import { urls } from "./env"
+import { Production, urls } from "./env"
 export default {
   buildDir: "build/.nuxt",
   server: {
@@ -7,7 +7,8 @@ export default {
     host: "0.0.0.0" // default: localhost
   },
   axios: {
-    baseURL: urls.baseURL
+    baseURL: urls.baseURL,
+    https: Production
   },
   mode: "universal",
   /*
@@ -131,7 +132,7 @@ export default {
     },
     workbox: {
       workboxExtensions: "@/plugins/custom-sw.js",
-      preCaching: [
+      /* preCaching: [
         "/",
         "/contact",
         "/favicon.ico",
@@ -141,7 +142,7 @@ export default {
           "FrameStructure",
           "TrussStructure"
         ].map(cv => "Tutorials/" + cv)
-      ],
+      ], */
       cacheNames: {
         prefix: "app",
         suffix: "v1",
