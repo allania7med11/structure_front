@@ -29,8 +29,10 @@
         <v-card v-show="sc" :key="componentKey">
           <v-card-title>
             <v-flex :-dynamic-flex-="true">
-              <v-layout row>
-                <v-flex mx-1 xs4>
+              <v-layout
+                :style="{ width: its3 ? '100%' : its2 ? '70%' : '35%' }"
+              >
+                <v-flex>
                   <v-select
                     v-model="sl1"
                     :label="label[0]"
@@ -53,10 +55,11 @@
                     </template>
                   </v-select>
                 </v-flex>
-                <v-flex mx-1 :xs2="its3" :xs4="!its3">
+                <v-flex>
                   <v-select
                     v-if="its2"
                     v-model="sl2"
+                    class="mx-1"
                     :label="label[1]"
                     :items="its2"
                     item-text="label"
@@ -70,10 +73,11 @@
                     </template>
                   </v-select>
                 </v-flex>
-                <v-flex mx-1 xs5>
+                <v-flex>
                   <v-select
                     v-if="its3"
                     v-model="sl3"
+                    mx-1
                     :label="label[2]"
                     :items="its3"
                     item-text="label"
@@ -199,5 +203,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped></style>

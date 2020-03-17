@@ -7,8 +7,13 @@
       :options="rcht.options"
     />
 
-    <v-flex xs12 ma-1>
-      <p class="font-weight-black" v-text="fonction"></p>
+    <v-flex xs12>
+      <div
+        style="width: 100%; white-space: pre-wrap;"
+        class="font-weight-black text-center"
+      >
+        {{ fonction }}
+      </div>
     </v-flex>
     <v-layout>
       <v-flex ma-1>
@@ -40,7 +45,11 @@ export default {
   computed: {
     ...mapState(mStore.state("project", ["project", "slg", "detailIndex"])),
     fonction() {
-      return this.slg + this.dt.unite.lb + "=" + this.exp
+      // eslint-disable-next-line no-useless-escape
+      var re = /\+/g
+      var str = this.exp
+      var newstr = str.replace(re, " + ")
+      return this.slg + this.dt.unite.lb + "=" + newstr
     },
     result() {
       return (
@@ -58,11 +67,13 @@ export default {
     },
     arr() {
       if (this.project) {
-        return JSON.parse(this.bar[this.dt.from])
+        let rtn = JSON.parse(this.bar[this.dt.from])
           [this.slg].split(",")
           .map(cv =>
             math.round(this.dt.unite.vl * Number(cv), this.dt.unite.rd * 2)
           )
+        console.log("arr", rtn)
+        return rtn
       }
       return [0]
     },
@@ -89,7 +100,7 @@ export default {
         return JSON.parse(this.bar[this.dt.max])
           [this.slg].split(";")[0]
           .split(",")
-          .map(cv => math.round(Number(cv), Units["m"].rd * 2))
+          .map(cv => math.round(Number(cv), Units["m"].rd))
       }
       return [0]
     },
