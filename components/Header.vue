@@ -77,7 +77,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(["username", "urls"]),
+    ...mapState(["urls", "username", "password"]),
     titleDisplay() {
       if (this.$vuetify.breakpoint.xsOnly) {
         return "EWA"
@@ -85,10 +85,30 @@ export default {
       return "EffectiveWebApp"
     },
     usernameDisplay() {
-      if (this.username.length > 20) {
+      if (this.username.length > 24) {
         return this.username.slice(0, 19) + "..."
       }
       return this.username
+    },
+    userList() {
+      if (this.password) {
+        return [
+          {
+            title: "Change password",
+            bind: { href: "/accounts/password/change" }
+          },
+          {
+            title: "Log Out",
+            bind: { href: "/accounts/logout" }
+          }
+        ]
+      }
+      return [
+        {
+          title: "Log Out",
+          bind: { href: "/accounts/logout" }
+        }
+      ]
     },
     items() {
       return [
@@ -155,16 +175,7 @@ export default {
           icon: "user",
           title: this.usernameDisplay,
           type: "username",
-          its: [
-            {
-              title: "Change password",
-              bind: { href: "/accounts/password/change" }
-            },
-            {
-              title: "Log Out",
-              bind: { href: "/accounts/logout" }
-            }
-          ]
+          its: this.userList
         }
       ]
     }

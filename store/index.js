@@ -4,6 +4,7 @@ import { urls } from "~/env"
 export const state = () => ({
   urls: urls,
   username: false,
+  password: false,
   error: false,
   tutorials: {},
   listTutorials: [
@@ -38,8 +39,16 @@ export const actions = {
       US = await this.$axios.$get("/api/users/current/")
       if (US.id) {
         commit("stateChange", { state: "username", value: US.username })
+        commit("stateChange", {
+          state: "password",
+          value: US.has_usable_password
+        })
       } else {
         commit("stateChange", { state: "username", value: false })
+        commit("stateChange", {
+          state: "password",
+          value: false
+        })
       }
       return true
     } catch (error) {

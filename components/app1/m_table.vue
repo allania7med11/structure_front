@@ -2,6 +2,7 @@
   <div>
     <v-flex xs12 md12>
       <v-data-table
+        :mobile-breakpoint="NaN"
         :headers="headers"
         :hide-default-header="false"
         :items="items"
@@ -97,7 +98,7 @@ export default {
     headers() {
       if (this.md.action == "define" && this.page == "define") {
         const rtn = [
-          { text: "", value: "action", sortable: false, align: "center" },
+          { text: "action", value: "action", sortable: false, align: "center" },
           ...this.inf.tbhs
         ]
         return rtn

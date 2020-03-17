@@ -7,6 +7,8 @@
             <v-select
               v-model="cdn"
               :items="cdnItems"
+              item-text="label"
+              item-value="name"
               attach
               chips
               label="Node(Infs)"
@@ -17,6 +19,8 @@
             <v-select
               v-model="cdb"
               :items="cdbItems"
+              item-text="label"
+              item-value="name"
               attach
               chips
               label="Bar(Infs)"
@@ -52,9 +56,16 @@ export default {
   },
   data: () => ({
     id: 1,
-    cdnItems: ["Point Loads", "Support"],
+    cdnItems: [
+      { name: "Point Loads", label: "Loads" },
+      { name: "Support", label: "Support" }
+    ],
     cdn: ["Point Loads", "Support"],
-    cdbItems: ["Distributed Loads", "Section", "Release"],
+    cdbItems: [
+      { name: "Distributed Loads", label: "Loads" },
+      { name: "Section", label: "Section" },
+      { name: "Release", label: "Release" }
+    ],
     cdb: ["Distributed Loads", "Section", "Release"],
     dt: {
       cdn: ["Point Loads", "Support"],

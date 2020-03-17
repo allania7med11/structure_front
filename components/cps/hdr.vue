@@ -12,7 +12,9 @@
     <v-menu v-else :key="item.id" open-on-hover offset-y>
       <template v-slot:activator="{ on }">
         <v-btn text exact v-on="on">
-          {{ item.title }}
+          <span class="d-inline-block text-truncate" style="max-width: 30vw;">
+            {{ item.title }}
+          </span>
           <Fas i="caret-down" />
         </v-btn>
       </template>

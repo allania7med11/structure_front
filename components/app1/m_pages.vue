@@ -1,12 +1,19 @@
 <template>
-  <v-layout>
-    <v-flex ml-4 mt-2>
-      <v-btn-toggle :key="componentKey" v-model="choice" @change="fpage">
+  <v-container fluid>
+    <v-row align="center" justify="center">
+      <v-btn-toggle
+        :key="componentKey"
+        v-model="choice"
+        style="max-width:100vw"
+        @change="fpage"
+      >
         <v-btn text class="text-none" value="projects">
           projects
         </v-btn>
         <v-btn text class="text-none" value="define" data-cy="project">
-          {{ project["name"] }}
+          <span class="d-inline-block text-truncate" style="max-width: 40vw;">
+            {{ project["name"] }}
+          </span>
         </v-btn>
         <v-btn text class="text-none" value="results" data-cy="results">
           {{ results }}&nbsp;&nbsp;&nbsp;
@@ -27,8 +34,8 @@
       >
         {{ errorM }}
       </v-alert>
-    </v-flex>
-  </v-layout>
+    </v-row>
+  </v-container>
 </template>
 
 <script>

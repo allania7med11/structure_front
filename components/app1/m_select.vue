@@ -2,7 +2,7 @@
   <v-flex xs12 md12>
     <v-layout row wrap justify-space-between>
       <v-flex xs5 md5>
-        <v-btn block color="info" data-cy="sc" @click="sc = !sc">
+        <v-btn :key="fslgKey" block color="info" data-cy="sc" @click="sc = !sc">
           <Fas i="list" />
           {{ fslg.text }}
         </v-btn>
@@ -105,6 +105,7 @@ export default {
   data: () => {
     return {
       componentKey: 0,
+      fslgKey: 0,
       tbs: Orders.tbs,
       sl1: 0,
       sl2: 0,
@@ -178,6 +179,12 @@ export default {
           this.tbs = Orders.tbs
         }
         this.componentKey += 1
+      }
+    },
+    fslg: {
+      immediate: true,
+      handler() {
+        this.fslgKey += 1
       }
     }
   },
