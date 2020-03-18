@@ -98,7 +98,7 @@ export default {
     headers() {
       if (this.md.action == "define" && this.page == "define") {
         const rtn = [
-          { text: "action", value: "action", sortable: false, align: "center" },
+          { text: "", value: "action", sortable: false, align: "center" },
           ...this.inf.tbhs
         ]
         return rtn

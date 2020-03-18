@@ -29,9 +29,7 @@
         <v-card v-show="sc" :key="componentKey">
           <v-card-title>
             <v-flex :-dynamic-flex-="true">
-              <v-layout
-                :style="{ width: its3 ? '100%' : its2 ? '70%' : '35%' }"
-              >
+              <v-layout :style="{ width: width }">
                 <v-flex>
                   <v-select
                     v-model="sl1"
@@ -160,6 +158,12 @@ export default {
         })
       }
       return rtn
+    },
+    width: function() {
+      if (this.$vuetify.breakpoint.xsOnly) {
+        return this.its2 ? "100%" : "50%"
+      }
+      return this.its3 ? "100%" : this.its2 ? "80%" : "40%"
     }
   },
   watch: {

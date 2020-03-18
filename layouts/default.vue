@@ -1,7 +1,19 @@
 <template>
   <v-app>
     <Header />
-    <v-content class="ma-0 pa">
+    <v-alert class="ma-0" prominent :value="show" dense :type="alert.type">
+      <v-row align="center">
+        <v-col class="grow font-weight-bold">
+          {{ alert.message }}
+        </v-col>
+        <v-col class="shrink">
+          <v-icon @click="show = !show">
+            cancel
+          </v-icon>
+        </v-col>
+      </v-row>
+    </v-alert>
+    <v-content class="ma-0 pa-0">
       <nuxt />
     </v-content>
   </v-app>
@@ -14,6 +26,32 @@ export default {
   middleware: "login",
   components: {
     Header
+  },
+  data: () => ({
+    alert: { message: "Back online", type: "success" },
+    show: false,
+    first: true
+  }),
+  computed: {
+    offline() {
+      return this.$nuxt.isOffline
+    }
+  },
+  watch: {
+    offline: {
+      immediate: true,
+      handler: async function(val) {
+        this.show = false
+        if (val) {
+          this.alert = { message: "You are offline", type: "warning" }
+          this.show = true
+        } else if (!this.first) {
+          this.alert = { message: "Back online", type: "success" }
+          this.show = true
+        }
+        this.first = false
+      }
+    }
   },
   methods: {
     ...mapActions(["login"])
