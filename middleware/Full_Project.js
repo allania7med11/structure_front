@@ -2,7 +2,6 @@ import { urls } from "@/env"
 export default async function({ store, route, redirect }) {
   await store.dispatch("project/reset")
   const name = route.query.name
-  console.log("name", name)
   const test = await store.dispatch("aTutorial", name)
   if (test) {
     store.dispatch("project/reset")

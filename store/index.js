@@ -58,7 +58,6 @@ export const actions = {
   },
   async aTutorial(ctx, name) {
     let { commit, state } = ctx
-    console.log(ctx, name)
     try {
       if (state.listTutorials.includes(name)) {
         if (Object.prototype.hasOwnProperty.call(state.tutorials, name)) {

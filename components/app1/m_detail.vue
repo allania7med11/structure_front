@@ -72,7 +72,6 @@ export default {
           .map(cv =>
             math.round(this.dt.unite.vl * Number(cv), this.dt.unite.rd * 2)
           )
-        console.log("arr", rtn)
         return rtn
       }
       return [0]

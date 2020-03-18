@@ -15,7 +15,13 @@
             {{ project["name"] }}
           </span>
         </v-btn>
-        <v-btn text class="text-none" value="results" data-cy="results">
+        <v-btn
+          v-if="!($nuxt.isOffline && results == 'Solve')"
+          text
+          class="text-none"
+          value="results"
+          data-cy="results"
+        >
           {{ results }}&nbsp;&nbsp;&nbsp;
           <v-progress-circular
             v-if="progress"
