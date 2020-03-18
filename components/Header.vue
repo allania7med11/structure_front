@@ -31,7 +31,7 @@
         @click.stop="drawer = !drawer"
       /> -->
       <v-toolbar-items>
-        <v-btn text to="/projects" exact>
+        <v-btn text to="/projects/" exact>
           <v-avatar>
             <!-- eslint-disable-next-line vue/html-self-closing -->
             <img

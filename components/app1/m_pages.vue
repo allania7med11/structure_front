@@ -74,7 +74,7 @@ export default {
     fpage() {
       if (this.choice == "projects") {
         // eslint-disable-next-line no-undef
-        $nuxt.$router.push({ path: "/projects" })
+        $nuxt.$router.push({ path: "/projects/" })
       } else if (this.choice == "results") {
         let isolates = this.project.nodes.filter(
           cv => cv.N1.length == 0 && cv.N2.length == 0
