@@ -2,6 +2,11 @@ import colors from "vuetify/es5/util/colors"
 import { Production, urls } from "./env"
 export default {
   buildDir: "build/.nuxt",
+  sitemap: {
+    hostname: urls.baseURL,
+    routes: ["/accounts/login", "/accounts/signup"],
+    exclude: ["/projects", "/project", "/Full_Project"]
+  },
   server: {
     // port: 3000, // default: 3000
     host: "0.0.0.0" // default: localhost
@@ -57,7 +62,8 @@ export default {
     "@nuxtjs/pwa",
     "nuxt-fontawesome",
     "nuxt-webfontloader",
-    "cookie-universal-nuxt"
+    "cookie-universal-nuxt",
+    "@nuxtjs/sitemap"
   ],
   /*
    ** Axios module configuration

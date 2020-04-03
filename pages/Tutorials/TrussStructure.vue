@@ -148,7 +148,7 @@ export default {
         hid: "description",
         name: "description",
         content:
-          "This  Beam Calculator give you diagrams , extremes , exact equations of efforts and displacements of your beam and a lot more"
+          "This  Truss Calculator give you diagrams , extremes , exact equations of efforts and displacements of your beam and a lot more"
       }
     ]
   }
