@@ -1,5 +1,5 @@
 <template>
-  <div class="pa-5 ma-0">
+  <div class="px-5 ma-0">
     <v-container fluid>
       <v-row justify="center">
         <v-col cols="12" md="8">

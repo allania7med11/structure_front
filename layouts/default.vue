@@ -1,6 +1,7 @@
 <template>
   <v-app>
     <Header />
+    <ads />
     <v-alert class="ma-0" prominent :value="show" dense :type="alert.type">
       <v-row align="center">
         <v-col class="grow font-weight-bold">
@@ -21,11 +22,13 @@
 
 <script>
 import Header from "~/components/Header.vue"
+import ads from "~/components/ads.vue"
 import { mapActions } from "vuex"
 export default {
   middleware: "login",
   components: {
-    Header
+    Header,
+    ads
   },
   data: () => ({
     alert: { message: "Back online", type: "success" },
