@@ -1,7 +1,6 @@
 <template>
   <v-app>
     <Header />
-    <ads />
     <v-alert class="ma-0" prominent :value="show" dense :type="alert.type">
       <v-row align="center">
         <v-col class="grow font-weight-bold">
@@ -14,7 +13,11 @@
         </v-col>
       </v-row>
     </v-alert>
-    <v-content class="ma-0 pa-0">
+    <v-content
+      class="ma-0 pa-0"
+      :class="$nuxt.$route.name === 'index' ? 'grey darken-4 white--text' : ''"
+    >
+      <ads />
       <nuxt />
     </v-content>
   </v-app>

@@ -70,6 +70,7 @@ export default {
    ** See https://axios.nuxtjs.org/options
    */
   vuetify: {
+    dark: true,
     defaultAssets: {
       font: true,
       icons: "md"

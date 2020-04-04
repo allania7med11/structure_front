@@ -1,8 +1,10 @@
 <template>
-  <v-container class="py-0">
+  <v-container class="pa-0">
     <v-row justify="center">
-      <v-col class="py-1">
+      <v-col class="py-1" md="10">
         <v-card
+          :dark="$nuxt.$route.name === 'index'"
+          flat
           class="mx-auto"
           outlined
           href="https://amzn.to/34e8vOD"
@@ -19,7 +21,7 @@
                 </div>
               </v-col>
               <v-col cols="10" class="px-1">
-                <div class="body-1">
+                <div class="body-1 font-weight-bold">
                   Structural Analysis (9th Edition)
                 </div>
                 <div class="body-2">
@@ -29,7 +31,9 @@
                   This book is written in a format that is easy to follow and
                   understand, examples are plenty and explained well. Includes
                   plenty of problems to work through.
-                  <a class="font-weight-bold">see more</a>
+                  <a style="white-space: nowrap;" class="font-weight-bold"
+                    >see more</a
+                  >
                 </div>
               </v-col>
             </v-row>
@@ -48,5 +52,8 @@ export default {
   })
 }
 </script>
-
-<style></style>
+<style scoped>
+body {
+  background-color: coral;
+}
+</style>

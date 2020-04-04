@@ -1,5 +1,5 @@
 <template>
-  <div class="grey darken-4 white--text px-5 ma-0 text-center">
+  <div class="px-5 ma-0 text-center">
     <v-container fluid>
       <v-row>
         <v-col cols="12">
