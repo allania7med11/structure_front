@@ -1,7 +1,7 @@
 <template>
   <v-container class="pa-0">
     <v-row justify="center">
-      <v-col class="py-1" md="10">
+      <v-col class="py-1" md="9">
         <v-card
           :dark="$nuxt.$route.name === 'index'"
           flat
@@ -12,7 +12,7 @@
         >
           <v-container class="py-1">
             <v-row no-gutters>
-              <v-col class="py-0 px-1" cols="2">
+              <v-col cols="2" class="py-0 px-1">
                 <div>
                   <v-img
                     style="width: 75px;float:left"
@@ -20,7 +20,7 @@
                   />
                 </div>
               </v-col>
-              <v-col cols="10" class="px-1">
+              <v-col cols="10">
                 <div class="body-1 font-weight-bold">
                   Structural Analysis (9th Edition)
                 </div>
