@@ -1,23 +1,23 @@
 <template>
   <v-app>
     <Header />
-    <v-alert class="ma-0" prominent :value="show" dense :type="alert.type">
-      <v-row align="center">
-        <v-col class="grow font-weight-bold">
-          {{ alert.message }}
-        </v-col>
-        <v-col class="shrink">
-          <v-icon @click="show = !show">
-            cancel
-          </v-icon>
-        </v-col>
-      </v-row>
-    </v-alert>
     <v-content
       class="ma-0 pa-0"
       :class="$nuxt.$route.name === 'index' ? 'grey darken-4 white--text' : ''"
     >
-      <ads />
+      <div id="amzn-assoc-ad-2152de4d-a921-4971-b0eb-22815a32ac81"></div>
+      <v-alert class="ma-0" prominent :value="show" dense :type="alert.type">
+        <v-row align="center">
+          <v-col class="grow font-weight-bold">
+            {{ alert.message }}
+          </v-col>
+          <v-col class="shrink">
+            <v-icon @click="show = !show">
+              cancel
+            </v-icon>
+          </v-col>
+        </v-row>
+      </v-alert>
       <nuxt />
     </v-content>
   </v-app>
@@ -25,13 +25,22 @@
 
 <script>
 import Header from "~/components/Header.vue"
-import ads from "~/components/ads.vue"
 import { mapActions } from "vuex"
 export default {
   middleware: "login",
   components: {
-    Header,
-    ads
+    Header
+  },
+  head() {
+    return {
+      script: [
+        {
+          async: true,
+          src:
+            "//z-na.amazon-adsystem.com/widgets/onejs?MarketPlace=US&adInstanceId=2152de4d-a921-4971-b0eb-22815a32ac81"
+        }
+      ]
+    }
   },
   data: () => ({
     alert: { message: "Back online", type: "success" },

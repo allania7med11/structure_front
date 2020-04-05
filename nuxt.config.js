@@ -22,7 +22,7 @@ export default {
   serverMiddleware: ["~/apiCl/index.js"],
   head: {
     titleTemplate: "EffectiveWebApp",
-    title: "EffectiveWebApp2",
+    title: "EffectiveWebApp",
     meta: [
       { charset: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
@@ -32,7 +32,15 @@ export default {
         content: process.env.npm_package_description || ""
       }
     ],
-    link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }]
+    link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
+    script: [
+      {
+        hid: "stripe",
+        src:
+          "//z-na.amazon-adsystem.com/widgets/onejs?MarketPlace=US&adInstanceId=f1d4c5b5-bf98-4104-bc0c-4c484aaf41a3",
+        defer: true
+      }
+    ]
   },
   loading: { color: "#fff" },
   /*
