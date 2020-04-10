@@ -6,6 +6,7 @@
       :class="$nuxt.$route.name === 'index' ? 'grey darken-4 white--text' : ''"
     >
       <div id="amzn-assoc-ad-2152de4d-a921-4971-b0eb-22815a32ac81"></div>
+      <ads />
       <v-alert class="ma-0" prominent :value="show" dense :type="alert.type">
         <v-row align="center">
           <v-col class="grow font-weight-bold">
@@ -25,13 +26,15 @@
 
 <script>
 import Header from "~/components/Header.vue"
+import ads from "~/components/ads.vue"
 import { mapActions } from "vuex"
 export default {
   middleware: "login",
   components: {
-    Header
+    Header,
+    ads
   },
-  head() {
+  /* head() {
     return {
       script: [
         {
@@ -41,7 +44,7 @@ export default {
         }
       ]
     }
-  },
+  }, */
   data: () => ({
     alert: { message: "Back online", type: "success" },
     show: false,

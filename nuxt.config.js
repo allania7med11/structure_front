@@ -107,6 +107,7 @@ export default {
         icons: [
           "faHome",
           "faEnvelope",
+          "faBlog",
           "faUser",
           "faSignInAlt",
           "faPaperPlane",

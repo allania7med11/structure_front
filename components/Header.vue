@@ -141,6 +141,13 @@ export default {
           ]
         },
         {
+          icon: "blog",
+          title: "Blog",
+          mini: true,
+          type: "btn",
+          bind: { to: "/Blog" }
+        },
+        {
           icon: "envelope",
           title: "Contact",
           mini: true,
