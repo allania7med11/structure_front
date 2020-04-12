@@ -6,7 +6,7 @@
       :class="$nuxt.$route.name === 'index' ? 'grey darken-4 white--text' : ''"
     >
       <div id="amzn-assoc-ad-2152de4d-a921-4971-b0eb-22815a32ac81"></div>
-      <ads />
+      <ads v-if="$nuxt.$route.name !== 'index'" />
       <v-alert class="ma-0" prominent :value="show" dense :type="alert.type">
         <v-row align="center">
           <v-col class="grow font-weight-bold">
@@ -34,17 +34,17 @@ export default {
     Header,
     ads
   },
-  /* head() {
+  head() {
     return {
       script: [
         {
           async: true,
-          src:
-            "//z-na.amazon-adsystem.com/widgets/onejs?MarketPlace=US&adInstanceId=2152de4d-a921-4971-b0eb-22815a32ac81"
+          ["data-ad-client"]: "ca-pub-7696678223750201",
+          src: "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
         }
       ]
     }
-  }, */
+  },
   data: () => ({
     alert: { message: "Back online", type: "success" },
     show: false,
