@@ -39,18 +39,6 @@ export default {
   components: {
     Header
   },
-  head() {
-    return {
-      script: [
-        { src: "/media.js", type: "text/javascript" },
-        {
-          async: true,
-          ["data-ad-client"]: "ca-pub-7696678223750201",
-          src: "https://contextual.media.net/dmedianet.js?cid=8CUWH62C5"
-        }
-      ]
-    }
-  },
   data: () => ({
     alert: { message: "Back online", type: "success" },
     show: false,
