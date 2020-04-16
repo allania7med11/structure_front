@@ -1,16 +1,30 @@
 <!doctype html>
 <html {{ HTML_ATTRS }}>
-  <head>
+
+<head>
+  <script type="text/javascript">
+    window._mNHandle = window._mNHandle || {};
+    window._mNHandle.queue = window._mNHandle.queue || [];
+    medianet_versionId = "3121199";
+  </script>
+  <script src="https://contextual.media.net/dmedianet.js?cid=8CUWH62C5" async="async"></script>
+  {{ HEAD }}
+</head>
+
+<body {{ BODY_ATTRS }}>
+  <div id="422407842">
     <script type="text/javascript">
-        window._mNHandle = window._mNHandle || {};
-        window._mNHandle.queue = window._mNHandle.queue || [];
-        medianet_versionId = "3121199";
+      try {
+        window._mNHandle.queue.push(function () {
+          window._mNDetails.loadTag("422407842", "728x90", "422407842");
+        });
+      }
+      catch (error) { }
     </script>
-    <script src="https://contextual.media.net/dmedianet.js?cid=8CUWH62C5" async="async"></script>
-    {{ HEAD }}
-  </head>
-  <body {{ BODY_ATTRS }}>
-    {{ APP }}
-  </body>
-  <script type="text/javascript" src="https://a.optmnstr.com/app/js/api.min.js" data-account="XXXX" data-user="XXXX" async></script>
+  </div>
+  {{ APP }}
+</body>
+<script type="text/javascript" src="https://a.optmnstr.com/app/js/api.min.js" data-account="XXXX" data-user="XXXX"
+  async></script>
+
 </html>

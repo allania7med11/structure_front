@@ -5,15 +5,6 @@
       class="ma-0 pa-0"
       :class="$nuxt.$route.name === 'index' ? 'grey darken-4 white--text' : ''"
     >
-      <div id="422407842">
-        <script type="text/javascript">
-          try {
-            window._mNHandle.queue.push(function() {
-              window._mNDetails.loadTag("422407842", "728x90", "422407842")
-            })
-          } catch (error) {}
-        </script>
-      </div>
       <v-alert class="ma-0" prominent :value="show" dense :type="alert.type">
         <v-row align="center">
           <v-col class="grow font-weight-bold">
