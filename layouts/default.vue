@@ -42,6 +42,7 @@ export default {
   head() {
     return {
       script: [
+        { src: "/media.js", type: "text/javascript" },
         {
           async: true,
           ["data-ad-client"]: "ca-pub-7696678223750201",
