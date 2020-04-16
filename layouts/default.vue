@@ -5,8 +5,15 @@
       class="ma-0 pa-0"
       :class="$nuxt.$route.name === 'index' ? 'grey darken-4 white--text' : ''"
     >
-      <div id="amzn-assoc-ad-2152de4d-a921-4971-b0eb-22815a32ac81"></div>
-      <ads v-if="$nuxt.$route.name !== 'index'" />
+      <div id="422407842">
+        <script type="text/javascript">
+          try {
+            window._mNHandle.queue.push(function() {
+              window._mNDetails.loadTag("422407842", "728x90", "422407842")
+            })
+          } catch (error) {}
+        </script>
+      </div>
       <v-alert class="ma-0" prominent :value="show" dense :type="alert.type">
         <v-row align="center">
           <v-col class="grow font-weight-bold">
@@ -26,13 +33,11 @@
 
 <script>
 import Header from "~/components/Header.vue"
-import ads from "~/components/ads.vue"
 import { mapActions } from "vuex"
 export default {
   middleware: "login",
   components: {
-    Header,
-    ads
+    Header
   },
   head() {
     return {
@@ -40,7 +45,7 @@ export default {
         {
           async: true,
           ["data-ad-client"]: "ca-pub-7696678223750201",
-          src: "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+          src: "https://contextual.media.net/dmedianet.js?cid=8CUWH62C5"
         }
       ]
     }
@@ -71,6 +76,15 @@ export default {
       }
     }
   },
+  mounted() {
+    if (process.client) {
+      window._mNHandle = window._mNHandle || {}
+      window._mNHandle.queue = window._mNHandle.queue || []
+      // eslint-disable-next-line no-unused-vars
+      let medianet_versionId = "3121199"
+    }
+  },
+
   methods: {
     ...mapActions(["login"])
   }

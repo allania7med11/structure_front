@@ -1,9 +1,11 @@
 import colors from "vuetify/es5/util/colors"
-import { Production, urls } from "./env"
+import { settings } from "./env"
 export default {
-  buildDir: "build/.nuxt",
+  generate: {
+    dir: settings.dir
+  },
   sitemap: {
-    hostname: urls.baseURL,
+    hostname: settings.baseURL,
     routes: ["/accounts/login", "/accounts/signup"],
     exclude: ["/projects", "/project", "/Full_Project"]
   },
@@ -12,8 +14,8 @@ export default {
     host: "0.0.0.0" // default: localhost
   },
   axios: {
-    baseURL: urls.baseURL,
-    https: Production
+    baseURL: settings.baseURL,
+    https: settings.prd
   },
   mode: "universal",
   /*
