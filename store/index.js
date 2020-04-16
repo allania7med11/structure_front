@@ -1,8 +1,8 @@
 /* eslint-disable no-undef */
 export const strict = false
-import { urls } from "~/env"
+import { settings } from "~/env"
 export const state = () => ({
-  urls: urls,
+  urls: settings,
   username: false,
   password: false,
   error: false,
