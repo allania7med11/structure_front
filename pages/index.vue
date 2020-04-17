@@ -91,6 +91,7 @@
 <script>
 import { test } from "@/mixins/test.js"
 export default {
+  layout: "index",
   mixins: [test],
   head: {
     titleTemplate:

@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <Header />
-    <v-content class="ma-0 pa-0">
+    <v-content class="ma-0 pa-0 grey darken-4 white--text">
       <div id="amzn-assoc-ad-35e7c8fa-351a-4339-9416-34b0df07fce2"></div>
       <v-alert class="ma-0" prominent :value="show" dense :type="alert.type">
         <v-row align="center">
@@ -27,17 +27,6 @@ export default {
   middleware: "login",
   components: {
     Header
-  },
-  head() {
-    return {
-      script: [
-        {
-          async: true,
-          src:
-            "//z-na.amazon-adsystem.com/widgets/onejs?MarketPlace=US&adInstanceId=35e7c8fa-351a-4339-9416-34b0df07fce2"
-        }
-      ]
-    }
   },
   data: () => ({
     alert: { message: "Back online", type: "success" },

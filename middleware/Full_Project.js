@@ -1,4 +1,4 @@
-import { urls } from "@/env"
+import { settings } from "@/env"
 export default async function({ store, route, redirect }) {
   await store.dispatch("project/reset")
   const name = route.query.name
@@ -12,6 +12,6 @@ export default async function({ store, route, redirect }) {
     })
     store.dispatch("project/projectChange", { state: "page", value: "results" })
   } else {
-    return redirect(urls.baseURL)
+    return redirect(settings.baseURL)
   }
 }
