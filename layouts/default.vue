@@ -2,7 +2,6 @@
   <v-app>
     <Header />
     <v-content class="ma-0 pa-0">
-      <div id="amzn-assoc-ad-35e7c8fa-351a-4339-9416-34b0df07fce2"></div>
       <v-alert class="ma-0" prominent :value="show" dense :type="alert.type">
         <v-row align="center">
           <v-col class="grow font-weight-bold">

@@ -2,7 +2,7 @@ FROM node:14-alpine
 RUN mkdir  /client
 WORKDIR /client
 COPY package.json package-lock.json /client/
-# RUN npm install
+RUN npm install
 COPY . /client
 # build necessary, even if no static files are needed,
 # since it builds the server as well
@@ -16,5 +16,5 @@ ENV NUXT_HOST=0.0.0.0
 ENV NUXT_PORT=3000
 
 # start the app
-# ENTRYPOINT ["sh", "./run.sh"]
-# CMD ["dev", "3000"]
+ENTRYPOINT ["sh", "./run.sh"]
+CMD ["dev", "3000"]
