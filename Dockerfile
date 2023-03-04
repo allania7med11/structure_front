@@ -1,4 +1,6 @@
 FROM node:14-alpine
+RUN apk update && apk upgrade && \
+    apk add --no-cache bash git openssh
 RUN mkdir  /client
 WORKDIR /client
 COPY package.json package-lock.json /client/
