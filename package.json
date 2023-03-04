@@ -24,6 +24,7 @@
     "@nuxtjs/axios": "^5.6.0",
     "@nuxtjs/gtm": "^2.2.2",
     "@nuxtjs/pwa": "^3.0.0-beta.19",
+    "@nuxtjs/sitemap": "^2.4.0",
     "chart.js": "^2.8.0",
     "cookie-universal-nuxt": "^2.0.19",
     "express": "^4.17.1",
@@ -42,6 +43,7 @@
     "vuelidate": "^0.7.4"
   },
   "devDependencies": {
+    "@babel/helper-compilation-targets": "^7.20.7",
     "@fortawesome/fontawesome-free": "^5.10.2",
     "@mdi/font": "^4.5.95",
     "@nuxtjs/eslint-config": "^1.1.2",

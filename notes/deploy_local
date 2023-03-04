@@ -1,0 +1,4 @@
+docker build -t structure_front .
+docker run -d -t structure_front
+
+docker run -t structure_front
