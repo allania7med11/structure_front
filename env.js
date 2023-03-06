@@ -1,4 +1,4 @@
-const Production = true
+const Production = false
 const settings = Production
   ? {
       prd: true,
@@ -10,7 +10,7 @@ const settings = Production
       prd: false,
       dir: "distLocal",
       host: "localhost",
-      baseURL: "http://localhost/"
+      baseURL: "http://localhost:2000/"
     }
 const Test = true
 const TestInfo = { user: "user1" }

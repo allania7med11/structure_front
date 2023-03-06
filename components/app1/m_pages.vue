@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid>
+  <v-container fluid class="mb-6">
     <v-row align="center" justify="center">
       <v-btn-toggle
         :key="componentKey"
