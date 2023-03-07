@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-container class="pl-5">
+    <v-container class="pl-5 pt-6">
       <v-row>
         <h1>What is structure analysis?:</h1>
       </v-row>
