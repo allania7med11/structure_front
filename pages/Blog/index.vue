@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-container class="pl-5 pt-6">
+    <v-container class="pl-5 pt-6 blog">
       <v-row>
         <h1>What is structure analysis?:</h1>
       </v-row>
@@ -304,5 +304,10 @@ export default {
 <style>
 h2 {
   color: green;
+}
+.blog {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
 }
 </style>
