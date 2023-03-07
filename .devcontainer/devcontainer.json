@@ -29,7 +29,8 @@
 		"vscode": {
 			"extensions": [
 				"dbaeumer.vscode-eslint",
-				"eamodio.gitlens"
+				"eamodio.gitlens",
+				"vue.volar"
 			]
 		}
 	}
