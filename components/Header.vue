@@ -1,5 +1,5 @@
 <template>
-  <div class="mb-8">
+  <div>
     <v-navigation-drawer
       v-if="!$vuetify.breakpoint.mdAndUp"
       v-model="drawer"

@@ -1,7 +1,7 @@
 <template>
   <div>
     <client-only>
-      <div>
+      <div class="pt-6">
         <v-alert v-if="error" dismissible type="error">
           An error occurred
         </v-alert>
