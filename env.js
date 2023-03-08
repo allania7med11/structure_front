@@ -1,14 +1,14 @@
-const Production = false
+const Production = true
 const settings = Production
   ? {
       prd: true,
-      dir: "dist",
+      dir: "structure_front",
       host: "0.0.0.0",
-      baseURL: "https://effectivewebapp.com/"
+      baseURL: "https://structure.effectivewebapp.com/"
     }
   : {
       prd: false,
-      dir: "distLocal",
+      dir: "structure_front",
       host: "localhost",
       baseURL: "http://localhost:2000/"
     }

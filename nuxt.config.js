@@ -13,10 +13,6 @@ export default {
     // port: 3000, // default: 3000
     host: "0.0.0.0" // default: localhost
   },
-  axios: {
-    baseURL: settings.baseURL,
-    https: settings.prd
-  },
   mode: "universal",
   /*
    ** Headers of the page
@@ -34,15 +30,7 @@ export default {
         content: process.env.npm_package_description || ""
       }
     ],
-    link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
-    script: [
-      {
-        hid: "stripe",
-        src:
-          "//z-na.amazon-adsystem.com/widgets/onejs?MarketPlace=US&adInstanceId=f1d4c5b5-bf98-4104-bc0c-4c484aaf41a3",
-        defer: true
-      }
-    ]
+    link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }]
   },
   loading: { color: "#fff" },
   /*
