@@ -6,8 +6,8 @@ export default {
   },
   sitemap: {
     hostname: settings.baseURL,
-    routes: ["/accounts/login", "/accounts/signup"],
-    exclude: ["/projects", "/project", "/Full_Project"]
+    routes: ["/accounts/login/", "/accounts/signup/"],
+    exclude: ["/projects/", "/project/", "/Full_Project/"]
   },
   server: {
     // port: 3000, // default: 3000
