@@ -4,6 +4,6 @@ export default async function({ store, redirect }) {
     await store.dispatch("login")
   }
   if (!store.state.username) {
-    return redirect("/accounts/login")
+    return redirect("/accounts/login/")
   }
 }

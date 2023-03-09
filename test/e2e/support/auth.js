@@ -30,7 +30,7 @@ Cypress.Commands.add("login", user => {
 Cypress.Commands.add("logout", user => {
   cy.contains(user.username).click()
   cy.get("a[href*='/accounts/logout']").click()
-  cy.url().should("include", "/accounts/login")
+  cy.url().should("include", "/accounts/login/")
 })
 
 Cypress.Commands.add("delete", () => {

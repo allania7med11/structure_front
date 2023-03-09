@@ -170,7 +170,7 @@ export default {
           title: "Log In",
           type: "btn",
           bind: {
-            href: "/accounts/login",
+            href: "/accounts/login/",
             ["data-cy"]: "login"
           },
           right: true,
