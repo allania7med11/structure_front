@@ -175,5 +175,8 @@ export default {
         config.devtool = ctx.isClient ? "source-map" : "inline-source-map"
       }
     }
+  },
+  axios: {
+    baseURL: "/"
   }
 }
