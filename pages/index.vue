@@ -37,7 +37,7 @@
             devices
           </p>
           <v-btn
-            href="/accounts/signup"
+            href="/accounts/signup/"
             class="mb-5"
             rounded
             color="primary"

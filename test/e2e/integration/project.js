@@ -13,7 +13,7 @@ describe("Project", function() {
   })
   it.only("Project", function() {
     cy.get("[data-cy=signup]").click()
-    cy.url().should("include", "/accounts/signup")
+    cy.url().should("include", "/accounts/signup/")
     cy.signup(user)
     cy.setResolution([1366, 768])
     cy.wait(1000)

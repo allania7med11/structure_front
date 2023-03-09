@@ -159,7 +159,7 @@ export default {
           title: "Sign Up",
           type: "btn",
           bind: {
-            href: "/accounts/signup",
+            href: "/accounts/signup/",
             ["data-cy"]: "signup"
           },
           right: true,

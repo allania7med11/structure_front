@@ -14,7 +14,7 @@ describe("Auth", function() {
   it("Sign up", function() {
     cy.visit("/")
     cy.get("[data-cy=signup]").click()
-    cy.url().should("include", "/accounts/signup")
+    cy.url().should("include", "/accounts/signup/")
     cy.signup(user)
     cy.logout(user)
   })
