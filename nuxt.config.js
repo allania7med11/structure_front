@@ -5,12 +5,12 @@ export default {
     dir: settings.dir
   },
   sitemap: {
-    hostname: settings.baseURL,
+    hostname: settings.frontendUrl,
     routes: ["/accounts/login/", "/accounts/signup/"],
     exclude: ["/projects/", "/project/", "/Full_Project/"]
   },
   server: {
-    // port: 3000, // default: 3000
+    port: process.env.PORT || 3000,
     host: "localhost" // default: localhost
   },
   mode: "universal",
@@ -177,6 +177,6 @@ export default {
     }
   },
   axios: {
-    baseURL: "http://localhost:2010/"
+    baseURL: settings.backendUrl
   }
 }

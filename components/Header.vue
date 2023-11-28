@@ -77,7 +77,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(["urls", "username", "password"]),
+    ...mapState(["username", "password"]),
     titleDisplay() {
       if (this.$vuetify.breakpoint.xsOnly) {
         return "EWA"
