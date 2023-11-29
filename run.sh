@@ -1,3 +1,13 @@
 #!/bin/sh
-echo "envs $1 $2"
-npm run dev
+echo "envs $ENVIRONMENT $PORT"
+if [ "$COLLECTSTATIC" = "True" ]; then
+    npm run generate
+fi
+if [ "$ENVIRONMENT" = "debug" ]; then
+    sleep infinity
+elif [ "$ENVIRONMENT" = "dev" ]; then
+    npm run dev
+elif [ "$ENVIRONMENT" = "prod" ]; then
+    npm run build
+    npm run start
+fi
