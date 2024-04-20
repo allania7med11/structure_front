@@ -10,8 +10,8 @@ export default {
     exclude: ["/projects/", "/project/", "/Full_Project/"]
   },
   server: {
-    port: process.env.PORT || 3000,
-    host: "localhost" // default: localhost
+    host: process.env.HOST || "0.0.0.0", // default: 0.0.0.0
+    port: process.env.PORT || 3000
   },
   mode: "universal",
   /*

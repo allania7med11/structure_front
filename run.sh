@@ -6,8 +6,8 @@ fi
 if [ "$ENVIRONMENT" = "debug" ]; then
     sleep infinity
 elif [ "$ENVIRONMENT" = "dev" ]; then
-    npm run dev
+    npm run dev -- --port $PORT
 elif [ "$ENVIRONMENT" = "prod" ]; then
     npm run build
-    npm run start
+    npm run start -p $PORT
 fi
