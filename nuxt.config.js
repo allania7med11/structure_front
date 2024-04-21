@@ -13,7 +13,8 @@ export default {
     host: process.env.HOST || "0.0.0.0", // default: 0.0.0.0
     port: process.env.PORT || 3000
   },
-  mode: "spa",
+  ssr: false,
+  target: 'static',
   /*
    ** Headers of the page
    */
